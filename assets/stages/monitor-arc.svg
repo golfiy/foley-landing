@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="137.031" height="75" viewBox="0 0 137.031 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="Score arc" d="M0 75C1.40224e-06 58.9602 5.14226 43.3429 14.6718 30.4409C24.2014 17.5389 37.6163 8.03187 52.947 3.31553C68.2777 -1.40082 84.7166 -1.078 99.8503 4.23659C114.984 9.55118 128.015 19.5776 137.031 32.8437L117.181 46.3337C111.05 37.3127 102.189 30.4948 91.8982 26.8809C81.6073 23.267 70.4288 23.0474 60.0039 26.2546C49.5791 29.4617 40.457 35.9265 33.9768 44.6998C27.4967 53.4732 24 64.0929 24 75L0 75Z" fill="url(#paint0_linear_0_156)"/>
+<defs>
+<linearGradient id="paint0_linear_0_156" x1="0" y1="75" x2="150" y2="75" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E3C73B"/>
+<stop offset="0.45" stop-color="#99C745"/>
+<stop offset="0.9" stop-color="#22C55E"/>
+</linearGradient>
+</defs>
+</svg>
