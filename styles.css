@@ -840,6 +840,10 @@ h3 { font-weight: 500; }
 /* ==========================================================================
    Responsive
    ========================================================================== */
+@media (max-width: 1139px) {
+  .head-cta .btn-ghost { display: none; }
+}
+
 @media (max-width: 1199px) {
   .snap { grid-template-columns: 340px minmax(0, 1fr); }
   .snap-glass { width: 100%; }
