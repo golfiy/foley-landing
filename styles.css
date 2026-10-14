@@ -640,9 +640,7 @@ h3 { font-weight: 500; }
   padding: 32px;
   background: var(--surface);
   border-right: 1px solid var(--stroke-2);
-  transition: background-color .5s var(--ease);
 }
-.trio-card:hover { background: #f1f3fa; }
 .trio-card .mark, .faq-card .mark { position: absolute; left: 8px; top: 8px; }
 .trio-card h3 { font-size: 24px; line-height: 1.1; letter-spacing: -1px; color: var(--ink); }
 .trio-text { font-weight: 400; font-size: 18px; line-height: 1.2; letter-spacing: -.09px; color: var(--ink-2); }
