@@ -252,16 +252,6 @@ h3 { font-weight: 500; }
 .head-cta { display: flex; align-items: center; gap: 48px; }
 .burger { display: none; }
 
-.scroll-progress {
-  position: absolute;
-  left: 0; right: 0; bottom: -1px;
-  height: 2px;
-  background: var(--green);
-  transform-origin: 0 50%;
-  transform: scaleX(var(--prog, 0));
-  pointer-events: none;
-  z-index: 3;
-}
 
 /* ---------- mega menu ---------- */
 .megamenu { position: absolute; left: 0; right: 0; top: 100%; padding: 0 var(--gutter); pointer-events: none; }
@@ -438,26 +428,6 @@ h3 { font-weight: 500; }
 .hero-lead { max-width: 496px; font-size: 20px; line-height: 1.2; }
 .hero-ctas { display: flex; gap: 16px; }
 
-/* stepper: lifecycle stage + autoplay progress (not in Figma) */
-.hero-steps { position: absolute; left: 80px; bottom: 26px; z-index: 3; display: flex; gap: 12px; }
-.hero-step {
-  width: 92px;
-  padding: 10px 0 0;
-  border: 0;
-  background: none;
-  text-align: left;
-  cursor: pointer;
-  color: rgba(255, 255, 255, .5);
-  transition: color .3s var(--ease);
-}
-.hero-step:hover, .hero-step[aria-selected="true"] { color: #fff; }
-.hero-step-bar { position: relative; display: block; height: 2px; background: rgba(255, 255, 255, .2); overflow: hidden; }
-.hero-step-bar i { position: absolute; inset: 0; background: var(--green); transform: scaleX(0); transform-origin: 0 50%; }
-.hero.is-live .hero-step[aria-selected="true"] .hero-step-bar i { animation: step-fill var(--scene-dur, 6s) linear forwards; }
-.hero.is-paused .hero-step[aria-selected="true"] .hero-step-bar i { animation-play-state: paused; }
-.hero.no-auto .hero-step[aria-selected="true"] .hero-step-bar i { animation: none; transform: scaleX(1); }
-.hero-step-label { display: block; margin-top: 8px; font-weight: 500; font-size: 14px; line-height: 1.2; }
-@keyframes step-fill { to { transform: scaleX(1); } }
 
 /* tile grid */
 .hero-grid {
@@ -521,12 +491,11 @@ h3 { font-weight: 500; }
 @keyframes tile-fade-out { from, to { opacity: 1; transform: none; } }
 
 /* intro (JS adds .is-ready once the first scene is decoded) */
-.js .hero-lead, .js .hero-ctas, .js .hero-steps { opacity: 0; transform: translateY(18px); transition: opacity calc(1000ms * var(--slow)) var(--ease-out), transform calc(1100ms * var(--slow)) var(--ease-out); }
+.js .hero-lead, .js .hero-ctas { opacity: 0; transform: translateY(18px); transition: opacity calc(1000ms * var(--slow)) var(--ease-out), transform calc(1100ms * var(--slow)) var(--ease-out); }
 .js .hero-lead { transition-delay: calc(700ms * var(--slow)); }
 .js .hero-ctas { transition-delay: calc(820ms * var(--slow)); }
-.js .hero-steps { transition-delay: calc(960ms * var(--slow)); }
 .js .hero-rest .line-in { transform: translateY(112%); }
-.js .hero.is-ready .hero-lead, .js .hero.is-ready .hero-ctas, .js .hero.is-ready .hero-steps { opacity: 1; transform: none; }
+.js .hero.is-ready .hero-lead, .js .hero.is-ready .hero-ctas { opacity: 1; transform: none; }
 .js .hero.is-ready .hero-rest .line-in { transform: none; }
 
 /* ==========================================================================
@@ -591,11 +560,6 @@ h3 { font-weight: 500; }
 .snap-title { width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; font-size: 24px; line-height: 1.1; letter-spacing: -1px; }
 .snap-text { font-weight: 400; font-size: 18px; line-height: 1.2; letter-spacing: -.09px; color: var(--link-ink); transition: color .5s var(--ease); }
 .snap-item.is-active .snap-text { color: var(--ink); }
-.snap-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; }
-.snap-bar i { position: absolute; inset: 0; background: var(--green); transform: scaleX(0); transform-origin: 0 50%; }
-.snap.is-live .snap-item.is-active .snap-bar i { animation: step-fill var(--snap-dur, 6s) linear forwards; }
-.snap.is-paused .snap-item.is-active .snap-bar i { animation-play-state: paused; }
-.snap.no-auto .snap-item.is-active .snap-bar i { animation: none; transform: scaleX(1); }
 
 .snap-stage {
   flex: 1;
@@ -683,8 +647,7 @@ h3 { font-weight: 500; }
   transition: background-color .5s var(--ease);
 }
 .trio-card:hover { background: #f1f3fa; }
-.trio-card .mark, .faq-card .mark { position: absolute; left: 8px; top: 8px; transition: width .6s var(--ease-out); }
-.trio-card:hover .mark, .faq-card:hover .mark { width: 36px; }
+.trio-card .mark, .faq-card .mark { position: absolute; left: 8px; top: 8px; }
 .trio-card h3 { font-size: 24px; line-height: 1.1; letter-spacing: -1px; color: var(--ink); }
 .trio-text { font-weight: 400; font-size: 18px; line-height: 1.2; letter-spacing: -.09px; color: var(--ink-2); }
 .guidance-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; margin-top: 48px; }
@@ -919,7 +882,6 @@ h3 { font-weight: 500; }
   .hero-rest .line { height: auto; }
   .hero-lead { font-size: 18px; }
   .hero-ctas { flex-wrap: wrap; }
-  .hero-steps { position: static; margin-top: 24px; }
   .hero-grid { position: relative; right: auto; width: 100%; height: auto; aspect-ratio: 941 / 627; margin-top: 28px; transform: none; }
 
   .logos { padding: 32px var(--gutter) 72px; }
@@ -982,7 +944,7 @@ h3 { font-weight: 500; }
   html { scroll-behavior: auto; }
   :root { --t-move: 1ms; --stagger: 0ms; --lead: 0ms; }
   .marquee-track { animation: none; }
-  .js [data-reveal], .js [data-split] .wi, .js .hero-lead, .js .hero-ctas, .js .hero-steps, .js .hero-rest .line-in { transform: none !important; transition-duration: 1ms !important; }
+  .js [data-reveal], .js [data-split] .wi, .js .hero-lead, .js .hero-ctas, .js .hero-rest .line-in { transform: none !important; transition-duration: 1ms !important; }
   .hero-word .chi { transition-duration: 1ms !important; transition-delay: 0s !important; }
   .mm-stage, .mm-panel { transition-duration: 1ms !important; }
   .mm-panel.is-active * { animation: none !important; }
@@ -992,7 +954,6 @@ h3 { font-weight: 500; }
 .shot *, .shot *::before, .shot *::after { transition: none !important; animation: none !important; }
 .shot .marquee-track { transform: none; }
 .shot [data-reveal], .shot [data-split] .wi, .shot .hero-lead, .shot .hero-ctas, .shot .hero-rest .line-in { opacity: 1 !important; transform: none !important; }
-.shot .hero-steps, .shot .snap-bar, .shot .scroll-progress { display: none; }
 
 /* ==========================================================================
    Demo panel

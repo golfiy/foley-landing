@@ -111,8 +111,6 @@
   const hero = $('#hero');
   const grid = $('[data-hero-grid]');
   const wordEl = $('[data-hero-word]');
-  const steps = $$('.hero-step');
-  const stepsBox = $('.hero-steps');
 
   const SCENES = [
     { id: 'hire',    word: 'Hire',    src: 'assets/hero/scenes/hire.webp' },
@@ -207,11 +205,14 @@
     });
   }
 
-  function markStep(i) {
-    steps.forEach((b, k) => {
-      b.setAttribute('aria-selected', String(k === i));
-      b.tabIndex = k === i ? 0 : -1;
-    });
+  /* pausable timer: drives hero autoplay and the snapshot rotation (no visible progress UI) */
+  function pausableTimer(ms, onDone) {
+    let id = 0, left = ms, t0 = 0, running = false;
+    return {
+      resume() { if (running) return; running = true; t0 = performance.now(); id = setTimeout(() => { running = false; left = ms; onDone(); }, left); },
+      pause() { if (!running) return; clearTimeout(id); running = false; left = Math.max(0, left - (performance.now() - t0)); },
+      reset() { clearTimeout(id); running = false; left = ms; },
+    };
   }
 
   function swap(i, { intro = false } = {}) {
@@ -231,7 +232,6 @@
       t.el.style.setProperty('--d', d + 'ms');
     });
 
-    markStep(i);
     if (!intro) setWord(scene.word, true);
     void grid.offsetWidth;
     grid.classList.add('is-swap');
@@ -242,7 +242,7 @@
       swapping = false;
       cur = i;
       if (pending !== null && pending !== cur) { const p = pending; pending = null; swap(p); }
-      else pending = null;
+      else { pending = null; heroAuto(true); }
     }, maxD + fx.dur * SLOW + 80);
   }
 
@@ -253,10 +253,17 @@
   }
   const next = () => go((cur + 1) % SCENES.length);
 
+  /* autoplay: 6s per scene once the intro is done; paused on hover, hidden tab, off-screen */
+  const heroTimer = pausableTimer(SCENE_MS * SLOW, () => (swapping ? heroAuto(true) : next()));
+  function heroAuto(reset) {
+    if (reset) heroTimer.reset();
+    const run = ANIM && state.auto && hero.classList.contains('is-live') && pauseReasons.size === 0;
+    run ? heroTimer.resume() : heroTimer.pause();
+  }
+
   async function initHero() {
     fitHero();
     buildGrid();
-    markStep(START);
     const first = SCENES[START];
     await loadImg(first.src);
 
@@ -266,7 +273,7 @@
       grid.style.setProperty('--cur', `url("${first.src}")`);
       setWord(first.word, false);
       cur = START;
-      hero.classList.add('is-ready', 'no-auto');
+      hero.classList.add('is-ready');
       if (RM) hero.classList.add('is-live');
       return;
     }
@@ -274,40 +281,19 @@
     setWord(first.word, true);
     hero.classList.add('is-ready');
     swap(START, { intro: true });
-    setTimeout(() => hero.classList.add('is-live'), 2000 * SLOW);
+    setTimeout(() => { hero.classList.add('is-live'); heroAuto(true); }, 2000 * SLOW);
     // warm the other scenes so the first switch is instant
     SCENES.forEach((s, k) => { if (k !== START) setTimeout(() => loadImg(s.src), 600); });
   }
-
-  /* autoplay: the active step bar finishes -> next scene. Pausing the bar pauses the loop */
-  root.style.setProperty('--scene-dur', SCENE_MS * SLOW + 'ms');
-  stepsBox.addEventListener('animationend', (e) => {
-    if (e.animationName === 'step-fill' && state.auto && !swapping) next();
-  });
-  steps.forEach((b, k) => {
-    b.addEventListener('click', () => go(k));
-    b.addEventListener('keydown', (e) => {
-      const dir = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-      if (e.key === 'Home') { e.preventDefault(); steps[0].focus(); go(0); }
-      else if (e.key === 'End') { e.preventDefault(); steps[steps.length - 1].focus(); go(steps.length - 1); }
-      else if (dir) {
-        e.preventDefault();
-        const n = (k + dir + steps.length) % steps.length;
-        steps[n].focus();
-        go(n);
-      }
-    });
-  });
 
   const pauseReasons = new Set();
   function setPause(reason, on) {
     on ? pauseReasons.add(reason) : pauseReasons.delete(reason);
     hero.classList.toggle('is-paused', pauseReasons.size > 0);
+    heroAuto(false);
   }
   grid.addEventListener('pointerenter', () => FINE && setPause('hover', true));
   grid.addEventListener('pointerleave', () => setPause('hover', false));
-  stepsBox.addEventListener('focusin', () => setPause('focus', true));
-  stepsBox.addEventListener('focusout', () => setPause('focus', false));
   document.addEventListener('visibilitychange', () => setPause('hidden', document.hidden));
   new IntersectionObserver(([e]) => setPause('offscreen', !e.isIntersecting), { threshold: 0.25 }).observe(hero);
 
@@ -424,8 +410,6 @@
     const vh = innerHeight;
 
     topnav.classList.toggle('is-stuck', y > 33);
-    const max = document.documentElement.scrollHeight - vh;
-    root.style.setProperty('--prog', max > 0 ? clamp(y / max).toFixed(4) : 0);
 
     if (!ANIM) return;
 
@@ -509,9 +493,17 @@
     snapPanel.setAttribute('aria-labelledby', snapItems[i].id);
     fitSnap();
     if (focus) snapItems[i].focus();
+    snapAuto(true);
+  }
+  /* rotation: 6s per view while the block is on screen; paused on hover / focus */
+  const snapTimer = pausableTimer(6000 * SLOW, () => setSnap((snapIdx + 1) % snapItems.length));
+  const snapHold = new Set();
+  let snapLive = false;
+  function snapAuto(reset) {
+    if (reset) snapTimer.reset();
+    (ANIM && state.auto && snapLive && !snapHold.size) ? snapTimer.resume() : snapTimer.pause();
   }
   if (snap) {
-    if (!ANIM) snap.classList.add('no-auto');
     snapItems.forEach((b, k) => {
       b.addEventListener('click', () => setSnap(k));
       b.addEventListener('keydown', (e) => {
@@ -521,16 +513,13 @@
         setSnap((k + dir + snapItems.length) % snapItems.length, true);
       });
     });
-    $('.snap-list', snap).addEventListener('animationend', (e) => {
-      if (e.animationName === 'step-fill') setSnap((snapIdx + 1) % snapItems.length);
-    });
-    snap.addEventListener('pointerenter', () => FINE && snap.classList.add('is-paused'));
-    snap.addEventListener('pointerleave', () => snap.classList.remove('is-paused'));
-    snap.addEventListener('focusin', () => snap.classList.add('is-paused'));
-    snap.addEventListener('focusout', () => snap.classList.remove('is-paused'));
-    new IntersectionObserver(([e]) => snap.classList.toggle('is-live', e.isIntersecting && ANIM), { threshold: 0.45 }).observe(snap);
+    const hold = (reason, on) => { on ? snapHold.add(reason) : snapHold.delete(reason); snapAuto(false); };
+    snap.addEventListener('pointerenter', () => FINE && hold('hover', true));
+    snap.addEventListener('pointerleave', () => hold('hover', false));
+    snap.addEventListener('focusin', () => hold('focus', true));
+    snap.addEventListener('focusout', () => hold('focus', false));
+    new IntersectionObserver(([e]) => { snapLive = e.isIntersecting; snapAuto(false); }, { threshold: 0.45 }).observe(snap);
     new ResizeObserver(fitSnap).observe(snapShot);
-    root.style.setProperty('--snap-dur', 6000 * SLOW + 'ms');
     fitSnap();
   }
 
@@ -618,8 +607,8 @@
       if (key === 'menu') setMenu(b.dataset.v === 'none' ? null : b.dataset.v);
       if (key === 'auto') {
         state.auto = b.dataset.v === 'on';
-        hero.classList.toggle('no-auto', !state.auto);
-        snap && snap.classList.toggle('no-auto', !state.auto);
+        heroAuto(true);
+        if (snap) snapAuto(true);
       }
       if (key === 'slow') {
         const u = new URL(location.href);
