@@ -1078,8 +1078,8 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
   .cases, .band { width: calc(100% - 2 * var(--gutter)); max-width: var(--layout-content); margin-inline: auto; }
   .cases { padding: 80px 40px; }
   .band-in { max-width: none; padding: 80px 40px; }
-  /* photo fills the card like in Figma (it is stretched there too) */
-  .band-photo img { left: 0; width: 100%; object-fit: fill; }
+  /* photo fills the card like in Figma: the Figma source (1536x1024), cover, centred */
+  .band-photo img { left: 0; width: 100%; object-position: 50% 42%; }
   /* 482px cards: quotes stop at two lines with an ellipsis, as in Figma */
   .case blockquote { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; flex: none; }
 }

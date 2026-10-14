@@ -641,25 +641,6 @@
   document.addEventListener('visibilitychange', () => setPause('hidden', document.hidden));
   new IntersectionObserver(([e]) => setPause('offscreen', !e.isIntersecting), { threshold: 0.25 }).observe(hero);
 
-  /* pointer parallax on the tile grid */
-  if (ANIM && FINE) {
-    let tx = 0, ty = 0, px = 0, py = 0, raf = 0;
-    const loop = () => {
-      px += (tx - px) * 0.08;
-      py += (ty - py) * 0.08;
-      grid.style.setProperty('--px', px.toFixed(2) + 'px');
-      grid.style.setProperty('--py', py.toFixed(2) + 'px');
-      raf = (Math.abs(tx - px) > 0.05 || Math.abs(ty - py) > 0.05) ? requestAnimationFrame(loop) : 0;
-    };
-    hero.addEventListener('pointermove', (e) => {
-      const b = hero.getBoundingClientRect();
-      tx = ((e.clientX - b.left) / b.width - 0.5) * -18;
-      ty = ((e.clientY - b.top) / b.height - 0.5) * -12;
-      if (!raf) raf = requestAnimationFrame(loop);
-    });
-    hero.addEventListener('pointerleave', () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
-  }
-
   /* ======================================================================
      Reveals: split headings into masked words, fade-up blocks, counters
      ====================================================================== */
