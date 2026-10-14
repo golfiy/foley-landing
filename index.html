@@ -18,23 +18,172 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <!-- ============================== HEADER ============================== -->
-  <header class="site-header" id="top">
-    <div class="site-header-in">
-      <a class="logo" href="#top" aria-label="Foley, back to top"><img src="assets/ui/logo.svg" width="118" height="27" alt="Foley"></a>
-      <nav class="nav" aria-label="Primary">
-        <a href="#platform">Dash Platform</a>
-        <a href="#teams">Why Foley</a>
-        <a href="#resources">Resources</a>
-        <a href="#contact">Pricing</a>
-      </nav>
-      <div class="head-cta">
-        <a class="btn btn-ghost btn-sm" href="#platform">See what you need</a>
-        <a class="btn btn-teal btn-sm" href="#contact"><span class="btn-label">Request a demo</span></a>
+  <!-- ============================== TOP NAVIGATION ============================== -->
+  <header class="topnav" id="top" data-topnav>
+    <div class="infobar">
+      <div class="infobar-in">
+        <button type="button" class="infobar-search" aria-label="Search">
+          <img src="assets/v2/ico/search.svg" width="24" height="24" alt="">
+          <span>Search</span>
+        </button>
+        <a class="infobar-phone" href="tel:+18608132964">(860) 813-2964</a>
+      </div>
+    </div>
+
+    <div class="mainbar">
+      <div class="mainbar-in">
+        <a class="logo" href="#top" aria-label="Foley, back to top"><img src="assets/ui/logo.svg" width="118" height="27" alt="Foley"></a>
+
+        <nav class="nav" aria-label="Primary">
+          <ul class="nav-list">
+            <li><button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mm-products" data-menu="products">Products<img src="assets/v2/ico/chevron-down.svg" width="16" height="16" alt=""></button></li>
+            <li><button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mm-solutions" data-menu="solutions">Solutions<img src="assets/v2/ico/chevron-down.svg" width="16" height="16" alt=""></button></li>
+            <li><button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mm-resources" data-menu="resources">Resources<img src="assets/v2/ico/chevron-down.svg" width="16" height="16" alt=""></button></li>
+            <li><button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mm-company" data-menu="company">Company<img src="assets/v2/ico/chevron-down.svg" width="16" height="16" alt=""></button></li>
+            <li><a class="nav-link" href="#contact">Pricing</a></li>
+          </ul>
+        </nav>
+
+        <div class="head-cta">
+          <a class="btn btn-text" href="#login">Log in</a>
+          <a class="btn btn-teal btn-head" href="#contact"><span class="btn-label">Request a demo</span></a>
+        </div>
+
+        <button type="button" class="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu" data-burger><i></i><i></i></button>
+      </div>
+
+      <!-- mega menu: one stage, four panels -->
+      <div class="megamenu" data-megamenu>
+        <div class="mm-stage" data-mm-stage>
+
+          <section class="mm-panel" id="mm-products" data-panel="products" aria-label="Products" hidden>
+            <div class="mm-cols mm-cols-4">
+              <div class="mm-col">
+                <p class="mm-title">Hiring and Onboarding</p>
+                <p class="mm-desc">Get more applicants and streamline onboarding.</p>
+                <ul class="mm-links"><li><a href="#products/candidate-management">Candidate Management</a></li><li><a href="#products/onboarding">Onboarding</a></li><li><a href="#products/hiring">Hiring</a></li></ul>
+              </div>
+              <div class="mm-col">
+                <p class="mm-title">Compliance</p>
+                <p class="mm-desc">Avoid violations, fines, and DOT audit risk.</p>
+                <ul class="mm-links"><li><a href="#products/fmcsa-clearinghouse">FMCSA Clearinghouse</a></li><li><a href="#products/dot-physical">DOT Physical Management</a></li><li><a href="#products/dot-background">DOT Background Checks</a></li><li><a href="#products/drug-alcohol">Drug &amp; Alcohol Testing</a></li><li><a href="#products/mvr">Motor Vehicle Records</a></li><li><a href="#products/dq-files">Driver Qualification Files</a></li></ul>
+              </div>
+              <div class="mm-col">
+                <p class="mm-title">Data Monitoring</p>
+                <p class="mm-desc">Use driver, safety, and compliance data to reduce risk.</p>
+                <ul class="mm-links"><li><a href="#products/audit-risk">Audit Risk Monitor</a></li><li><a href="#products/mvr-monitor">MVR Monitor</a></li><li><a href="#products/csa-monitor">CSA Monitor</a></li></ul>
+              </div>
+              <div class="mm-col">
+                <p class="mm-title">Background Checks</p>
+                <p class="mm-desc">Better hiring decisions with thorough screening.</p>
+                <ul class="mm-links"><li><a href="#products/pre-employment">Pre-Employment</a></li><li><a href="#products/post-employment">Post-Employment</a></li><li><a href="#products/verifications">Verifications</a></li><li><a href="#products/drug-health">Drug &amp; Health</a></li><li><a href="#products/criminal">Criminal</a></li><li><a href="#products/social-media">Social Media</a></li><li><a href="#products/ats">ATS Integrations</a></li></ul>
+              </div>
+              <a class="mm-promo" href="#results/torc">
+                <span class="mm-promo-img"><img src="assets/v2/img/nav-products.jpg" width="282" height="196" alt="" loading="lazy"></span>
+                <span class="mm-promo-label">Case study</span>
+                <span class="mm-promo-title">Autonomous Transport Meets Digital Onboarding + Automated Driver Files</span>
+              </a>
+            </div>
+            <div class="mm-foot">
+              <a class="link-arrow link-arrow-lg" href="#platform">The Foley Platform <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
+              <a class="link-arrow link-arrow-lg" href="#guidance">Foley Navigator AI <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
+            </div>
+          </section>
+
+          <section class="mm-panel" id="mm-solutions" data-panel="solutions" aria-label="Solutions" hidden>
+            <div class="mm-cols mm-cols-3">
+              <div class="mm-col">
+                <p class="mm-title">By Role</p>
+                <p class="mm-desc">Solutions for the teams that run your fleet program.</p>
+                <ul class="mm-links"><li><a href="#teams">Fleet operations</a></li><li><a href="#teams">Compliance management</a></li><li><a href="#teams">Safety &amp; risk management</a></li><li><a href="#teams">Hiring &amp; onboarding</a></li></ul>
+              </div>
+              <div class="mm-col">
+                <p class="mm-title">By Initiative</p>
+                <p class="mm-desc">Get more efficient, reduce risk, and grow.</p>
+                <ul class="mm-links"><li><a href="#solutions/migrate">Migrate From Paper</a></li><li><a href="#solutions/maintain">Maintain DOT Compliance</a></li><li><a href="#solutions/risk">Assess &amp; Mitigate Risk</a></li><li><a href="#solutions/scale">Scale a Growing Business</a></li><li><a href="#solutions/vendors">Consolidate Vendors</a></li></ul>
+              </div>
+              <div class="mm-col">
+                <p class="mm-title">By Industry</p>
+                <p class="mm-desc">Rooted in transportation, built for every fleet.</p>
+                <ul class="mm-links"><li><a href="#industries/transportation">Transportation</a></li><li><a href="#industries/utilities">Utilities &amp; Construction</a></li><li><a href="#industries/retail">Retail, Food &amp; Beverage</a></li><li><a href="#industries/recycling">Recycling &amp; Waste Management</a></li><li><a href="#industries/agriculture">Agricultural &amp; Landscaping</a></li><li><a href="#industries/healthcare">Healthcare</a></li><li><a href="#industries/manufacturing">Manufacturing</a></li></ul>
+              </div>
+              <a class="mm-promo" href="#results/koppers">
+                <span class="mm-promo-img"><img src="assets/v2/img/nav-solutions.jpg" width="282" height="196" alt="" loading="lazy"></span>
+                <span class="mm-promo-label">Case study</span>
+                <span class="mm-promo-title">How Foley's eApplication Reduced Koppers' Time-to-Hire from Four Weeks to Two Days</span>
+              </a>
+            </div>
+            <div class="mm-foot">
+              <a class="link-arrow link-arrow-lg" href="#teams">Solutions home <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
+            </div>
+          </section>
+
+          <section class="mm-panel" id="mm-resources" data-panel="resources" aria-label="Resources" hidden>
+            <div class="mm-cols mm-cols-2">
+              <div class="mm-col">
+                <p class="mm-title">Library</p>
+                <p class="mm-desc">Free, expert resources for complex federal regulations.</p>
+                <ul class="mm-links"><li><a href="#resources">Blog Articles</a></li><li><a href="#resources">Case Studies</a></li><li><a href="#resources">Guides</a></li><li><a href="#resources">Webinars</a></li></ul>
+              </div>
+              <div class="mm-col">
+                <p class="mm-title">Compliance Guides</p>
+                <p class="mm-desc">Clear guides to the FMCSA and DOT rules behind your program.</p>
+                <ul class="mm-links"><li><a href="#resources">FMCSA Compliance Guide</a></li><li><a href="#resources">DOT Drug &amp; Alcohol Testing</a></li><li><a href="#resources">Drug Testing Consortium</a></li><li><a href="#resources">FMCSA Clearinghouse Guide</a></li><li><a href="#resources">Driver Qualification Files</a></li><li><a href="#resources">CSA Score Guide</a></li><li><a href="#resources">MVR Monitoring Guide</a></li><li><a href="#resources">ELD &amp; Hours of Service</a></li></ul>
+              </div>
+              <a class="mm-promo" href="#resources">
+                <span class="mm-promo-img"><img src="assets/v2/img/nav-resources.jpg" width="282" height="196" alt="" loading="lazy"></span>
+                <span class="mm-promo-label">Upcoming webinar</span>
+                <span class="mm-promo-title">Simplifying DOT Compliance: What Fleet Managers Need to Know</span>
+              </a>
+            </div>
+            <div class="mm-foot">
+              <a class="link-arrow link-arrow-lg" href="#resources">View all resources <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
+            </div>
+          </section>
+
+          <section class="mm-panel" id="mm-company" data-panel="company" aria-label="Company" hidden>
+            <div class="mm-cols mm-cols-2">
+              <div class="mm-col">
+                <p class="mm-title">Why Foley</p>
+                <p class="mm-desc">Why customers choose Foley.</p>
+                <ul class="mm-links"><li><a href="#results">Customers</a></li><li><a href="#results">Case Studies</a></li><li><a href="#company/success">Customer Success</a></li><li><a href="#company/experts">Regulatory Experts</a></li><li><a href="#company/why-switch">Why Switch</a></li><li><a href="#company/partners">Partners</a></li></ul>
+              </div>
+              <div class="mm-col">
+                <p class="mm-title">About</p>
+                <p class="mm-desc">Meet your hiring, screening, and compliance partner.</p>
+                <ul class="mm-links"><li><a href="#company/careers">Careers</a></li><li><a href="#contact">Contact Us</a></li><li><a href="#company/faq">FAQ</a></li><li><a href="#company/candidate-faq">Candidate FAQ</a></li></ul>
+              </div>
+              <a class="mm-promo" href="#results">
+                <span class="mm-promo-img"><img src="assets/v2/img/nav-company.jpg" width="282" height="196" alt="" loading="lazy"></span>
+                <span class="mm-promo-label">Customer story</span>
+                <span class="mm-promo-title">Why Fleet Leaders Trust Foley to Keep Their Business Moving</span>
+              </a>
+            </div>
+            <div class="mm-foot">
+              <a class="link-arrow link-arrow-lg" href="#company">About Foley <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
+            </div>
+          </section>
+
+        </div>
       </div>
     </div>
     <span class="scroll-progress" aria-hidden="true"></span>
   </header>
+
+  <!-- mobile drawer -->
+  <div class="drawer" id="drawer" data-drawer hidden>
+    <nav class="drawer-in" aria-label="Mobile">
+      <details class="dr-group"><summary>Products</summary><ul><li><a href="#products/candidate-management">Candidate Management</a></li><li><a href="#products/fmcsa-clearinghouse">FMCSA Clearinghouse</a></li><li><a href="#products/drug-alcohol">Drug &amp; Alcohol Testing</a></li><li><a href="#products/mvr-monitor">MVR Monitor</a></li><li><a href="#products/pre-employment">Background Checks</a></li><li><a href="#platform">The Foley Platform</a></li></ul></details>
+      <details class="dr-group"><summary>Solutions</summary><ul><li><a href="#teams">By Role</a></li><li><a href="#solutions/maintain">By Initiative</a></li><li><a href="#industries/transportation">By Industry</a></li><li><a href="#teams">Solutions home</a></li></ul></details>
+      <details class="dr-group"><summary>Resources</summary><ul><li><a href="#resources">Library</a></li><li><a href="#resources">Compliance Guides</a></li><li><a href="#resources">View all resources</a></li></ul></details>
+      <details class="dr-group"><summary>Company</summary><ul><li><a href="#results">Why Foley</a></li><li><a href="#company/careers">Careers</a></li><li><a href="#contact">Contact Us</a></li><li><a href="#company">About Foley</a></li></ul></details>
+      <a class="dr-link" href="#contact">Pricing</a>
+      <div class="dr-cta">
+        <a class="btn btn-text" href="#login">Log in</a>
+        <a class="btn btn-teal btn-head" href="#contact"><span class="btn-label">Request a demo</span></a>
+      </div>
+    </nav>
+  </div>
 
   <main id="main">
 
@@ -56,14 +205,14 @@
           </h1>
           <p class="hero-lead">See exactly what you need to stay DOT compliant, keep driver records current, and flag what needs attention – before it becomes a problem.</p>
           <div class="hero-ctas">
-            <a class="btn btn-white" href="#contact"><span class="btn-label">Request a demo</span><img class="btn-ico" src="assets/hero/arrow-white-solid.svg" width="44" height="44" alt=""></a>
-            <a class="btn btn-outline" href="#snapshot"><span class="btn-label">Product tour</span><img class="btn-ico" src="assets/hero/arrow-outline.svg" width="44" height="44" alt=""></a>
+            <a class="btn btn-white" href="#contact"><span class="btn-label">Request a demo</span><img class="btn-ico" src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></a>
+            <a class="btn btn-outline" href="#snapshot"><span class="btn-label">Product tour</span><img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
           </div>
-          <div class="hero-steps" role="tablist" aria-label="Driver lifecycle stage">
-            <button type="button" role="tab" class="hero-step" data-scene="hire" aria-selected="false"><span class="hero-step-bar"><i></i></span><span class="hero-step-label">Hire</span></button>
-            <button type="button" role="tab" class="hero-step" data-scene="onboard" aria-selected="true"><span class="hero-step-bar"><i></i></span><span class="hero-step-label">Onboard</span></button>
-            <button type="button" role="tab" class="hero-step" data-scene="monitor" aria-selected="false"><span class="hero-step-bar"><i></i></span><span class="hero-step-label">Monitor</span></button>
-          </div>
+        </div>
+        <div class="hero-steps" role="tablist" aria-label="Driver lifecycle stage">
+          <button type="button" role="tab" class="hero-step" data-scene="hire" aria-selected="false"><span class="hero-step-bar"><i></i></span><span class="hero-step-label">Hire</span></button>
+          <button type="button" role="tab" class="hero-step" data-scene="onboard" aria-selected="true"><span class="hero-step-bar"><i></i></span><span class="hero-step-label">Onboard</span></button>
+          <button type="button" role="tab" class="hero-step" data-scene="monitor" aria-selected="false"><span class="hero-step-bar"><i></i></span><span class="hero-step-label">Monitor</span></button>
         </div>
         <div class="hero-grid" data-hero-grid aria-hidden="true"></div>
       </div>
@@ -74,42 +223,42 @@
       <p class="logos-title" data-reveal>Trusted by <span data-count="50000">50,000</span> customers</p>
       <div class="marquee" data-reveal="fade">
         <ul class="marquee-track">
-          <li><img src="assets/logos/torc.png" alt="Torc Robotics" style="--h:18.3px"></li>
-          <li><img src="assets/logos/dnc.png" alt="DNC Logistics" style="--h:31.4px"></li>
-          <li><img src="assets/logos/koppers.png" alt="Koppers" style="--h:31.4px"></li>
-          <li><img src="assets/logos/ldi.png" alt="LDI" style="--h:25.6px"></li>
-          <li><img src="assets/logos/clutter.png" alt="Clutter" style="--h:22px"></li>
-          <li><img src="assets/logos/aero.png" alt="Aero Bridgeworks" style="--h:47.8px"></li>
-          <li><img src="assets/logos/petfood.png" alt="Pet Food Experts" style="--h:19.1px"></li>
-          <li><img src="assets/logos/doru.png" alt="Doru Trucking" style="--h:24px"></li>
+          <li><img src="assets/v2/logos/torc.svg" width="60" height="48" alt="Torc Robotics"></li>
+          <li><img src="assets/v2/logos/petfood.svg" width="119" height="48" alt="Pet Food Experts"></li>
+          <li><img src="assets/v2/logos/ldi.svg" width="118" height="48" alt="LDI Liberty Disposal"></li>
+          <li><img src="assets/v2/logos/dtl.svg" width="119" height="48" alt="Doru Trucking Line"></li>
+          <li><img src="assets/v2/logos/dnc.svg" width="119" height="48" alt="DNC Logistics"></li>
+          <li><img src="assets/v2/logos/clutter.svg" width="119" height="48" alt="Clutter"></li>
+          <li><img src="assets/v2/logos/koppers.svg" width="119" height="48" alt="Koppers"></li>
+          <li><img src="assets/v2/logos/aero.svg" width="60" height="48" alt="Aero Bridgeworks"></li>
         </ul>
       </div>
     </section>
 
-    <!-- ============================== PLATFORM (stages) ============================== -->
-    <section class="sec sec-platform" id="platform">
+    <!-- ============================== HOW IT WORKS (stages) ============================== -->
+    <section class="sec sec-how" id="platform">
       <div class="wrap">
-        <header class="sec-head sec-head-platform">
+        <header class="title-text title-how">
           <h2 data-split>Everything you need to stay DOT compliant</h2>
           <p data-reveal style="--d:.18s">One platform where hiring, screening, compliance, and monitoring work together. One login, always up-to-date.</p>
         </header>
 
         <div class="stages-panel" data-expand>
-    <section class="stages" aria-label="Product stages">
+          <section class="stages" aria-label="Product stages">
+            <div class="stage-row">
 
-      <div class="stage-row">
-        <!-- ============ HIRE ============ -->
-        <article class="stage" data-stage="hire" aria-labelledby="hire-title">
-          <span class="stage-mark" aria-hidden="true"></span>
-          <header class="stage-head">
-            <h3 class="stage-title" id="hire-title">Hire</h3>
-            <p class="stage-sub">Fill seats with qualified drivers faster</p>
-          </header>
-
-          <div class="stage-body">
-            <div class="layer layer-default" aria-hidden="true">
-              <span class="text-link">Start hiring <img src="assets/stages/arrow-ink.svg" width="13.7004" height="16.5402" alt=""></span>
-              <div class="product product-hire">
+              <article class="stage" data-stage="hire" aria-labelledby="hire-title">
+                <span class="stage-mark" aria-hidden="true"></span>
+                <div class="stage-top">
+                  <header class="stage-head">
+                    <h3 class="stage-title" id="hire-title">Hire</h3>
+                    <p class="stage-sub">Fill seats with qualified drivers faster</p>
+                  </header>
+                  <a class="stage-cta" href="#hire"><span class="stage-cta-label">Start hiring</span><span class="stage-cta-ico"><img class="ico-link" src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""><img class="ico-ink" src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></span></a>
+                </div>
+                <div class="stage-body">
+                  <div class="layer layer-default" aria-hidden="true">
+                    <div class="product product-hire">
                 <div class="hire-panel">
                   <div class="hire-card">
                     <div class="hire-summary">
@@ -138,32 +287,28 @@
                   </div>
                 </div>
               </div>
-            </div>
+                  </div>
+                  <ul class="layer layer-hover stage-links">
+                    <li><a href="#hire/job-postings">Job postings <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                    <li><a href="#hire/recruiter-tools">Recruiter tools <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                    <li><a href="#hire/job-apps">Configurable job apps <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                    <li><a href="#hire/apply-by-photo">Apply by photo <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                  </ul>
+                </div>
+              </article>
 
-            <div class="layer layer-hover">
-              <ul class="stage-links">
-                <li><a href="#hire/job-postings">Job postings <span class="arr" aria-hidden="true">→</span></a></li>
-                <li><a href="#hire/recruiter-tools">Recruiter tools <span class="arr" aria-hidden="true">→</span></a></li>
-                <li><a href="#hire/job-apps">Configurable job apps <span class="arr" aria-hidden="true">→</span></a></li>
-                <li><a href="#hire/apply-by-photo">Apply by photo <span class="arr" aria-hidden="true">→</span></a></li>
-              </ul>
-              <a class="cta" href="#hire">Start hiring <span class="cta-icon"><img src="assets/stages/cta-arrow.svg" width="44" height="44" alt=""></span></a>
-            </div>
-          </div>
-        </article>
-
-        <!-- ============ ONBOARD ============ -->
-        <article class="stage stage-mid" data-stage="onboard" aria-labelledby="onboard-title">
-          <span class="stage-mark" aria-hidden="true"></span>
-          <header class="stage-head">
-            <h3 class="stage-title" id="onboard-title">Onboard</h3>
-            <p class="stage-sub">Road-ready with the file built right the first time</p>
-          </header>
-
-          <div class="stage-body">
-            <div class="layer layer-default" aria-hidden="true">
-              <span class="text-link">Start onboarding <img src="assets/stages/arrow-ink.svg" width="13.7004" height="16.5402" alt=""></span>
-              <div class="product">
+              <article class="stage" data-stage="onboard" aria-labelledby="onboard-title">
+                <span class="stage-mark" aria-hidden="true"></span>
+                <div class="stage-top">
+                  <header class="stage-head">
+                    <h3 class="stage-title" id="onboard-title">Onboard</h3>
+                    <p class="stage-sub">Road-ready with the file built right the first time</p>
+                  </header>
+                  <a class="stage-cta" href="#onboard"><span class="stage-cta-label">Start onboarding</span><span class="stage-cta-ico"><img class="ico-link" src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""><img class="ico-ink" src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></span></a>
+                </div>
+                <div class="stage-body">
+                  <div class="layer layer-default" aria-hidden="true">
+                    <div class="product">
                 <div class="product-frame">
                   <div class="onb-panel">
                     <div class="onb-sites">
@@ -196,32 +341,28 @@
                   </div>
                 </div>
               </div>
-            </div>
+                  </div>
+                  <ul class="layer layer-hover stage-links">
+                    <li><a href="#onboard/background-screening">Background screening <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                    <li><a href="#onboard/drug-alcohol-testing">Drug and alcohol testing <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                    <li><a href="#onboard/clearinghouse">Clearinghouse <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                    <li><a href="#onboard/driver-qualification">Driver qualification <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                  </ul>
+                </div>
+              </article>
 
-            <div class="layer layer-hover">
-              <ul class="stage-links">
-                <li><a href="#onboard/background-screening">Background screening <span class="arr" aria-hidden="true">→</span></a></li>
-                <li><a href="#onboard/drug-alcohol-testing">Drug and alcohol testing <span class="arr" aria-hidden="true">→</span></a></li>
-                <li><a href="#onboard/clearinghouse">Clearinghouse <span class="arr" aria-hidden="true">→</span></a></li>
-                <li><a href="#onboard/driver-qualification">Driver qualification <span class="arr" aria-hidden="true">→</span></a></li>
-              </ul>
-              <a class="cta" href="#onboard">Start onboarding <span class="cta-icon"><img src="assets/stages/cta-arrow.svg" width="44" height="44" alt=""></span></a>
-            </div>
-          </div>
-        </article>
-
-        <!-- ============ MONITOR ============ -->
-        <article class="stage" data-stage="monitor" aria-labelledby="monitor-title">
-          <span class="stage-mark" aria-hidden="true"></span>
-          <header class="stage-head">
-            <h3 class="stage-title" id="monitor-title">Monitor</h3>
-            <p class="stage-sub">Know what changed before its a violation</p>
-          </header>
-
-          <div class="stage-body">
-            <div class="layer layer-default" aria-hidden="true">
-              <span class="text-link">Start monitoring <img src="assets/stages/arrow-ink.svg" width="13.7004" height="16.5402" alt=""></span>
-              <div class="product">
+              <article class="stage" data-stage="monitor" aria-labelledby="monitor-title">
+                <span class="stage-mark" aria-hidden="true"></span>
+                <div class="stage-top">
+                  <header class="stage-head">
+                    <h3 class="stage-title" id="monitor-title">Monitor</h3>
+                    <p class="stage-sub">Know what changed before its a violation</p>
+                  </header>
+                  <a class="stage-cta" href="#monitor"><span class="stage-cta-label">Start monitoring</span><span class="stage-cta-ico"><img class="ico-link" src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""><img class="ico-ink" src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></span></a>
+                </div>
+                <div class="stage-body">
+                  <div class="layer layer-default" aria-hidden="true">
+                    <div class="product">
                 <div class="product-frame">
                   <div class="mon-panel">
                     <div class="mon-header">
@@ -250,59 +391,45 @@
                   </div>
                 </div>
               </div>
+                  </div>
+                  <ul class="layer layer-hover stage-links">
+                    <li><a href="#monitor/mvr-clearinghouse">MVR &amp; Clearinghouse <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                    <li><a href="#monitor/drug-alcohol-monitoring">Drug and alcohol monitoring <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                    <li><a href="#monitor/driver-qualification">Driver qualification <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                    <li><a href="#monitor/csa-audit-risk">CSA and audit risk <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                  </ul>
+                </div>
+              </article>
             </div>
 
-            <div class="layer layer-hover">
-              <ul class="stage-links">
-                <li><a href="#monitor/mvr-clearinghouse">MVR &amp; Clearinghouse <span class="arr" aria-hidden="true">→</span></a></li>
-                <li><a href="#monitor/drug-alcohol-monitoring">Drug and alcohol monitoring <span class="arr" aria-hidden="true">→</span></a></li>
-                <li><a href="#monitor/driver-qualification">Driver qualification <span class="arr" aria-hidden="true">→</span></a></li>
-                <li><a href="#monitor/csa-audit-risk">CSA and audit risk <span class="arr" aria-hidden="true">→</span></a></li>
+            <article class="insights" data-stage="insights" aria-labelledby="insights-title">
+              <div class="connectors" aria-hidden="true">
+                <span class="conn conn-left"><img src="assets/v2/ico/conn-left.svg" width="394" height="55" alt=""></span>
+                <span class="conn conn-right"><img src="assets/v2/ico/conn-right.svg" width="394" height="55" alt=""></span>
+                <span class="conn conn-stem"></span>
+              </div>
+              <span class="ai-badge" aria-hidden="true"><img src="assets/v2/ico/ai.svg" width="32" height="32" alt=""></span>
+              <h3 class="insights-title" id="insights-title">Insights &amp; guidance across every stage</h3>
+              <p class="insights-sub">Know what needs attention, understand what it means, and know what to do next</p>
+              <ul class="insights-links">
+                <li><a href="#insights/alerts">Alerts &amp; notifications <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                <li><a href="#insights/driver-risk-index">Driver risk index <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
+                <li><span class="soon">AI workflows <span class="badge">TBD</span></span></li>
+                <li><a href="#insights/csa-safety">CSA safety <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></li>
               </ul>
-              <a class="cta" href="#monitor">Start monitoring <span class="cta-icon"><img src="assets/stages/cta-arrow.svg" width="44" height="44" alt=""></span></a>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <!-- ============ INSIGHTS ============ -->
-      <article class="insights" data-stage="insights" aria-labelledby="insights-title">
-        <div class="connectors" aria-hidden="true">
-          <span class="conn conn-left"><img src="assets/stages/connector-left.svg" width="395.5" height="57.5" alt=""></span>
-          <span class="conn conn-right"><img src="assets/stages/connector-right.svg" width="399.5" height="57.5" alt=""></span>
-          <span class="conn conn-stem"><img src="assets/stages/connector-stem.svg" width="67" height="1" alt=""></span>
-        </div>
-        <span class="sparkle" aria-hidden="true">
-          <img class="sparkle-idle" src="assets/stages/sparkle.svg" width="54" height="54" alt="">
-          <img class="sparkle-on" src="assets/stages/sparkle-active.svg" width="54" height="54" alt="">
-        </span>
-
-        <h3 class="insights-title" id="insights-title">Insights &amp; guidance across every stage</h3>
-        <p class="insights-sub">Know what needs attention, understand what it means, and know what to do next.</p>
-
-        <div class="insights-body">
-          <span class="text-link" aria-hidden="true">Get insights <img src="assets/stages/arrow-ink.svg" width="13.7004" height="16.5402" alt=""></span>
-          <ul class="insights-links">
-            <li><a href="#insights/alerts">Alerts &amp; notifications <span class="arr" aria-hidden="true">→</span></a></li>
-            <li><a href="#insights/driver-risk-index">Driver risk index <span class="arr" aria-hidden="true">→</span></a></li>
-            <li><span class="soon">AI workflows <span class="badge">TBD</span></span></li>
-            <li><a class="link-strong" href="#insights/csa-safety">CSA safety <img src="assets/stages/arrow-ink.svg" width="13.7004" height="16.5402" alt=""></a></li>
-          </ul>
-          <a class="cta" href="#insights">Get insights <span class="cta-icon"><img src="assets/stages/cta-arrow.svg" width="44" height="44" alt=""></span></a>
-        </div>
-      </article>
-
-    </section>
+              <a class="stage-cta insights-cta" href="#insights"><span class="stage-cta-label">Get insights</span><span class="stage-cta-ico"><img class="ico-link" src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""><img class="ico-ink" src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></span></a>
+            </article>
+          </section>
         </div>
 
-        <a class="btn btn-teal sec-cta" href="#contact" data-reveal><span class="btn-label">Platform Overview</span><img class="btn-ico" src="assets/ui/arrow-cta-teal.svg" width="44" height="44" alt=""></a>
+        <a class="btn btn-teal sec-cta" href="#contact" data-reveal><span class="btn-label">Platform Overview</span><img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
       </div>
     </section>
 
-    <!-- ============================== SNAPSHOT ============================== -->
+    <!-- ============================== SNAPSHOT (onboarding) ============================== -->
     <section class="sec sec-snapshot" id="snapshot">
       <div class="wrap">
-        <header class="sec-head sec-head-snapshot">
+        <header class="title-text">
           <h2 data-split>See your compliance snapshot</h2>
           <p data-reveal style="--d:.18s">What's current, what's expiring, and what needs action – in the actual product.</p>
         </header>
@@ -326,64 +453,62 @@
             </button>
           </div>
           <div class="snap-stage" id="snap-panel" role="tabpanel" aria-labelledby="snap-t1">
-            <div class="snap-glass">
-              <div class="snap-shot" data-parallax-wrap>
-                <img class="snap-img" src="assets/ui/snapshot-dash.png" width="718" height="551" alt="Foley Dash compliance dashboard with the Compliance Score explainer open" loading="lazy">
-              </div>
+            <div class="snap-shot">
+              <img class="snap-img" src="assets/ui/snapshot-dash.png" width="718" height="551" alt="Foley Dash compliance dashboard with the Compliance Score explainer open" loading="lazy">
             </div>
           </div>
         </div>
 
-        <a class="btn btn-teal sec-cta" href="#contact" data-reveal><span class="btn-label">Get a Demo</span><img class="btn-ico" src="assets/ui/arrow-cta-teal.svg" width="44" height="44" alt=""></a>
+        <a class="btn btn-teal sec-cta" href="#contact" data-reveal><span class="btn-label">Get Demo</span><img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
       </div>
     </section>
 
-    <!-- ============================== TEAMS ============================== -->
+    <!-- ============================== TEAMS (business categories) ============================== -->
     <section class="sec sec-teams" id="teams">
       <div class="wrap">
-        <header class="sec-head sec-head-teams">
+        <header class="title-text">
           <h2 data-split>Built for every team responsible for regulated drivers</h2>
           <p data-reveal style="--d:.2s">Get the tools, visibility, and support you need to keep your business protected.</p>
         </header>
 
         <div class="teams" data-reveal="fade">
-          <div class="teams-photo" data-teams-photo>
-            <img src="assets/photos/team-dispatcher.jpg" width="1020" height="627" alt="A fleet manager reviewing the Foley Dash FMCSA safety dashboard on a desktop monitor" loading="lazy" data-parallax="-.06">
+          <div class="teams-photo">
+            <img src="assets/v2/img/teams.jpg" width="1586" height="992" alt="A fleet manager reviewing the Foley Dash FMCSA safety dashboard on a desktop monitor" loading="lazy" data-parallax="-.06">
           </div>
           <ul class="teams-list">
             <li><a class="team-row" href="#teams/fleet-operations">
-              <span class="team-ico"><img src="assets/ui/ic-fleet.svg" width="24" height="24" alt=""></span>
+              <img class="team-ico" src="assets/v2/ico/cat-operations.svg" width="24" height="24" alt="">
               <span class="team-copy"><span class="team-title">Fleet operations</span><span class="team-desc">Keep drivers active, reduce compliance-related disruption, and stay ahead of what needs attention.</span></span>
-              <img class="team-arrow" src="assets/ui/arrow-44.svg" width="44" height="44" alt="">
+              <img class="team-arrow" src="assets/v2/ico/arrow-card.svg" width="24" height="24" alt="">
             </a></li>
             <li><a class="team-row" href="#teams/compliance-management">
-              <span class="team-ico"><img src="assets/ui/ic-compliance.svg" width="24" height="24" alt=""></span>
+              <img class="team-ico" src="assets/v2/ico/cat-management.svg" width="24" height="24" alt="">
               <span class="team-copy"><span class="team-title">Compliance management</span><span class="team-desc">Keep records current, know what needs action, and stay audit-ready.</span></span>
-              <img class="team-arrow" src="assets/ui/arrow-44.svg" width="44" height="44" alt="">
+              <img class="team-arrow" src="assets/v2/ico/arrow-card.svg" width="24" height="24" alt="">
             </a></li>
             <li><a class="team-row" href="#teams/safety-risk-management">
-              <span class="team-ico"><img src="assets/ui/ic-safety.svg" width="24" height="24" alt=""></span>
+              <img class="team-ico" src="assets/v2/ico/cat-safety.svg" width="24" height="24" alt="">
               <span class="team-copy"><span class="team-title">Safety &amp; risk management</span><span class="team-desc">Spot driver and fleet risk earlier and act before it becomes a bigger problem.</span></span>
-              <img class="team-arrow" src="assets/ui/arrow-44.svg" width="44" height="44" alt="">
+              <img class="team-arrow" src="assets/v2/ico/arrow-card.svg" width="24" height="24" alt="">
             </a></li>
             <li><a class="team-row" href="#teams/hiring-onboarding">
-              <span class="team-ico"><img src="assets/ui/ic-hiring.svg" width="24" height="24" alt=""></span>
+              <img class="team-ico" src="assets/v2/ico/cat-hiring.svg" width="24" height="24" alt="">
               <span class="team-copy"><span class="team-title">Hiring &amp; onboarding</span><span class="team-desc">Clear qualified drivers faster and get them on the road with less administrative work.</span></span>
-              <img class="team-arrow" src="assets/ui/arrow-44.svg" width="44" height="44" alt="">
+              <img class="team-arrow" src="assets/v2/ico/arrow-card.svg" width="24" height="24" alt="">
             </a></li>
           </ul>
         </div>
 
-        <a class="btn btn-teal sec-cta" href="#contact" data-reveal><span class="btn-label">Get a demo</span><img class="btn-ico" src="assets/ui/arrow-cta-teal.svg" width="44" height="44" alt=""></a>
+        <a class="btn btn-teal sec-cta" href="#contact" data-reveal><span class="btn-label">Get Demo</span><img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
       </div>
     </section>
 
-    <!-- ============================== GUIDANCE ============================== -->
+    <!-- ============================== WHAT TO DO NEXT (guidance) ============================== -->
     <section class="sec sec-guidance" id="guidance">
       <div class="wrap">
-        <header class="sec-head sec-head-guidance">
+        <header class="title-text">
           <h2 data-split>See what matters.<br>Know what to do next.</h2>
-          <div class="guidance-lead" data-reveal style="--d:.2s">
+          <div class="title-sub" data-reveal style="--d:.2s">
             <p>Compliance signals, alerts, and records come together in one place.</p>
             <p>When something needs attention, Foley's built-in guidance explains what it means and what to do about it.</p>
           </div>
@@ -410,152 +535,173 @@
           </li>
         </ul>
 
-        <p class="guidance-note" data-reveal><span class="shimmer">Built-in guidance is powered by Navigator AI, included across the platform.</span></p>
-        <a class="btn btn-teal sec-cta" href="#contact" data-reveal><span class="btn-label">See Navigator AI</span><img class="btn-ico" src="assets/ui/arrow-cta-teal.svg" width="44" height="44" alt=""></a>
+        <div class="guidance-cta">
+          <p class="guidance-note" data-reveal><span class="shimmer">Built-in guidance is powered by Navigator AI, included across the platform.</span></p>
+          <a class="btn btn-teal" href="#contact" data-reveal><span class="btn-label">See Navigator AI</span><img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
+        </div>
       </div>
     </section>
 
-    <!-- ============================== CASES ============================== -->
+    <!-- ============================== TESTIMONIALS ============================== -->
     <section class="cases" id="results" aria-roledescription="carousel" aria-label="Customer results">
       <div class="cases-in">
         <h2 data-split>Real Companies. Real Results.</h2>
 
         <div class="cases-stage">
-          <button type="button" class="cases-nav cases-prev" aria-label="Previous stories" data-cases-prev><img src="assets/ui/prev.svg" width="33" height="34" alt=""></button>
+          <button type="button" class="cases-nav cases-prev" aria-label="Previous stories" data-cases-prev><img src="assets/v2/ico/arrow-left-white.svg" width="24" height="24" alt=""></button>
           <div class="cases-viewport" data-cases-viewport tabindex="0" aria-label="Customer stories, use arrow keys to browse">
             <ul class="cases-track" data-cases-track>
               <li class="case" aria-roledescription="slide" aria-label="1 of 4">
-                <div class="case-top"><img class="case-logo" src="assets/logos/case-koppers.png" width="111" height="42" alt="Koppers"><span class="overline case-tag">Construction</span></div>
+                <div class="case-top"><span class="case-logo"><img src="assets/v2/logos/case-clutter.svg" width="94" height="22" alt="Clutter"></span><span class="overline">Construction</span></div>
                 <div class="case-body">
                   <h3>Cut driver hiring from weeks to days</h3>
-                  <img class="case-rule" src="assets/ui/rule.svg" alt="">
+                  <span class="case-rule" aria-hidden="true"></span>
                   <blockquote>"Being able to manage all of our paperwork online has been a gamechanger."</blockquote>
                   <p class="case-by"><span>Mikayla Taillon</span> <span>HR Coordinator</span></p>
                 </div>
-                <a class="link-arrow" href="#results/koppers">Read case study <img src="assets/ui/arrow-link.svg" width="14" height="17" alt=""></a>
+                <a class="link-arrow" href="#results/clutter">Read case study <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
               </li>
               <li class="case" aria-roledescription="slide" aria-label="2 of 4">
-                <div class="case-top"><img class="case-logo case-logo-aero" src="assets/logos/case-aero.png" width="51" height="56" alt="Aero Bridgeworks"><span class="overline case-tag">Manufacturing</span></div>
+                <div class="case-top"><span class="case-logo"><img src="assets/logos/case-koppers.png" width="101" height="37" alt="Koppers"></span><span class="overline">Manufacturing</span></div>
                 <div class="case-body">
                   <h3>75% more efficient onboarding</h3>
-                  <img class="case-rule" src="assets/ui/rule.svg" alt="">
+                  <span class="case-rule" aria-hidden="true"></span>
                   <blockquote>"Foley got me everything I needed in the format the DOT requested."</blockquote>
                   <p class="case-by"><span>Dahlia Rehg</span> <span>Director of HR &amp; Compliance</span></p>
                 </div>
-                <a class="link-arrow" href="#results/aero-bridgeworks">Read case study <img src="assets/ui/arrow-link.svg" width="14" height="17" alt=""></a>
+                <a class="link-arrow" href="#results/koppers">Read case study <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
               </li>
               <li class="case case-placeholder" aria-roledescription="slide" aria-label="3 of 4">
-                <div class="case-top"><span class="case-logo-ph">Logo</span><span class="overline case-tag">Industry</span></div>
+                <div class="case-top"><span class="case-logo case-logo-ph">Logo</span><span class="overline">Industry</span></div>
                 <div class="case-body">
                   <h3>Customer result goes here</h3>
-                  <img class="case-rule" src="assets/ui/rule.svg" alt="">
+                  <span class="case-rule" aria-hidden="true"></span>
                   <blockquote>"Lorem ipsum dolor sit amet consectetur. Sed sociis ipsum varius est nibh."</blockquote>
                   <p class="case-by"><span>Name Surname</span> <span>Job title</span></p>
                 </div>
-                <a class="link-arrow" href="#results/story-3">Read case study <img src="assets/ui/arrow-link.svg" width="14" height="17" alt=""></a>
+                <a class="link-arrow" href="#results/story-3">Read case study <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
               </li>
               <li class="case case-placeholder" aria-roledescription="slide" aria-label="4 of 4">
-                <div class="case-top"><span class="case-logo-ph">Logo</span><span class="overline case-tag">Industry</span></div>
+                <div class="case-top"><span class="case-logo case-logo-ph">Logo</span><span class="overline">Industry</span></div>
                 <div class="case-body">
                   <h3>Customer result goes here</h3>
-                  <img class="case-rule" src="assets/ui/rule.svg" alt="">
+                  <span class="case-rule" aria-hidden="true"></span>
                   <blockquote>"Lorem ipsum dolor sit amet consectetur. Sed sociis ipsum varius est nibh."</blockquote>
                   <p class="case-by"><span>Name Surname</span> <span>Job title</span></p>
                 </div>
-                <a class="link-arrow" href="#results/story-4">Read case study <img src="assets/ui/arrow-link.svg" width="14" height="17" alt=""></a>
+                <a class="link-arrow" href="#results/story-4">Read case study <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
               </li>
             </ul>
           </div>
-          <button type="button" class="cases-nav cases-next" aria-label="Next stories" data-cases-next><img src="assets/ui/next.svg" width="33" height="34" alt=""></button>
+          <button type="button" class="cases-nav cases-next" aria-label="Next stories" data-cases-next><img src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></button>
         </div>
       </div>
     </section>
 
-    <!-- ============================== GUIDES ============================== -->
-    <section class="sec sec-guides" id="resources">
+    <!-- ============================== FAQ / CASE STUDIES ============================== -->
+    <section class="sec sec-faq" id="resources">
       <div class="wrap">
-        <header class="sec-head sec-head-guides">
+        <header class="title-text">
           <h2 data-split>Not Sure Where to Start?</h2>
           <p data-reveal style="--d:.18s">Get your bearings – no sales call required.</p>
         </header>
 
-        <ul class="trio trio-guides">
-          <li class="guide" data-reveal>
+        <ul class="faq">
+          <li class="faq-card" data-reveal>
             <span class="mark" aria-hidden="true"></span>
             <h3>What do I actually need to be DOT compliant?</h3>
             <p>Lorem ipsum dolor sit amet consectetur. Sed sociis ipsum varius est nibh pellentesque sapien tellus</p>
-            <a class="link-arrow" href="#resources/dot-compliance">Read guide <img src="assets/ui/arrow-link.svg" width="14" height="17" alt=""></a>
+            <a class="link-arrow" href="#resources/dot-compliance">Read case study <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
           </li>
-          <li class="guide" data-reveal style="--d:.1s">
+          <li class="faq-card" data-reveal style="--d:.1s">
             <span class="mark" aria-hidden="true"></span>
             <h3>What happens in a DOT audit?</h3>
             <p>Lorem ipsum dolor sit amet consectetur. Sed sociis ipsum varius est nibh pellentesque sapien tellus</p>
-            <a class="link-arrow" href="#resources/dot-audit">Watch webinar <img src="assets/ui/arrow-link.svg" width="14" height="17" alt=""></a>
+            <a class="link-arrow" href="#resources/dot-audit">Read case study <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
           </li>
-          <li class="guide" data-reveal style="--d:.2s">
+          <li class="faq-card" data-reveal style="--d:.2s">
             <span class="mark" aria-hidden="true"></span>
             <h3>The DQ file checklist</h3>
             <p>Lorem ipsum dolor sit amet consectetur. Sed sociis ipsum varius est nibh pellentesque sapien tellus</p>
-            <a class="link-arrow" href="#resources/dq-checklist">Read case study <img src="assets/ui/arrow-link.svg" width="14" height="17" alt=""></a>
+            <a class="link-arrow" href="#resources/dq-checklist">Read case study <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
           </li>
         </ul>
       </div>
     </section>
 
-    <!-- ============================== CTA BAND ============================== -->
+    <!-- ============================== BANNER ============================== -->
     <section class="band" id="contact">
-      <div class="band-photo" aria-hidden="true"><img src="assets/photos/cta-tablet.jpg" width="1440" height="668" alt="" loading="lazy" data-parallax="-.08"></div>
+      <div class="band-photo" aria-hidden="true"><img src="assets/photos/cta-tablet.jpg" width="2000" height="1334" alt="" loading="lazy" data-parallax="-.08"></div>
       <div class="band-shade" aria-hidden="true"></div>
       <div class="band-in">
-        <h2 data-split>See exactly where your compliance stands.</h2>
-        <p data-reveal style="--d:.2s">Tell us a bit about your fleet and we'll show you where Foley can help. No pressure, no script.</p>
+        <div class="title-text title-band">
+          <h2 data-split>See exactly where your compliance stands.</h2>
+          <p data-reveal style="--d:.2s">Tell us a bit about your fleet and we'll&nbsp;show you where Foley can help. No pressure, no script.</p>
+        </div>
         <div class="band-ctas" data-reveal style="--d:.3s">
           <a class="btn btn-white btn-plain" href="#contact"><span class="btn-label">Request a demo</span></a>
-          <a class="btn btn-outline-quiet" href="#platform"><span class="btn-label">Explore the platform</span><img class="btn-ico" src="assets/ui/arrow-cta-white.svg" width="44" height="44" alt=""></a>
+          <a class="btn btn-ghost-light" href="#platform"><span class="btn-label">Explore the platform</span><img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
         </div>
       </div>
     </section>
   </main>
 
   <!-- ============================== FOOTER ============================== -->
-  <footer class="footer">
+  <footer class="footer" id="company">
     <div class="footer-in">
-      <div class="footer-top">
-        <nav class="footer-nav" aria-label="Footer">
-          <div class="fcol" data-reveal>
-            <h3>Products</h3>
-            <ul><li><a href="#">Prepare</a></li><li><a href="#">Assure</a></li><li><a href="#">Integrations</a></li></ul>
+      <div class="f-top">
+        <div class="f-col" data-reveal><h3>Products</h3><ul><li><a href="#platform">The Foley Platform</a></li><li><a href="#guidance">Foley Navigator AI</a></li></ul></div>
+        <div class="f-col" data-reveal style="--d:.05s"><h3>Solutions</h3><ul><li><a href="#teams">Solutions home</a></li></ul></div>
+        <div class="f-col" data-reveal style="--d:.1s"><h3>Resources</h3><ul><li><a href="#resources">View all resources</a></li></ul></div>
+        <div class="f-cta" data-reveal="fade">
+          <a class="btn btn-text" href="#login">Log in</a>
+          <a class="btn btn-teal btn-head" href="#contact"><span class="btn-label">Request a demo</span></a>
+        </div>
+      </div>
+
+      <div class="f-main">
+        <nav class="f-cols" aria-label="Footer">
+          <div class="f-stack" data-reveal>
+            <div class="f-col"><h3>Hiring &amp; Onboarding</h3><ul><li><a href="#">Candidate Management</a></li><li><a href="#">Onboarding</a></li><li><a href="#">Hiring</a></li></ul></div>
+            <div class="f-col"><h3>Compliance</h3><ul><li><a href="#">FMCSA Clearinghouse</a></li><li><a href="#">DOT Physical Management</a></li><li><a href="#">DOT Background Checks</a></li><li><a href="#">Drug &amp; Alcohol Testing</a></li><li><a href="#">Motor Vehicle Records</a></li><li><a href="#">Driver Qualification Files</a></li></ul></div>
+            <div class="f-col"><h3>Data Monitoring</h3><ul><li><a href="#">Audit Risk Monitor</a></li><li><a href="#">MVR Monitor</a></li><li><a href="#">CSA Monitor</a></li></ul></div>
+            <div class="f-col"><h3>Background Checks</h3><ul><li><a href="#">Pre-Employment</a></li><li><a href="#">Post-Employment</a></li><li><a href="#">Verifications</a></li><li><a href="#">Drug &amp; Health</a></li><li><a href="#">Criminal</a></li><li><a href="#">Social Media</a></li><li><a href="#">ATS Integrations</a></li></ul></div>
           </div>
-          <div class="fcol" data-reveal style="--d:.06s">
-            <h3>Industries</h3>
-            <ul><li><a href="#">Crisis</a></li><li><a href="#">Education</a></li><li><a href="#">Healthcare</a></li><li><a href="#">Mental Health</a></li><li><a href="#">Emergency Response</a></li><li><a href="#">Contact Centers</a></li><li><a href="#">Staffing Services</a></li><li><a href="#">Financial Services</a></li><li><a href="#">Large Hospitals</a></li><li><a href="#">Insurance</a></li><li><a href="#">Travel</a></li></ul>
+          <div class="f-stack" data-reveal style="--d:.06s">
+            <div class="f-col"><h3>By Role</h3><ul><li><a href="#">Fleet operations</a></li><li><a href="#">Compliance management</a></li><li><a href="#">Safety &amp; risk management</a></li><li><a href="#">Hiring &amp; onboarding</a></li></ul></div>
+            <div class="f-col"><h3>By Initiative</h3><ul><li><a href="#">Migrate From Paper</a></li><li><a href="#">Maintain DOT Compliance</a></li><li><a href="#">Assess &amp; Mitigate Risk</a></li><li><a href="#">Scale a Growing Business</a></li><li><a href="#">Consolidate Vendors</a></li></ul></div>
+            <div class="f-col"><h3>By Industry</h3><ul><li><a href="#">Transportation</a></li><li><a href="#">Utilities &amp; Construction</a></li><li><a href="#">Retail, Food &amp; Beverage</a></li><li><a href="#">Recycling &amp; Waste Management</a></li><li><a href="#">Agricultural &amp; Landscaping</a></li><li><a href="#">Healthcare</a></li><li><a href="#">Manufacturing</a></li></ul></div>
           </div>
-          <div class="fcol" data-reveal style="--d:.12s">
-            <h3>Use Cases</h3>
-            <ul><li><a href="#">Customer Service</a></li><li><a href="#">Sales Teams</a></li><li><a href="#">Clinical Teams</a></li><li><a href="#">Regulatory Compliance</a></li></ul>
-            <h3 class="fcol-gap">Organizations</h3>
-            <ul><li><a href="#">SMB</a></li><li><a href="#">Enterprise</a></li><li><a href="#">Nonprofit</a></li></ul>
+          <div class="f-stack" data-reveal style="--d:.12s">
+            <div class="f-col"><h3>Library</h3><ul class="f-list-18"><li><a href="#">Blog Articles</a></li><li><a href="#">Case Studies</a></li><li><a href="#">Guides</a></li><li><a href="#">Webinars</a></li></ul></div>
+            <div class="f-col"><h3>Compliance Guides</h3><ul><li><a href="#">FMCSA Compliance Guide</a></li><li><a href="#">DOT Drug &amp; Alcohol Testing</a></li><li><a href="#">Drug Testing Consortium</a></li><li><a href="#">FMCSA Clearinghouse Guide</a></li><li><a href="#">Driver Qualification Files</a></li><li><a href="#">CSA Score Guide</a></li><li><a href="#">MVR Monitoring Guide</a></li><li><a href="#">ELD &amp; Hours of Service</a></li></ul></div>
           </div>
-          <div class="fcol" data-reveal style="--d:.18s">
-            <h3>Resources</h3>
-            <ul><li><a href="#">Customers</a></li><li><a href="#">Blog</a></li><li><a href="#">Press</a></li></ul>
-          </div>
-          <div class="fcol" data-reveal style="--d:.24s">
-            <h3>Company</h3>
-            <ul><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security &amp; Compliance</a></li><li><a href="#">HomeTeam</a></li></ul>
+          <div class="f-stack" data-reveal style="--d:.18s">
+            <div class="f-col"><h3>Why Foley</h3><ul><li><a href="#">Customers</a></li><li><a href="#">Case Studies</a></li><li><a href="#">Customer Success</a></li><li><a href="#">Regulatory Experts</a></li><li><a href="#">Why Switch</a></li><li><a href="#">Partners</a></li></ul></div>
+            <div class="f-col"><h3>About</h3><ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Contact Us</a></li><li><a href="#">FAQ</a></li><li><a href="#">Candidate FAQ</a></li><li><a href="#">Pricing</a></li></ul></div>
           </div>
         </nav>
-        <a class="footer-logo" href="#top" aria-label="Foley, back to top" data-reveal="fade"><img src="assets/ui/logo-footer.svg" width="118" height="27" alt="Foley"></a>
-      </div>
-      <div class="footer-bottom">
-        <div class="legal">
-          <span>©2026 Foley All Rights Reserved</span>
-          <i class="legal-dot" aria-hidden="true"></i>
-          <a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Trust Site</a>
+        <div class="f-brand" data-reveal="fade">
+          <a class="footer-logo" href="#top" aria-label="Foley, back to top"><img src="assets/v2/ico/logo.svg" width="118" height="28" alt="Foley"></a>
+          <p>140 Huyshope Avenue Hartford, CT 06106</p>
+          <p><a href="tel:+18608132964">(860) 813-2964</a></p>
         </div>
-        <div class="social">
-          <a href="#" aria-label="Foley on LinkedIn"><span class="soc"><img src="assets/ui/ic-linkedin.svg" width="12" height="12" alt=""></span></a>
-          <a href="#" aria-label="Foley on YouTube"><span class="soc"><img src="assets/ui/ic-youtube.svg" width="14" height="10" alt=""></span></a>
+        <div class="f-badges" data-reveal="fade">
+          <img src="assets/v2/img/badge-bbb.png" width="114" height="86" alt="BBB Accredited Business" loading="lazy">
+          <img src="assets/v2/img/badge-pbsa.png" width="88" height="88" alt="PBSA Accredited" loading="lazy">
+        </div>
+      </div>
+
+      <span class="f-line" aria-hidden="true"></span>
+
+      <div class="f-bottom">
+        <span class="f-copy">©2026 Foley All Rights Reserved</span>
+        <div class="f-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">FCRA Compliance Notice</a></div>
+        <div class="f-social">
+          <a href="#" aria-label="Foley on LinkedIn"><img src="assets/v2/social/linkedin.svg" width="24" height="24" alt=""></a>
+          <a href="#" aria-label="Foley on Facebook"><img src="assets/v2/social/facebook.svg" width="22" height="24" alt=""></a>
+          <a href="#" aria-label="Foley on Glassdoor"><img src="assets/v2/social/glassdoor.svg" width="24" height="24" alt=""></a>
+          <a href="#" aria-label="Foley on YouTube"><img src="assets/v2/social/youtube.svg" width="24" height="24" alt=""></a>
         </div>
       </div>
     </div>
@@ -575,7 +721,15 @@
       <button type="button" data-v="flip">Flip</button>
       <button type="button" data-v="fade">Fade</button>
     </div>
-    <p class="demo-label">Hero autoplay</p>
+    <p class="demo-label">Mega menu</p>
+    <div class="seg" data-key="menu">
+      <button type="button" data-v="none">Closed</button>
+      <button type="button" data-v="products">Products</button>
+      <button type="button" data-v="solutions">Solutions</button>
+      <button type="button" data-v="resources">Resources</button>
+      <button type="button" data-v="company">Company</button>
+    </div>
+    <p class="demo-label">Autoplay</p>
     <div class="seg" data-key="auto">
       <button type="button" data-v="on">On</button>
       <button type="button" data-v="off">Off</button>

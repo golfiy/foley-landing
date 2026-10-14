@@ -1,5 +1,6 @@
-/* Foley landing – motion + interaction
-   Modules: hero scenes · scroll engine · reveals · logos · snapshot · cases · demo panel */
+/* Foley landing v2 – motion + interaction
+   Modules: top nav + mega menu · hero scenes · reveals · logos · scroll engine ·
+            stages hint · snapshot · cases · demo panel */
 (() => {
   'use strict';
 
@@ -17,6 +18,92 @@
 
   root.style.setProperty('--slow', SLOW);
   if (SHOT) root.classList.add('shot');
+
+  /* ======================================================================
+     Top navigation: mega menu (hover intent, click, keyboard) + mobile drawer
+     ====================================================================== */
+  const topnav = $('[data-topnav]');
+  const triggers = $$('.nav-trigger', topnav);
+  const panels = Object.fromEntries($$('.mm-panel', topnav).map((p) => [p.dataset.panel, p]));
+  const menuOrder = triggers.map((t) => t.dataset.menu);
+  let openMenu = null;
+  let openedAt = 0;
+  let openTimer = 0;
+  let closeTimer = 0;
+  let menuScrollY = 0;
+
+  Object.values(panels).forEach((p) => { p.hidden = false; p.inert = true; });
+
+  function setMenu(name, { focus = false } = {}) {
+    clearTimeout(openTimer);
+    clearTimeout(closeTimer);
+    if (name === openMenu) return;
+    const prev = openMenu;
+    openMenu = name;
+    openedAt = performance.now();
+    menuScrollY = scrollY;
+    // direction of travel when switching menus: content slides in from that side
+    const dir = prev && name ? Math.sign(menuOrder.indexOf(name) - menuOrder.indexOf(prev)) : 0;
+    if (name) { panels[name].style.setProperty('--dir', dir); void panels[name].offsetWidth; }
+    if (prev) panels[prev].style.setProperty('--dir', -dir);
+    topnav.classList.toggle('is-open', !!name);
+    topnav.classList.toggle('is-switching', !!(name && prev));
+    triggers.forEach((t) => t.setAttribute('aria-expanded', String(t.dataset.menu === name)));
+    Object.entries(panels).forEach(([k, p]) => {
+      p.classList.toggle('is-active', k === name);
+      p.inert = k !== name;
+    });
+    if (focus && name) { const first = $('a', panels[name]); if (first) first.focus(); }
+  }
+  const closeSoon = (ms = 220) => { clearTimeout(openTimer); clearTimeout(closeTimer); closeTimer = setTimeout(() => setMenu(null), ms); };
+
+  if (FINE) {
+    triggers.forEach((t) => {
+      t.addEventListener('pointerenter', () => {
+        clearTimeout(closeTimer);
+        clearTimeout(openTimer);
+        openTimer = setTimeout(() => setMenu(t.dataset.menu), openMenu ? 60 : 120);
+      });
+    });
+    $$('.logo, .head-cta, .nav-link', topnav).forEach((el) => el.addEventListener('pointerenter', () => openMenu && closeSoon(160)));
+    $('.mm-stage', topnav).addEventListener('pointerenter', () => clearTimeout(closeTimer));
+    topnav.addEventListener('pointerleave', () => closeSoon());
+  }
+  triggers.forEach((t) => {
+    t.addEventListener('click', () => {
+      const name = t.dataset.menu;
+      // a click right after hover-intent opened this menu keeps it open
+      if (openMenu === name && performance.now() - openedAt < 600) return;
+      setMenu(openMenu === name ? null : name);
+    });
+    t.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); setMenu(t.dataset.menu, { focus: true }); }
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !openMenu) return;
+    const t = triggers.find((x) => x.dataset.menu === openMenu);
+    setMenu(null);
+    if (t) t.focus();
+  });
+  document.addEventListener('pointerdown', (e) => { if (openMenu && !e.target.closest('[data-topnav]')) setMenu(null); });
+  topnav.addEventListener('focusout', (e) => { if (openMenu && e.relatedTarget && !topnav.contains(e.relatedTarget)) setMenu(null); });
+  topnav.addEventListener('click', (e) => { if (e.target.closest('.megamenu a')) setMenu(null); });
+  addEventListener('scroll', () => { if (openMenu && Math.abs(scrollY - menuScrollY) > 60) setMenu(null); }, { passive: true });
+  if (params.get('menu') in panels) setMenu(params.get('menu'));
+
+  /* mobile drawer */
+  const burger = $('[data-burger]');
+  const drawer = $('[data-drawer]');
+  function setDrawer(open) {
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    drawer.hidden = !open;
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', () => setDrawer(burger.getAttribute('aria-expanded') !== 'true'));
+  drawer.addEventListener('click', (e) => { if (e.target.closest('a')) setDrawer(false); });
+  addEventListener('resize', () => { if (innerWidth >= 960 && !drawer.hidden) setDrawer(false); });
 
   /* ======================================================================
      Hero scenes: a 6x4 tile grid, every tile shows its slice of a scene
@@ -327,15 +414,6 @@
      Scroll engine: progress, sticky header, hero parallax, image parallax,
      panel "curtain", active nav link
      ====================================================================== */
-  const header = $('.site-header');
-  const navLinks = $$('.nav a');
-  const navMap = [
-    ['#platform', ['platform', 'snapshot']],
-    ['#teams', ['teams', 'guidance']],
-    ['#resources', ['results', 'resources']],
-    ['#contact', ['contact']],
-  ];
-  const navSections = Object.fromEntries(['platform', 'snapshot', 'teams', 'guidance', 'results', 'resources', 'contact'].map((id) => [id, document.getElementById(id)]));
   const parallax = $$('[data-parallax]').map((el) => ({ el, speed: parseFloat(el.dataset.parallax) || 0, box: el.parentElement }));
   const expand = $$('[data-expand]');
 
@@ -345,22 +423,9 @@
     const y = scrollY;
     const vh = innerHeight;
 
-    header.classList.toggle('is-stuck', y > 8);
+    topnav.classList.toggle('is-stuck', y > 33);
     const max = document.documentElement.scrollHeight - vh;
     root.style.setProperty('--prog', max > 0 ? clamp(y / max).toFixed(4) : 0);
-
-    // nav: last section whose top crossed 40% of the viewport
-    let active = null;
-    for (const [href, ids] of navMap) {
-      for (const id of ids) {
-        const s = navSections[id];
-        if (s && s.getBoundingClientRect().top <= vh * 0.4) active = href;
-      }
-    }
-    navLinks.forEach((a) => {
-      if (a.getAttribute('href') === active) a.setAttribute('aria-current', 'true');
-      else a.removeAttribute('aria-current');
-    });
 
     if (!ANIM) return;
 
@@ -479,12 +544,13 @@
   const cSlides = $$('.case', cTrack);
   let cIdx = 0;
   const perView = () => (innerWidth < 960 ? 1 : 2);
+  const caseGap = () => parseFloat(getComputedStyle(cTrack).columnGap) || 20;
   const maxIdx = () => Math.max(0, cSlides.length - perView());
 
   function layoutCases(animate = true) {
     if (!cTrack) return;
     cIdx = clamp(cIdx, 0, maxIdx());
-    const step = cSlides[0].offsetWidth + 8;
+    const step = cSlides[0].offsetWidth + caseGap();
     cTrack.classList.toggle('is-dragging', !animate);
     cTrack.style.setProperty('--x', -cIdx * step + 'px');
     cPrev.disabled = cIdx <= 0;
@@ -504,7 +570,7 @@
     cViewport.addEventListener('pointerdown', (e) => {
       if (e.button !== 0 || e.target.closest('a')) return;
       down = true; moved = false; sx = e.clientX; dx = 0;
-      startX0 = -cIdx * (cSlides[0].offsetWidth + 8);
+      startX0 = -cIdx * (cSlides[0].offsetWidth + caseGap());
       cViewport.setPointerCapture(e.pointerId);
     });
     cViewport.addEventListener('pointermove', (e) => {
@@ -537,6 +603,7 @@
       scene: SCENES[Math.max(0, cur)] ? SCENES[Math.max(0, cur)].id : 'onboard',
       fx: state.fx,
       auto: state.auto ? 'on' : 'off',
+      menu: openMenu || 'none',
       slow: String(SLOW),
     };
     $$('.seg', demo).forEach((seg) => $$('button', seg).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === curState[seg.dataset.key]))));
@@ -548,6 +615,7 @@
       const key = b.closest('.seg').dataset.key;
       if (key === 'scene') go(SCENES.findIndex((s) => s.id === b.dataset.v));
       if (key === 'fx') state.fx = b.dataset.v;
+      if (key === 'menu') setMenu(b.dataset.v === 'none' ? null : b.dataset.v);
       if (key === 'auto') {
         state.auto = b.dataset.v === 'on';
         hero.classList.toggle('no-auto', !state.auto);
@@ -565,12 +633,15 @@
     document.addEventListener('keydown', (e) => {
       if (e.target.closest('input, textarea')) return;
       if (e.key === '.') { demo.hidden = !demo.hidden; syncDemo(); }
-      else if (e.key === 'Escape') demo.hidden = true;
+      else if (e.key === 'Escape' && !openMenu) demo.hidden = true;
     });
     if (params.has('panel')) { demo.hidden = false; }
     setInterval(syncDemo, 800);
     syncDemo();
   }
+
+  /* ?shot mirrors the Figma frame: first team row is shown hovered */
+  if (SHOT) { const row = $('.team-row'); if (row) row.classList.add('is-hover'); }
 
   /* ---------- boot ---------- */
   initHero();

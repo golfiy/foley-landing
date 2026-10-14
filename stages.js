@@ -94,7 +94,7 @@
   });
 
   /* ---------- product cards scale to the column ---------- */
-  const DESIGN_W = 419.33;
+  const DESIGN_W = 398;      // column inner width in the 1280 layout
   const bodies = [...document.querySelectorAll('.stage-body')];
   function fit(body, width = body.clientWidth) {
     const product = body.querySelector('.product');
@@ -106,6 +106,7 @@
 
   /* ---------- review mode: ?shot=<stage> pins a stage ---------- */
   function pin(name) {
+    if (name === 'all') { forced = 'all'; stages.forEach((s) => s.classList.add('is-active')); return; }   // matches the Figma hover-states frame
     forced = name && byName[name] ? name : null;
     if (forced) setActive(byName[forced]); else clear();
   }
