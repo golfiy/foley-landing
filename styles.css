@@ -714,14 +714,12 @@ h3 { font-weight: 500; }
 .case-top { height: 84px; display: flex; align-items: center; justify-content: space-between; }
 .case-logo { position: relative; display: block; width: 101px; height: 84px; }
 .case-logo img { position: absolute; left: 0; top: 50%; translate: 0 -50%; height: auto; -webkit-user-drag: none; }
-.case-logo-ph { display: grid; place-items: center; width: 101px; height: 40px; border: 1px dashed var(--stroke); color: var(--ink-2); font: 500 13px var(--font-ui); letter-spacing: .04em; text-transform: uppercase; }
 .case-body { height: 216px; display: flex; flex-direction: column; gap: 16px; }
 .case h3 { height: 70px; display: flex; align-items: flex-end; font-size: 32px; line-height: 1.1; letter-spacing: -.5px; }
 .case-rule { flex: none; height: 1px; background: var(--stroke); }
 .case blockquote { flex: 1; min-height: 0; overflow: hidden; font-weight: 400; font-size: 24px; line-height: 1.2; letter-spacing: -.5px; }
 .case-by { display: flex; gap: 8px; font-size: 18px; line-height: 1.2; letter-spacing: -.09px; color: var(--ink-2); white-space: nowrap; }
 .case .link-arrow { align-self: flex-start; }
-.case-placeholder { opacity: .96; }
 
 /* FAQ / case studies */
 .sec-faq { padding: 140px 0 40px; }
