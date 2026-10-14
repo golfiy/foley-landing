@@ -806,6 +806,16 @@
     }
   },
   "breakpoint": {
+    "wide": {
+      "$type": "dimension",
+      "$value": "1920px",
+      "$description": "min-width: the page is laid out at 1440 and scaled up to this width (×1.333); wider screens centre it, backgrounds stay full-bleed",
+      "$extensions": {
+        "foley": {
+          "source": "site"
+        }
+      }
+    },
     "lg": {
       "$type": "dimension",
       "$value": "1279px",

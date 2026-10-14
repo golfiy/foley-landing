@@ -16,6 +16,18 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="stages.css">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <script>
+    /* wide screens: the page is laid out at 1440 and scaled up to 1920 (x1.333), wider screens centre it */
+    (function () {
+      var root = document.documentElement;
+      function fit() {
+        var w = window.visualViewport ? visualViewport.width : innerWidth;
+        root.style.setProperty('--page-zoom', Math.min(4 / 3, Math.max(1, w / 1440)).toFixed(4));
+      }
+      fit();
+      addEventListener('resize', fit);
+    })();
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -568,10 +580,15 @@
     <!-- ============================== TESTIMONIALS ============================== -->
     <section class="cases" id="results" aria-roledescription="carousel" aria-label="Customer results">
       <div class="cases-in">
-        <h2 data-split>Real Companies. Real Results.</h2>
+        <div class="cases-head">
+          <h2 data-split>Real Companies. Real Results.</h2>
+          <div class="cases-arrows">
+            <button type="button" class="cases-nav cases-prev" aria-label="Previous stories" data-cases-prev><img src="assets/v2/ico/arrow-left-white.svg" width="24" height="24" alt=""></button>
+            <button type="button" class="cases-nav cases-next" aria-label="Next stories" data-cases-next><img src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></button>
+          </div>
+        </div>
 
         <div class="cases-stage">
-          <button type="button" class="cases-nav cases-prev" aria-label="Previous stories" data-cases-prev><img src="assets/v2/ico/arrow-left-white.svg" width="24" height="24" alt=""></button>
           <div class="cases-viewport" data-cases-viewport tabindex="0" aria-label="Customer stories, use arrow keys to browse">
             <ul class="cases-track" data-cases-track>
               <li class="case" aria-roledescription="slide" aria-label="1 of 6">
@@ -636,7 +653,6 @@
               </li>
             </ul>
           </div>
-          <button type="button" class="cases-nav cases-next" aria-label="Next stories" data-cases-next><img src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></button>
         </div>
       </div>
     </section>

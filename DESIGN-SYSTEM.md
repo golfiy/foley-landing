@@ -160,6 +160,8 @@ Inter Display everywhere. Fallback: Inter (Google Fonts) with `font-variation-se
 
 **Breakpoints** (max-width): `1279px` gutters 40 · `1139px` Log in leaves the header · `959px` mobile layout (drawer, stacked blocks, gutters 20).
 
+**Wide screens** (site addition): from 1440 to `1920px` the whole page is scaled (`html { zoom }`, width / 1440, max ×1.333), so the Figma composition holds and type grows on big monitors. Above 1920 the scale stops and the page centres: backgrounds stay full-bleed, the hero tile grid continues to the edge and fades, the banner photo is anchored to the column. Every section aligns to the same column edge.
+
 **Rhythm:** section padding 140 (96 mobile) · title block → content 48 (32) · content → CTA 48 (32) · title → subtitle 24 · card padding 32 / 24.
 
 **Radius:** none. Only icon chips and pills are round.
@@ -328,7 +330,7 @@ First view: curtain + one automatic pass through the hover states, cancelled by 
 - **Testimonial card** `testimonial_card` (`.case`): 84px logo row + overline, `type/h3` bottom-aligned in 70px, `stroke/primary` rule, `type/subtitle` quote, author `body-m` tertiary, Read case study.
 
 ### Testimonials · `testimonials`
-`--gradient-primary`, two cards visible (522px, 20px gap), round arrows outside (hover `overlay/on-dark-hover`, disabled 30%). Steps one card (800ms), drag / swipe (60px), ←/→. One card per view ≤959.
+`--gradient-primary`, cards 522px with a 20px gap start at the column edge and run off the right edge of the screen (the next card peeks); round arrows sit in the title row on the right (hover `overlay/on-dark-hover`, disabled 30%). Site change from Figma, where the arrows sit outside a centred two-card track. Steps one card (800ms), drag / swipe (60px), ←/→. One card per view ≤959.
 
 ### Banner · `banner`
 688px photo + `--gradient-scrim`, light `title_text` (521px, subtitle 396px), White plain + Outline (52px).
