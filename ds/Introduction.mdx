@@ -1,0 +1,34 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Foley design system
+
+The components, tokens and rules behind the Foley landing (Figma **1595 – Start Stream**, page 8: `homepage`, `navigation`, `how_it_works hover states`).
+
+**One source, no copies.** Every story clones its markup from the landing's `index.html` and uses the site's own `tokens.css`, `styles.css`, `stages.css`, `app.js` and `stages.js`. Change the site and the design system updates with it.
+
+| | |
+|---|---|
+| **Site** | http://127.0.0.1:4965/ (switch *Site / DS*, bottom-left) |
+| **Tokens** | `tokens/foley.tokens.json` (W3C DTCG) → `npm run tokens` → `tokens.css` |
+| **Written spec** | `DESIGN-SYSTEM.md` (also under *Design System (MD)* in the sidebar) |
+| **Figma** | [Page 8](https://www.figma.com/design/Dvi1gBhoXvurjb74BzXcKg/1595---Start-Stream?node-id=1140-9359) |
+
+## How to read it
+
+- **Foundations**: colour, type, layout, icons, motion, imagery, accessibility. Tables are generated from the token JSON.
+- **Components**: one page per Figma component, with states. Stories marked **Live** run the real scripts. Hover, menus, search, carousels and autoplay behave exactly as on the site. Static state stories use forced pseudo-states (hover / focus / active).
+- **Pages**: the full homepage.
+
+## Source of truth
+
+Values come from the current Figma variables and text styles. Anything Figma does not draw (hover and focus states, search, mobile drawer, motion) was designed on the site in the same language. It is part of the system and tagged **site addition** in the token tables.
+
+## Run it
+
+```bash
+npm install
+npm run storybook        # http://127.0.0.1:4967
+npm run build-storybook  # static build in storybook-static/
+```

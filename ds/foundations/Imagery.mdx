@@ -1,0 +1,26 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundations/Imagery" />
+
+# Imagery
+
+**Subjects:** the people and vehicles Foley customers manage. Trucks, ambulances, construction and agricultural machinery, school buses, fleet managers at work, the product on real screens. Daylight or golden hour, saturated but natural colour. No staged handshakes, no abstract stock.
+
+## Hero mosaic
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 52px)', gridAutoRows: '52px', gap: 1, background: '#0A171C', padding: 12, width: 'fit-content', margin: '16px 0' }}>
+  {['', 'A', 'A', 'A', '', '', '', 'A', 'A', 'A', 'T', 'T', '', '', 'C', 'C', 'T', 'T', '', '', 'C', 'C', 'C', ''].map((c, i) => (
+    <div key={i} style={{ background: c === 'A' ? '#4A87A2' : c === 'T' ? '#294C5A' : c === 'C' ? '#81E014' : 'rgba(255,255,255,.06)', color: '#fff', font: '600 12px Inter', display: 'grid', placeItems: 'center' }}>{c}</div>
+  ))}
+</div>
+
+- 6×4 tiles, 156px each on a 157px pitch (1px seams), 941×627 to the right of the copy.
+- Three 470×313 photo blocks: **A** (top), **T** (right), **C** (bottom, top-right tile empty). Empty tiles: `--color-overlay-tile`.
+- A scene is one 1882×1254 WebP (2×) with transparent gaps, built by `ref/tools/build_scenes.py` from three photos. Keep the subject inside its block. People and vehicles should face into the page or toward the camera.
+- Never use photos with watermarks. Scenes Hire and Monitor use Unsplash / Pexels free-licence photos (credits in README).
+
+## Photos in sections
+
+- Teams: one photo, cropped like Figma (left −19.83%, width 129.87%), slow parallax.
+- Banner: photo keeps its proportions, right-aligned, masked into the dark scrim. Never stretched.
+- Mega-menu promo: 282×196 crop, scales to 1.05 on hover.

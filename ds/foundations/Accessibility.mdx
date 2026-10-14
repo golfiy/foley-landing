@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { ContrastTable } from '../lib/docs.js';
+
+<Meta title="Foundations/Accessibility" />
+
+# Accessibility
+
+**Focus.** Every interactive element shows a 2px `--color-focus-ring` outline (offset 3–4px; white on dark sections). Columns in *How it works* open on keyboard focus too.
+
+**Keyboard map**
+
+| Component | Keys |
+|---|---|
+| Top navigation | Tab between triggers, ↓ opens a menu and focuses its first link, Esc closes and returns focus |
+| Search | `/` or ⌘K / Ctrl+K opens · ↑/↓ results · Enter opens · Esc closes |
+| How it works | Tab into a column opens it, Tab out closes it, Esc closes |
+| Snapshot tabs | ↑/↓ move between tabs (vertical tablist) |
+| Testimonials | ←/→ on the focused track |
+| Hero scenes | autoplay only, pauses on hover and when hidden; not focusable (decorative) |
+
+**Semantics.** Mega menus are disclosure panels (`aria-expanded`, `aria-controls`); closed panels are `inert`. Search is a dialog with a combobox (`aria-activedescendant`, live result count). Decorative images use `alt=""`. The hero headline keeps the full sentence for screen readers while the animated word is `aria-hidden`.
+
+**Motion.** Respect `prefers-reduced-motion` (see Motion).
+
+## Contrast
+
+<ContrastTable />
+
+`brand/primary` on light is decorative only (marks). Never use it for text or icons that carry meaning.

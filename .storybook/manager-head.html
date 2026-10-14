@@ -1,0 +1,20 @@
+<style>
+  .foley-ds-dock {
+    position: fixed; left: 0; bottom: 0; z-index: 9999; box-sizing: border-box;
+    padding: 0 0 16px 16px; pointer-events: none;
+  }
+  .foley-ds-dock.is-docked { padding: 12px 16px; background: #F8F9FC; border-top: 1px solid #E1EAFA; border-right: 1px solid #E1EAFA; }
+  .foley-ds-switch {
+    pointer-events: auto;
+    display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px;
+    background: rgba(10, 23, 28, .86); box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+    font: 600 12px/1 Inter, system-ui, sans-serif; letter-spacing: .02em;
+  }
+  .is-docked .foley-ds-switch { box-shadow: none; }
+  .foley-ds-switch a { padding: 6px 11px; border-radius: 999px; color: rgba(232, 240, 255, .7); text-decoration: none; }
+  .foley-ds-switch a:hover { color: #fff; }
+  .foley-ds-switch a[aria-current="page"] { background: #fff; color: #111117; }
+  .foley-ds-switch a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  /* keep the last sidebar items clear of the switch */
+  #storybook-explorer-tree { padding-bottom: 64px; }
+</style>

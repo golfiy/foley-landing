@@ -1,0 +1,45 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { ColorTable, GradientTable } from '../lib/docs.js';
+
+<Meta title="Foundations/Colors" />
+
+# Colors
+
+Semantic tokens only, named like the Figma variables (`text/primary` → `--color-text-primary`). Figma has no primitive scale. Gradient stops that are not semantic colours (`petrol/700`, `petrol/500`) are listed separately.
+
+**Rules**
+- Text on light: `text/primary` for content, `text/secondary` for links and supporting copy, `text/tertiary` for meta. Never use `brand/primary` for text on light.
+- Dark sections use `--gradient-primary`, never a flat colour.
+- Borders: `stroke/primary` around cards and columns, `stroke/secondary` for hairlines inside menus and lists.
+- Hover never invents a new hue: it moves one step on the same ramp (bg/tertiary → tertiary-hover → secondary).
+
+## Text
+<ColorTable group="text" />
+
+## Background
+<ColorTable group="bg" />
+
+## Stroke
+<ColorTable group="stroke" />
+
+## Brand
+<ColorTable group="brand" />
+
+## Petrol (gradient stops)
+<ColorTable group="petrol" />
+
+## Overlay
+<ColorTable group="overlay" />
+
+## Focus
+<ColorTable group="focus" />
+
+## Gradients
+<GradientTable />
+
+## Shadows
+
+| Token | Value | Use |
+|---|---|---|
+| `--shadow-overlay` | `0 30px 60px -20px rgba(10, 23, 28, 0.28)` | Mega menu, search panel |
+| `--shadow-header` | `0 1px 0 #E1EAFA, 0 10px 30px rgba(10, 23, 28, 0.06)` | Sticky main bar |

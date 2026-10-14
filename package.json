@@ -1,0 +1,20 @@
+{
+  "name": "foley-landing",
+  "private": true,
+  "type": "module",
+  "description": "Foley landing prototype and its design system (Storybook)",
+  "scripts": {
+    "tokens": "node scripts/build-tokens.mjs",
+    "storybook": "npm run tokens && storybook dev -p 4967 --host 127.0.0.1 --no-open",
+    "build-storybook": "npm run tokens && storybook build -o storybook-static"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "10.6.1",
+    "@storybook/addon-docs": "10.6.1",
+    "@storybook/html-vite": "10.6.1",
+    "remark-gfm": "^4.0.1",
+    "storybook": "10.6.1",
+    "storybook-addon-pseudo-states": "10.6.1",
+    "vite": "8.3.1"
+  }
+}

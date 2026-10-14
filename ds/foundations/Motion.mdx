@@ -1,0 +1,30 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { MotionTable } from '../lib/docs.js';
+
+<Meta title="Foundations/Motion" />
+
+# Motion
+
+Calm and quick. Things **enter** with `ease-out` (fast start, long settle) and **leave** with `ease-in` and shorter durations, so content never fights for attention. Colour and opacity use `standard`.
+
+## Patterns
+
+| Pattern | Where | Spec |
+|---|---|---|
+| Scroll reveal | blocks with `data-reveal` | opacity 0 → 1 (900ms) + 26px rise (1000ms), ease-out, once |
+| Heading split | `data-split` | each word rises out of a mask, 50ms per word, 1100ms |
+| Curtain | how-it-works panel, mega menu, search | `clip-path` inset opens (scroll-driven / 620ms) |
+| Hover swap | how-it-works columns | default content out 140ms → links in, 40ms stagger, 70ms lead; return 90ms later |
+| Morph | stage CTA | text link → white button: padding + plate (scale 0.6 → 1) |
+| Fill wipe | buttons, category rows | `::before` scales from the left, 500 / 700ms ease-out |
+| Odometer | hero word | per-letter roll, 42ms stagger, `odometer` easing |
+| Tile wave | hero mosaic | per-tile clip-path + scale + brightness, diagonal delay 55ms |
+| Parallax | hero layers, photos | background 90px, grid 70px, copy −54px over the hero height; photos scale just enough to cover |
+
+**Autoplay** (hero scenes, snapshot tabs) runs every 6s, only while visible, and pauses on hover, focus and hidden tabs.
+
+**Reduced motion** (`prefers-reduced-motion`): no intro, parallax, marquee or autoplay. Reveals and menus switch instantly, hero scenes fade on click.
+
+**Review:** `?slow=4` slows every transition 4×. `.` opens the demo panel.
+
+<MotionTable />

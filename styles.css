@@ -79,6 +79,9 @@ h2 { font-weight: 500; font-size: 44px; line-height: 1.1; letter-spacing: -.5px;
 h3 { font-weight: 500; }
 
 :where(a, button, [tabindex]):focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 3px; }
+/* on dark and photo sections the ring turns white */
+:where(.hero, .cases, .band, .stages-panel, .snap-stage) :where(a, button, [tabindex]):focus-visible { outline-color: var(--color-text-light); }
+:where(.hero, .cases, .band, .stages-panel, .snap-stage) :where(.stage, .insights) :where(a, button, [tabindex]):focus-visible { outline-color: var(--color-focus-ring); }
 
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
 
@@ -1066,6 +1069,31 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
 .shot *, .shot *::before, .shot *::after { transition: none !important; animation: none !important; }
 .shot .marquee-track { transform: none; }
 .shot [data-reveal], .shot [data-split] .wi, .shot .hero-lead, .shot .hero-ctas, .shot .hero-rest .line-in { opacity: 1 !important; transform: none !important; }
+
+/* ==========================================================================
+   Site / DS switch (review tool, bottom-left)
+   ========================================================================== */
+.ds-switch {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 89;
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(10, 23, 28, .86);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+  font: 600 12px/1 var(--font-ui);
+  letter-spacing: .02em;
+}
+.ds-switch a { padding: 6px 11px; border-radius: 999px; color: rgba(232, 240, 255, .7); transition: background-color .2s var(--motion-easing-standard), color .2s var(--motion-easing-standard); }
+.ds-switch a:hover { color: var(--color-text-light); }
+.ds-switch a[aria-current="page"] { background: var(--color-bg-light); color: var(--color-text-primary); }
+.ds-switch a:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+.shot .ds-switch { display: none; }
 
 /* ==========================================================================
    Demo panel

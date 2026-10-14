@@ -4,8 +4,12 @@
 (() => {
   'use strict';
 
-  const $ = (s, r = document) => r.querySelector(s);
-  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const $ = (s, r = document) => (r ? r.querySelector(s) : null);
+  const $$ = (s, r = document) => (r ? [...r.querySelectorAll(s)] : []);
+  // $o: like $, but returns a detached stub when the element is missing, so a page (or a Storybook story)
+  // that only contains some of the blocks still boots: modules without their markup become no-ops
+  const $o = (s, r) => $(s, r) || document.createElement('div');
+  const present = (el) => !!el && el.isConnected;
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const root = document.documentElement;
   const params = new URLSearchParams(location.search);
@@ -22,7 +26,7 @@
   /* ======================================================================
      Top navigation: mega menu (hover intent, click, keyboard) + mobile drawer
      ====================================================================== */
-  const topnav = $('[data-topnav]');
+  const topnav = $o('[data-topnav]');
   const triggers = $$('.nav-trigger', topnav);
   const panels = Object.fromEntries($$('.mm-panel', topnav).map((p) => [p.dataset.panel, p]));
   const menuOrder = triggers.map((t) => t.dataset.menu);
@@ -67,7 +71,7 @@
       });
     });
     $$('.logo, .head-cta, .nav-link', topnav).forEach((el) => el.addEventListener('pointerenter', () => openMenu && closeSoon(160)));
-    $('.mm-stage', topnav).addEventListener('pointerenter', () => clearTimeout(closeTimer));
+    $o('.mm-stage', topnav).addEventListener('pointerenter', () => clearTimeout(closeTimer));
     topnav.addEventListener('pointerleave', () => closeSoon());
   }
   triggers.forEach((t) => {
@@ -93,8 +97,8 @@
   addEventListener('scroll', () => { if (openMenu && Math.abs(scrollY - menuScrollY) > 60) setMenu(null); }, { passive: true });
 
   /* mobile drawer */
-  const burger = $('[data-burger]');
-  const drawer = $('[data-drawer]');
+  const burger = $o('[data-burger]');
+  const drawer = $o('[data-drawer]');
   function setDrawer(open) {
     burger.setAttribute('aria-expanded', String(open));
     burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
@@ -109,15 +113,15 @@
      Site search: index built from the menus and the page, grouped results,
      combobox keyboard model, results jump to the matching place on the page
      ====================================================================== */
-  const sp = $('[data-search]');
-  const spInput = $('#sp-input');
-  const spList = $('#sp-list');
-  const spPopular = $('[data-sp-popular]');
-  const spNote = $('[data-sp-note]');
-  const spNone = $('[data-sp-none]');
-  const spCount = $('#sp-count');
-  const spClear = $('.sp-clear');
-  const spBackdrop = $('[data-search-backdrop]');
+  const sp = $o('[data-search]');
+  const spInput = $o('#sp-input');
+  const spList = $o('#sp-list');
+  const spPopular = $o('[data-sp-popular]');
+  const spNote = $o('[data-sp-note]');
+  const spNone = $o('[data-sp-none]');
+  const spCount = $o('#sp-count');
+  const spClear = $o('.sp-clear');
+  const spBackdrop = $o('[data-search-backdrop]');
   const spOpeners = $$('[data-search-open]');
   const IDX = [];
   let spOpen = false;
@@ -325,7 +329,7 @@
     });
     spList.innerHTML = html;
     spNone.hidden = !(nq && !spShown.length);
-    if (!spNone.hidden) $('[data-sp-q]', spNone).textContent = `“${q.trim()}”`;
+    if (!spNone.hidden) $o('[data-sp-q]', spNone).textContent = `“${q.trim()}”`;
     const n = nq ? results.length : 0;
     spCount.textContent = nq ? (n ? `${n} result${n === 1 ? '' : 's'}` : 'No results') : '';
     setActive(nq && spShown.length ? 0 : -1);
@@ -342,6 +346,7 @@
   }
 
   function openSearch(opener, q = '') {
+    if (!present(sp)) return;
     if (spOpen) { spInput.focus(); return; }
     spOpen = true;
     spOpener = opener || document.activeElement;
@@ -421,9 +426,9 @@
   spList.addEventListener('mousemove', (e) => { const o = e.target.closest('.sp-opt'); if (o && +o.dataset.k !== spActive) setActive(+o.dataset.k); });
   spList.addEventListener('click', (e) => { const o = e.target.closest('.sp-opt'); if (o) choose(+o.dataset.k); });
   spClear.addEventListener('click', () => { spInput.value = ''; renderSearch(); spInput.focus(); });
-  $('.sp-close', sp).addEventListener('click', () => closeSearch());
+  $o('.sp-close', sp).addEventListener('click', () => closeSearch());
   $$('.sp-chip', sp).forEach((c) => c.addEventListener('click', () => { spInput.value = c.textContent; renderSearch(); spInput.focus(); }));
-  $('[data-sp-contact]', sp).addEventListener('click', (e) => { e.preventDefault(); closeSearch(false); jumpTo({ sel: '#contact', flash: false }); });
+  $o('[data-sp-contact]', sp).addEventListener('click', (e) => { e.preventDefault(); closeSearch(false); jumpTo({ sel: '#contact', flash: false }); });
   spBackdrop.addEventListener('click', () => closeSearch());
   document.addEventListener('pointerdown', (e) => { if (spOpen && !e.target.closest('[data-search], [data-search-open]')) closeSearch(false); });
   sp.addEventListener('focusout', (e) => { if (spOpen && e.relatedTarget && !sp.contains(e.relatedTarget) && !spOpeners.includes(e.relatedTarget)) closeSearch(false); });
@@ -437,9 +442,9 @@
   /* ======================================================================
      Hero scenes: a 6x4 tile grid, every tile shows its slice of a scene
      ====================================================================== */
-  const hero = $('#hero');
-  const grid = $('[data-hero-grid]');
-  const wordEl = $('[data-hero-word]');
+  const hero = $o('#hero');
+  const grid = $o('[data-hero-grid]');
+  const wordEl = $o('[data-hero-word]');
 
   const SCENES = [
     { id: 'hire',    word: 'Hire',    src: 'assets/hero/scenes/hire.webp' },
@@ -591,6 +596,7 @@
   }
 
   async function initHero() {
+    if (!present(hero)) return;
     fitHero();
     buildGrid();
     const first = SCENES[START];
@@ -957,6 +963,10 @@
     setInterval(syncDemo, 800);
     syncDemo();
   }
+
+  /* Site / DS switch: ?ds=<url> points it at another Storybook host */
+  const dsLink = $('[data-ds-link]');
+  if (dsLink && params.get('ds')) dsLink.href = params.get('ds');
 
   // review modes that open UI on load run last, once every module is initialised
   if (params.get('menu') in panels) setMenu(params.get('menu'));

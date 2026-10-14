@@ -2,11 +2,20 @@
 
 HTML-прототип всей страницы из Figma: [1595 – Start Stream, page 8](https://www.figma.com/design/Dvi1gBhoXvurjb74BzXcKg/1595---Start-Stream?node-id=1140-9359):
 `homepage` (1195:12173), `navigation` (1195:17678, 4 мега-меню), `how_it_works hover states` (1195:12266).
-Без сборки и зависимостей: `index.html` + `styles.css` + `stages.css` + `app.js` + `stages.js`.
+Сам сайт без сборки и зависимостей: `index.html` + `tokens.css` + `styles.css` + `stages.css` + `app.js` + `stages.js`.
+Рядом – дизайн-система в Storybook (отдельный localhost, нужен `npm install` один раз).
 
 ```bash
 python3 -m http.server 4965 --bind 127.0.0.1 --directory /Users/pc-38/Claude/foley-landing
 ```
+
+```bash
+npm run storybook
+```
+
+- сайт: http://127.0.0.1:4965/
+- DS (Storybook): http://127.0.0.1:4967/
+- в левом нижнем углу обоих – переключатель **Site / DS** (на сайте скрыт в `?shot`; адрес DS можно переопределить `?ds=<url>`)
 
 Только локально, без remote (как остальные Foley-прототипы). Предыдущая версия (макет `homepage_10.7`) – git tag `v1-homepage-10.7`.
 
@@ -78,12 +87,38 @@ Headless Chrome 1440 (`?shot`) против `get_screenshot` фреймов. В�
 - **Мобильная навигация** в макете не нарисована – сделал drawer с аккордеонами
 - Em dash в текстах заменён на «–»; ссылки – заглушки (`#...`)
 
+## Дизайн-система (Storybook + MD)
+
+Источник правды: текущий Figma (Page 8) + то, что реализовано на сайте. Состояния, которых нет в макете (hover, focus, поиск, drawer, motion), включены и помечены как site-only.
+
+| Что | Где |
+|---|---|
+| Токены (W3C DTCG JSON) | `tokens/foley.tokens.json` – единственный источник; site-only токены помечены `$extensions.foley.source: "site"` |
+| CSS-переменные | `tokens.css` – генерируется `npm run tokens` (`scripts/build-tokens.mjs`), руками не править; `styles.css` ссылается только на них |
+| Storybook | `.storybook/` (html-vite 10.6, addon-docs + a11y + pseudo-states), истории в `ds/` |
+| MD-документ | `DESIGN-SYSTEM.md` (EN), он же страница «Design System (MD)» в Storybook |
+
+Как устроены истории: разметка берётся **из `index.html`** (виртуальный модуль `virtual:foley-site`), стили – те же `tokens.css` / `styles.css` / `stages.css`. Правка на сайте сразу видна в DS, рассинхрона нет.
+- **Static** истории – клон фрагмента страницы в нужном состоянии (pseudo-states для hover / focus)
+- **Live** истории – подключают настоящие `app.js` / `stages.js` (мега-меню, поиск, drawer, hero, карусель, how it works); при переходе между live-историями iframe перезагружается
+- Разделы: Introduction, Foundations (Colors, Typography, Layout, Iconography, Motion, Imagery, Accessibility), Components (17), Pages / Homepage, Design System (MD)
+
+Проверка: `ref/tools/sbcheck.mjs` открывает все истории и docs-страницы (84) и ловит ошибки рендера.
+
+Сборка статикой: `npm run build-storybook` → `storybook-static/` (в .gitignore).
+
+## Мега-меню: заголовки колонок
+
+Заголовок колонки + описание (Hiring and Onboarding, Compliance, …) – одна ссылка `a.mm-head` во всех 4 меню (11 штук). Hover / focus: заголовок подчёркивается слева направо, справа въезжает стрелка. Заголовки колонок тоже попадают в поиск.
+
 ## Файлы
 
-- `index.html` – разметка: шапка + мега-меню + drawer, секции, футер
-- `styles.css` – токены (Figma variables), кнопки, шапка/меню, hero, секции, адаптив (1279 / 1139 / 959), reduced motion, demo panel
+- `index.html` – разметка: шапка + мега-меню + drawer + поиск, секции, футер, переключатель Site / DS
+- `tokens/foley.tokens.json` → `tokens.css` – дизайн-токены (см. выше)
+- `styles.css` – алиасы на токены, кнопки, шапка/меню, hero, секции, адаптив (1279 / 1139 / 959), reduced motion, demo panel
 - `stages.css`, `stages.js` – how it works (state machine, морф CTA, `FoleyStages.hint()`, `?shot=all`)
-- `app.js` – мега-меню, drawer, hero-сцены, reveals, scroll engine, snapshot, карусель, demo panel
+- `app.js` – мега-меню, drawer, поиск, hero-сцены, reveals, scroll engine, snapshot, карусель, demo panel (переживает отсутствие любого блока – нужно для изолированных историй)
+- `.storybook/`, `ds/`, `DESIGN-SYSTEM.md`, `package.json` – дизайн-система
 - `assets/v2/` – ассеты нового макета (иконки 24px, логотипы SVG, фото, промо мега-меню, бейджи, соцсети)
 - `ref/` (в .gitignore) – референсы Figma, сравнения, `ref/tools/` – CDP-скрипты сверки (`capture.mjs`, `diff2.py`, `panel.mjs`, `menu.mjs`, `menu-motion.mjs`)
 
@@ -111,3 +146,7 @@ Headless Chrome 1440 (`?shot`) против `get_screenshot` фреймов. В�
 Блок What to do next: hover у карточек убран полностью.
 Добавлен рабочий поиск по сайту (индекс из мега-меню и секций страницы, отдельных страниц в прототипе нет – результаты ведут к ближайшему месту на главной).
 Сцены Hire и Monitor заменены по референсам (бесплатные фото без водяных знаков); вторая кнопка баннера стала обводочной.
+
+## Дизайн-система (2026-10-14)
+
+Storybook на :4967 + `DESIGN-SYSTEM.md`, токены вынесены в DTCG JSON (сайт после рефакторинга совпадает пиксель в пиксель). Заголовки колонок мега-меню стали ссылками со стрелкой. Найдено по пути: невидимое фокус-кольцо на тёмных секциях (теперь белое), падение режима `?menu=` (исправлено ранее).

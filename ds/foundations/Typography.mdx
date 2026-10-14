@@ -1,0 +1,17 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { TypeTable } from '../lib/docs.js';
+
+<Meta title="Foundations/Typography" />
+
+# Typography
+
+One family: **Inter Display** for everything (Figma). Where it is not installed, the fallback is Inter from Google Fonts with `font-variation-settings: "opsz" 32`, the same drawing (Inter Display *is* Inter at optical size 32). Product illustrations inside cards use Inter at opsz 14.
+
+Each Figma text style has a token (`--type-h2`, a `font` shorthand) plus a tracking token (`--type-h2-tracking`) and a helper class (`.type-h2`).
+
+**Notes**
+- Figma stores some letter-spacing as percentages. They are converted to px here: display −3% = −3.48px, h1 −2% = −1.2px, body/body_m −0.5% = −0.09px, overline +2% = 0.32px.
+- Paragraphs use `text-wrap-style: pretty`, like Figma's line breaking: no single-word last lines.
+- No ALL CAPS headings. Uppercase is only for `overline`.
+
+<TypeTable />
