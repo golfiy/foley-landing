@@ -89,16 +89,20 @@ Headless Chrome 1440 (`?shot`) против `get_screenshot` фреймов. В�
 
 Шрифт: локальный **Inter Display**, фолбэк – Google Fonts Inter с `opsz 32`.
 
-## Фото (Unsplash License) – сцены Hire и Monitor
+## Фото сцен Hire и Monitor (бесплатные лицензии Unsplash / Pexels, атрибуция не обязательна)
 
-| Сцена | Кадр | Автор | Источник |
-|---|---|---|---|
-| Hire | transportation | [Josiah Farrow](https://unsplash.com/@josiahfarrow) | https://unsplash.com/photos/ucuOscdCaO4 |
-| Hire | construction | [Brian J. Tromp](https://unsplash.com/@brianjtromp) | https://unsplash.com/photos/5eiOsDJnlE4 |
-| Hire | manufacturing | [Spencer Davis](https://unsplash.com/@spencerdavis) | https://unsplash.com/photos/a_4tgP1t6Y0 |
-| Monitor | utilities | [American Public Power Association](https://unsplash.com/@publicpowerorg) | https://unsplash.com/photos/fHLdXfURDhA |
-| Monitor | retail | [KAZEM HUSSEIN](https://unsplash.com/@kazem_hu) | https://unsplash.com/photos/Kq1ERpkH0eQ |
-| Monitor | recycling | [James Day](https://unsplash.com/@jamesday) | https://unsplash.com/photos/ECyvZuZeLGc |
+Подобраны по референсам со скринов (там стоковые iStock / Getty с водяными знаками; оригиналы без знаков только по платной лицензии), ближайшие по сюжету и ракурсу. Сцена Onboard – из макета, не менялась; верхний блок Monitor – та же скорая из макета.
+
+| Сцена | Блок | Кадр | Автор | Источник |
+|---|---|---|---|---|
+| Hire | верх | экскаватор на закате | Pexels | https://www.pexels.com/photo/yellow-excavator-at-sunset-on-construction-site-31762068/ |
+| Hire | справа | скорая FDNY сзади | Rafael Hoyos Weht | https://unsplash.com/photos/V5Vxh7sKH4A |
+| Hire | низ | синий тягач с белым прицепом | Bailey Alexander | https://unsplash.com/photos/CuCnnDyvFSM |
+| Monitor | верх | скорая (из макета Figma) | – | Figma, сцена Onboard |
+| Monitor | справа | фронтальный погрузчик | Zac Edmonds | https://unsplash.com/photos/N1LBcqLP9ec |
+| Monitor | низ | ряд школьных автобусов | Megan Lee | https://unsplash.com/photos/5UJl_gRfLH4 |
+
+Пересборка сцен: `ref/tools/build_scenes.py` (исходники в `ref/v2/photo-dl/`, кадрирование задаётся там же).
 
 ## Правки по ревью (2026-10-14)
 
@@ -106,3 +110,4 @@ Headless Chrome 1440 (`?shot`) против `get_screenshot` фреймов. В�
 Добавлено: у логотипов убран hover (затемнение, приглушение соседей, пауза ленты); в строках Teams на hover двигается только стрелка.
 Блок What to do next: hover у карточек убран полностью.
 Добавлен рабочий поиск по сайту (индекс из мега-меню и секций страницы, отдельных страниц в прототипе нет – результаты ведут к ближайшему месту на главной).
+Сцены Hire и Monitor заменены по референсам (бесплатные фото без водяных знаков); вторая кнопка баннера стала обводочной.
