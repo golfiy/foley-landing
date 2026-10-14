@@ -91,7 +91,6 @@
   topnav.addEventListener('focusout', (e) => { if (openMenu && e.relatedTarget && !topnav.contains(e.relatedTarget)) setMenu(null); });
   topnav.addEventListener('click', (e) => { if (e.target.closest('.megamenu a')) setMenu(null); });
   addEventListener('scroll', () => { if (openMenu && Math.abs(scrollY - menuScrollY) > 60) setMenu(null); }, { passive: true });
-  if (params.get('menu') in panels) setMenu(params.get('menu'));
 
   /* mobile drawer */
   const burger = $('[data-burger]');
@@ -181,6 +180,11 @@
       const group = panel.getAttribute('aria-label');
       $$('.mm-col', panel).forEach((col) => {
         const colT = $('.mm-title', col).textContent.trim();
+        const colGo = group === 'Products' ? { stage: stageFor(colT, colT) }
+          : group === 'Solutions' ? { sel: '#teams', flash: false }
+          : group === 'Resources' ? { sel: '#resources', flash: false }
+          : /why foley/i.test(colT) ? { sel: '#results', flash: false } : { sel: '.footer', flash: false };
+        addItem(colT, group, group, colGo, $('.mm-desc', col).textContent);
         $$('.mm-links a', col).forEach((a) => {
           const label = a.textContent.trim();
           let go = { sel: '#platform', flash: false };
@@ -954,6 +958,8 @@
     syncDemo();
   }
 
+  // review modes that open UI on load run last, once every module is initialised
+  if (params.get('menu') in panels) setMenu(params.get('menu'));
   if (params.has('search')) setTimeout(() => openSearch(spOpeners[0], params.get('search') || ''), 50);
 
   /* ?shot mirrors the Figma frame: first team row is shown hovered */

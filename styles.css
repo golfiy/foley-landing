@@ -296,8 +296,33 @@ h3 { font-weight: 500; }
 .topnav:not(.is-switching) .mm-panel.is-active { transition: none; }
 .mm-cols { display: flex; height: 400px; }
 .mm-col { flex: 1 1 0; min-width: 0; padding: 32px 16px 32px 32px; border-right: 1px solid var(--color-stroke-secondary); }
-.mm-title { font-weight: 500; font-size: 18px; line-height: 1.2; letter-spacing: -.5px; color: var(--color-text-primary); }
-.mm-desc { min-height: 34px; margin-top: 8px; font-weight: 400; font-size: 14px; line-height: 1.2; color: var(--color-text-tertiary); }   /* intro block is a fixed 64px in Figma */
+/* column head: title + description are one link (category page); the arrow slides in on hover / focus */
+.mm-head { display: block; width: fit-content; max-width: 100%; }
+.mm-title {
+  position: relative;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -.5px;
+  color: var(--color-text-primary);
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: color .25s var(--motion-easing-standard), background-size .45s var(--motion-easing-out);
+}
+.mm-head-arrow {
+  position: absolute;       /* outside the text flow: long titles never re-wrap when the arrow shows */
+  left: calc(100% + 6px);
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity .2s var(--motion-easing-standard), transform .45s var(--motion-easing-out);
+}
+.mm-head:hover .mm-title, .mm-head:focus-visible .mm-title { color: var(--color-text-secondary); background-size: 100% 1px; }
+.mm-head:hover .mm-head-arrow, .mm-head:focus-visible .mm-head-arrow { opacity: 1; transform: none; }
+.mm-desc { display: block; min-height: 34px; margin-top: 8px; font-weight: 400; font-size: 14px; line-height: 1.2; color: var(--color-text-tertiary); }   /* intro block is a fixed 64px in Figma */
 .mm-links { margin-top: 24px; display: flex; flex-direction: column; gap: 16px; }
 .mm-links a {
   display: inline-block;
