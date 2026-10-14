@@ -12,11 +12,12 @@ const src = (t) => t.$extensions?.foley?.source || t.$extensions?.foley?.figmaSt
 const isSite = (t) => src(t) === 'site';
 
 const S = {
-  table: { width: '100%', borderCollapse: 'collapse', font: '400 14px/1.4 var(--ds-font)', margin: '16px 0 32px' },
-  th: { textAlign: 'left', padding: '8px 12px', borderBottom: '1px solid var(--color-stroke-primary)', color: 'var(--color-text-tertiary)', fontWeight: 500, fontSize: 12, letterSpacing: '.04em', textTransform: 'uppercase' },
-  td: { padding: '10px 12px', borderBottom: '1px solid var(--color-stroke-secondary)', verticalAlign: 'middle' },
+  table: { width: '100%', borderCollapse: 'collapse', font: '400 14px/20px var(--ds-font)', margin: '24px 0 40px' },
+  th: { textAlign: 'left', padding: '16px', borderBottom: '1px solid var(--color-stroke-primary)', color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 14 },
+  td: { padding: '16px', borderBottom: '1px solid var(--color-stroke-primary)', verticalAlign: 'middle' },
   code: { font: '500 12.5px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace', color: 'var(--color-text-secondary)' },
-  tag: (site) => ({ display: 'inline-block', padding: '2px 6px', font: '600 11px/1.3 var(--ds-font)', borderRadius: 4, background: site ? '#FFF4E5' : '#EAF1FC', color: site ? '#9A4D00' : '#294C5A' }),
+  // Figma value: filled chip; site addition: outlined chip (tokens only, square like the rest)
+  tag: (site) => ({ display: 'inline-block', padding: '3px 8px', font: '400 12px/16px var(--ds-font)', letterSpacing: '.32px', background: site ? 'transparent' : 'var(--color-bg-light-hover)', boxShadow: site ? 'inset 0 0 0 1px var(--color-stroke-primary)' : 'none', color: 'var(--color-text-secondary)' }),
 };
 const Tag = ({ t }) => h('span', { style: S.tag(isSite(t)) }, isSite(t) ? 'site addition' : src(t).replace(/^figma: /, 'Figma '));
 const Code = ({ children }) => h('code', { style: S.code }, children);

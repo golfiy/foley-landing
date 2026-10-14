@@ -1,25 +1,94 @@
 <style>
-  /* Storybook chrome font: Inter Display, one weight step lighter (see theme.js) */
-  @font-face { font-family: "Foley SB"; font-weight: 100 449; src: local("Inter Display Light"), local("InterDisplay-Light"); }
-  @font-face { font-family: "Foley SB"; font-weight: 450 549; src: local("Inter Display Regular"), local("InterDisplay-Regular"); }
-  @font-face { font-family: "Foley SB"; font-weight: 550 1000; src: local("Inter Display Medium"), local("InterDisplay-Medium"); }
-  body { font-family: "Foley SB", "Inter Display", Inter, system-ui, sans-serif; }
+  /*
+   * Storybook chrome in the IBM Design Language layout (ibm.com/design/language):
+   * dark top bar, white side nav with 32px rows, 4px bar on the current item, dividers
+   * between groups, square corners. Values are Foley tokens only (see theme.js).
+   */
+  :root {
+    --sb-ink: #111117;          /* color/text/primary */
+    --sb-muted: #70707D;        /* color/text/tertiary */
+    --sb-inverse: #0A171C;      /* color/bg/inverse */
+    --sb-accent: #294C5A;       /* color/bg/primary */
+    --sb-hover: #F1F3FA;        /* color/bg/tertiary-hover */
+    --sb-current: #E9ECF4;      /* color/bg/light-hover */
+    --sb-field: #EEEEF2;        /* color/bg/secondary */
+    --sb-line: #E1EAFA;         /* color/stroke/secondary */
+    --sb-line-strong: #C1CFE6;  /* color/stroke/primary */
+  }
+  body { font-family: "Inter Display", Inter, system-ui, sans-serif; }
+
+  /* top bar: brand band over the side nav, same height and colour as the toolbar */
+  #storybook-sidebar-region .sidebar-header {
+    margin: -16px -12px 0; padding: 0 8px 0 16px; height: 40px; min-height: 40px; box-sizing: border-box;
+    background: var(--sb-inverse); border-bottom: 1px solid rgba(255, 255, 255, .12);
+  }
+  #storybook-sidebar-region .sidebar-header a { color: #fff; font-size: 14px; font-weight: 400; letter-spacing: 0; }
+  #storybook-sidebar-region .sidebar-header a b { margin-left: .28em; font-weight: 600; }
+  #storybook-sidebar-region .sidebar-header button { color: rgba(255, 255, 255, .72); border-radius: 0; }
+  #storybook-sidebar-region .sidebar-header button:hover { color: #fff; background: rgba(255, 255, 255, .12); }
+
+  /* search: flat field with a bottom rule */
+  #storybook-sidebar-region .search-field { border-radius: 0; background: var(--sb-field); box-shadow: inset 0 -1px 0 var(--sb-line-strong); }
+  #storybook-sidebar-region .search-field input { font-size: 14px; }
+
+  /* side nav rows: 32px, 14px regular; top level in ink, nested pages muted and 16px deeper */
+  #storybook-explorer-tree .sidebar-item { min-height: 32px; border-radius: 0; color: var(--sb-ink); font-size: 14px; font-weight: 400; }
+  #storybook-explorer-tree .sidebar-item[data-parent-id*="-"] { color: var(--sb-muted); }
+  #storybook-explorer-tree .sidebar-item > a,
+  #storybook-explorer-tree .sidebar-item > button:first-child { min-height: 32px; display: flex; align-items: center; padding-top: 0; padding-bottom: 0; font-size: 14px; font-weight: 400; color: inherit; border-radius: 0; }
+  #storybook-explorer-tree .sidebar-item:not([data-parent-id*="-"]) > a { padding-left: 16px; }
+  #storybook-explorer-tree .sidebar-item[data-parent-id*="-"] > a { padding-left: 32px; }
+  #storybook-explorer-tree .sidebar-item:hover { background: var(--sb-hover); color: var(--sb-ink); }
+  /* current page: grey fill + 4px bar, like the IBM side nav */
+  #storybook-explorer-tree .sidebar-item[data-selected="true"] { background: var(--sb-current); color: var(--sb-ink); box-shadow: inset 4px 0 0 var(--sb-accent); }
+  #storybook-explorer-tree .sidebar-item[data-selected="true"] > a,
+  #storybook-explorer-tree .sidebar-item[data-selected="true"] > button:first-child { color: var(--sb-ink); font-weight: 500; }
+  #storybook-explorer-tree .sidebar-item[data-selected="true"] svg { color: var(--sb-ink); }
+  /* no type icons in the nav (IBM nav is text only); chevrons stay */
+  #storybook-explorer-tree .sidebar-item svg[type] { display: none; }
+  #storybook-explorer-tree .sidebar-item svg { color: var(--sb-muted); }
+  /* row actions only on hover / focus */
+  #storybook-explorer-tree .sidebar-item:not(:hover):not(:focus-within) [data-testid="context-menu"] { opacity: 0; }
+
+  /* groups: sentence-case headings with a divider, instead of small caps */
+  #storybook-explorer-tree .sidebar-subheading { min-height: 32px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--sb-line); }
+  #storybook-explorer-tree .sidebar-subheading button { text-transform: none; letter-spacing: 0; font-size: 14px; font-weight: 500; color: var(--sb-ink); border-radius: 0; }
+  #storybook-explorer-tree .sidebar-subheading svg { color: var(--sb-muted); }
+
+  /* keep the last items clear of the docked switch */
+  #storybook-explorer-tree { padding-bottom: 72px; }
+
+  /* toolbar sits on the dark bar: light icons and labels, same hairline as the brand band */
+  #root .sb-bar { box-shadow: inset 0 -1px 0 rgba(255, 255, 255, .12); }
+  /* side nav edge: dark next to the bar, light below it, so the top band reads as one */
+  #root div:has(> #storybook-sidebar-region) {
+    border-right-color: transparent;
+    background: linear-gradient(var(--sb-inverse), var(--sb-inverse)) right top / 1px 40px no-repeat border-box,
+                linear-gradient(var(--sb-line), var(--sb-line)) right 40px / 1px 100% no-repeat border-box;
+  }
+  #root .sb-bar button { color: rgba(255, 255, 255, .72); border-radius: 0; }
+  #root .sb-bar button:hover { color: #fff; background: rgba(255, 255, 255, .12); }
+
+  /* addon panel: white tab bar with a 1px rule, current tab underlined in the accent */
+  #storybook-panel-root > div:first-child { background: #fff; box-shadow: inset 0 -1px 0 var(--sb-line); }
+  #storybook-panel-root > div:first-child button { color: var(--sb-muted); border-radius: 0; }
+  #storybook-panel-root [role="tab"] { color: var(--sb-muted); font-size: 14px; font-weight: 400; }
+  #storybook-panel-root [role="tab"]:hover { color: var(--sb-ink); }
+  #storybook-panel-root [role="tab"][aria-selected="true"] { color: var(--sb-ink); border-bottom-color: var(--sb-accent); }
+
+  /* Site / DS switch, docked as a footer strip of the side nav */
   .foley-ds-dock {
     position: fixed; left: 0; bottom: 0; z-index: 9999; box-sizing: border-box;
     padding: 0 0 16px 16px; pointer-events: none;
   }
-  .foley-ds-dock.is-docked { padding: 12px 16px; background: #F8F9FC; border-top: 1px solid #E1EAFA; border-right: 1px solid #E1EAFA; }
+  .foley-ds-dock.is-docked { padding: 12px 16px; background: #fff; border-top: 1px solid var(--sb-line); border-right: 1px solid var(--sb-line); }
   .foley-ds-switch {
-    pointer-events: auto;
-    display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px;
-    background: rgba(10, 23, 28, .86); box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
-    font: 500 12px/1 "Inter Display", Inter, system-ui, sans-serif; letter-spacing: .02em;
+    pointer-events: auto; display: inline-flex;
+    border: 1px solid var(--sb-ink); background: #fff;
+    font: 400 14px/1 "Inter Display", Inter, system-ui, sans-serif;
   }
-  .is-docked .foley-ds-switch { box-shadow: none; }
-  .foley-ds-switch a { padding: 6px 11px; border-radius: 999px; color: rgba(232, 240, 255, .7); text-decoration: none; }
-  .foley-ds-switch a:hover { color: #fff; }
-  .foley-ds-switch a[aria-current="page"] { background: #fff; color: #111117; }
-  .foley-ds-switch a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-  /* keep the last sidebar items clear of the switch */
-  #storybook-explorer-tree { padding-bottom: 64px; }
+  .foley-ds-switch a { padding: 8px 16px; color: var(--sb-ink); text-decoration: none; }
+  .foley-ds-switch a:hover { background: var(--sb-hover); }
+  .foley-ds-switch a[aria-current="page"] { background: var(--sb-ink); color: #fff; }
+  .foley-ds-switch a:focus-visible { outline: 2px solid var(--sb-accent); outline-offset: 2px; }
 </style>

@@ -1,10 +1,46 @@
-/* Storybook chrome font: Inter Display, one weight step lighter (see theme.js) */
-@font-face { font-family: "Foley SB"; font-weight: 100 449; src: local("Inter Display Light"), local("InterDisplay-Light"); }
-@font-face { font-family: "Foley SB"; font-weight: 450 549; src: local("Inter Display Regular"), local("InterDisplay-Regular"); }
-@font-face { font-family: "Foley SB"; font-weight: 550 1000; src: local("Inter Display Medium"), local("InterDisplay-Medium"); }
-:root { --ds-font: "Foley SB", "Inter Display", Inter, system-ui, sans-serif; }
+/* Storybook chrome font: Inter Display, regular weights */
+:root { --ds-font: "Inter Display", Inter, system-ui, sans-serif; }
 /* component previews inside docs pages keep the site's base font, not the docs one */
 .docs-story { font-family: var(--font-display); font-weight: 400; font-variation-settings: "opsz" 32; color: var(--color-text-primary); }
+
+/*
+ * Docs pages in the IBM Design Language page structure (ibm.com/design/language):
+ * dark title band, grey page, 704px text measure, flat white blocks, ruled tables.
+ * Every value is a Foley token. `:not(.docs-story *)` keeps component previews untouched.
+ */
+.sbdocs.sbdocs-wrapper { padding: 0 64px 96px; justify-content: flex-start; background: var(--color-bg-secondary); min-height: 100vh; box-sizing: border-box; overflow-x: clip; font-family: var(--ds-font); }
+.sbdocs.sbdocs-content { max-width: 1072px; margin: 0; }
+.sbdocs-content h1:not(.docs-story *),
+.sbdocs-content > .sbdocs-title {
+  box-sizing: border-box; width: 100vw; max-width: none; margin: 0 0 56px -64px; padding: 160px 64px 40px;
+  border: 0; background: var(--color-bg-inverse); color: var(--color-text-light);
+  font: var(--type-h1); letter-spacing: var(--type-h1-tracking);
+}
+/* lead paragraph right under the title */
+.sbdocs-content h1:not(.docs-story *) + p,
+.sbdocs-content > .sbdocs-title + div > p:first-child { font: var(--type-subtitle); letter-spacing: var(--type-subtitle-tracking); max-width: 704px; margin: 0 0 32px; }
+.sbdocs-content :is(p, li):not(.docs-story *) { font-family: var(--ds-font); font-size: 16px; line-height: 24px; color: var(--color-text-primary); }
+.sbdocs-content :is(p, ul, ol):not(.docs-story *) { max-width: 704px; }
+.sbdocs-content h2:not(.docs-story *) { margin: 80px 0 24px; padding: 0; border: 0; font: var(--type-h3); letter-spacing: var(--type-h3-tracking); color: var(--color-text-primary); }
+.sbdocs-content h3:not(.docs-story *) { margin: 48px 0 16px; font: var(--type-subtitle); letter-spacing: var(--type-subtitle-tracking); color: var(--color-text-primary); }
+.sbdocs-content h4:not(.docs-story *) { margin: 32px 0 8px; font: var(--type-body-m-medium); color: var(--color-text-primary); }
+.sbdocs-content strong:not(.docs-story *) { font-weight: 500; }
+.sbdocs-content hr:not(.docs-story *) { border: 0; border-top: 1px solid var(--color-stroke-primary); margin: 48px 0; }
+.sbdocs-content hr:not(.docs-story *) + h2 { margin-top: 0; }
+/* inline code: white chip on the grey page, square */
+.sbdocs-content code:not(.docs-story *, pre code) { padding: 2px 6px; border: 0; border-radius: 0; background: var(--color-bg-light); font-size: 13px; color: var(--color-text-secondary); }
+/* markdown tables: no frame, 1px rules, 16px cells */
+.sbdocs-content table:not(.docs-story *, .docblock-argstable) { width: 100%; border-collapse: collapse; margin: 24px 0 40px; font: 400 14px/20px var(--ds-font); }
+.sbdocs-content table:not(.docs-story *, .docblock-argstable) tr { background: none; border: 0; border-bottom: 1px solid var(--color-stroke-primary); }
+.sbdocs-content table:not(.docs-story *, .docblock-argstable) :is(th, td) { padding: 16px; border: 0; background: none; text-align: left; vertical-align: top; }
+.sbdocs-content table:not(.docs-story *, .docblock-argstable) th { font-weight: 500; color: var(--color-text-primary); }
+/* story blocks, source and args tables: flat white tiles; preview toolbar light with a 1px rule */
+.sbdocs.sbdocs-preview, .sbdocs-content .docblock-source { border: 0; border-radius: 0; box-shadow: none; background: var(--color-bg-light); }
+.sbdocs.sbdocs-preview > div:first-child:not(.docs-story) { background: var(--color-bg-light); box-shadow: inset 0 -1px 0 var(--color-stroke-secondary); }
+.sbdocs.sbdocs-preview > div:first-child:not(.docs-story) button { color: var(--color-text-tertiary); border-radius: 0; }
+.sbdocs.sbdocs-preview > div:first-child:not(.docs-story) button:hover { color: var(--color-text-primary); background: var(--color-bg-tertiary-hover); }
+.sbdocs-content .docblock-argstable :is(tbody, tr, th, td) { border-radius: 0 !important; box-shadow: none !important; }
+.sbdocs-content .docblock-argstable { font-family: var(--ds-font); }
 
 /* Storybook canvas helpers (not part of the site) */
 .ds-pad { padding: 40px; }
@@ -13,7 +49,7 @@
 .ds-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
 .ds-stack { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
 .ds-grid { display: grid; gap: 24px; }
-.ds-label { font: 500 12px/1.3 var(--ds-font); letter-spacing: .04em; text-transform: uppercase; color: var(--color-text-tertiary); }
+.ds-label { font: 400 12px/16px var(--ds-font); letter-spacing: .32px; color: var(--color-text-tertiary); }
 .ds-dark .ds-label { color: rgba(255, 255, 255, .6); }
 .ds-state { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
 .ds-w { max-width: 1440px; }
@@ -22,11 +58,13 @@
 .ds-static-menu .megamenu, .ds-static-menu .searchpanel { position: relative; top: 0; }
 
 /* site resets (ul/p/h margins) must not flatten the docs pages */
-.sbdocs-content ul { list-style: disc; padding-left: 24px; }
-.sbdocs-content ol { list-style: decimal; padding-left: 24px; }
-.sbdocs-content li { margin: 4px 0; }
-.sbdocs-content img { display: inline-block; }
-.sbdocs-content table img { display: block; }
+.sbdocs-content ul:not(.docs-story *) { list-style: disc; padding-left: 24px; }
+.sbdocs-content ol:not(.docs-story *) { list-style: decimal; padding-left: 24px; }
+.sbdocs-content li:not(.docs-story *) { margin: 4px 0; }
+.sbdocs-content img:not(.docs-story *) { display: inline-block; }
+.sbdocs-content table img:not(.docs-story *) { display: block; }
+/* the site's own Site / DS switch is page chrome, not a component */
+.ds-switch { display: none; }
 /* easing demo on the Motion page */
 .ds-ease-dot { position: absolute; left: 0; top: 2px; width: 12px; height: 12px; background: var(--color-bg-primary); transition: left 900ms; }
 .ds-ease-row:hover .ds-ease-dot { left: calc(100% - 12px); }
