@@ -49,6 +49,9 @@
   #storybook-explorer-tree .sidebar-item svg { color: var(--sb-muted); }
   /* row actions only on hover / focus */
   #storybook-explorer-tree .sidebar-item:not(:hover):not(:focus-within) [data-testid="context-menu"] { opacity: 0; }
+  /* Storybook paints the row menu button in the accent with a shadow fade (made for its dark selected row) */
+  #storybook-explorer-tree .sidebar-item [data-testid="context-menu"] { background: transparent; box-shadow: none; color: var(--sb-muted); border-radius: 0; }
+  #storybook-explorer-tree .sidebar-item [data-testid="context-menu"]:hover { background: var(--sb-current); color: var(--sb-ink); }
 
   /* groups: sentence-case headings with a divider, instead of small caps */
   #storybook-explorer-tree .sidebar-subheading { min-height: 32px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--sb-line); }
