@@ -1070,27 +1070,7 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
 .shot .marquee-track { transform: none; }
 .shot [data-reveal], .shot [data-split] .wi, .shot .hero-lead, .shot .hero-ctas, .shot .hero-rest .line-in { opacity: 1 !important; transform: none !important; }
 
-/* ==========================================================================
-   Site / DS switch (review tool, bottom-left)
-   ========================================================================== */
-.ds-switch {
-  position: fixed;
-  left: 16px;
-  bottom: 16px;
-  z-index: 89;
-  display: flex;
-  border: 1px solid var(--color-overlay-on-dark-hover);
-  background: rgba(10, 23, 28, .86);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-overlay);
-  font: 400 14px/1 var(--font-display);
-}
-.ds-switch a { padding: 8px 16px; color: rgba(255, 255, 255, .72); transition: background-color .2s var(--motion-easing-standard), color .2s var(--motion-easing-standard); }
-.ds-switch a:hover { color: var(--color-text-light); background: var(--color-overlay-on-dark-hover); }
-.ds-switch a[aria-current="page"] { background: var(--color-bg-light); color: var(--color-text-primary); }
-.ds-switch a:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
-.shot .ds-switch { display: none; }
+/* Site / DS switch: styles and behaviour live in ds-switch.js (shared with Storybook) */
 
 /* ==========================================================================
    Demo panel

@@ -76,19 +76,13 @@
   #storybook-panel-root [role="tab"]:hover { color: var(--sb-ink); }
   #storybook-panel-root [role="tab"][aria-selected="true"] { color: var(--sb-ink); border-bottom-color: var(--sb-accent); }
 
-  /* Site / DS switch, docked as a footer strip of the side nav */
+  /* Site / DS switch dock: footer strip of the side nav */
   .foley-ds-dock {
     position: fixed; left: 0; bottom: 0; z-index: 9999; box-sizing: border-box;
     padding: 0 0 16px 16px; pointer-events: none;
   }
   .foley-ds-dock.is-docked { padding: 12px 16px; background: #fff; border-top: 1px solid var(--sb-line); border-right: 1px solid var(--sb-line); }
-  .foley-ds-switch {
-    pointer-events: auto; display: inline-flex;
-    border: 1px solid var(--sb-ink); background: #fff;
-    font: 400 14px/1 "Inter Display", Inter, system-ui, sans-serif;
-  }
-  .foley-ds-switch a { padding: 8px 16px; color: var(--sb-ink); text-decoration: none; }
-  .foley-ds-switch a:hover { background: var(--sb-hover); }
-  .foley-ds-switch a[aria-current="page"] { background: var(--sb-ink); color: #fff; }
-  .foley-ds-switch a:focus-visible { outline: 2px solid var(--sb-accent); outline-offset: 2px; }
+  /* the switch itself (look + motion) comes from ds-switch.js; here it just sits in the dock */
+  .foley-ds-dock .ds-switch { position: relative; left: auto; bottom: auto; display: inline-grid; pointer-events: auto; }
+  .foley-ds-dock.is-docked .ds-switch { box-shadow: none; }
 </style>

@@ -8,20 +8,21 @@
  * dark title band, grey page, 704px text measure, flat white blocks, ruled tables.
  * Every value is a Foley token. `:not(.docs-story *)` keeps component previews untouched.
  */
-.sbdocs.sbdocs-wrapper { padding: 0 64px 96px; justify-content: flex-start; background: var(--color-bg-secondary); min-height: 100vh; box-sizing: border-box; overflow-x: clip; font-family: var(--ds-font); }
-.sbdocs.sbdocs-content { max-width: 1072px; margin: 0; }
+.sbdocs.sbdocs-wrapper { padding: 0 64px 96px; flex-direction: row; justify-content: flex-start; background: var(--color-bg-secondary); min-height: 100vh; box-sizing: border-box; overflow-x: clip; font-family: var(--ds-font); }
+.sbdocs.sbdocs-content { max-width: 1440px; margin: 0; }
+/* IBM rhythm: text keeps a 704px measure, tables and code 1072px, component previews up to the 1440 design width */
+.sbdocs-content :is(table, .docblock-argstable, .docblock-source):not(.docs-story *) { max-width: 1072px; }
+/* phone-only component: preview at phone width */
+.sbdocs.sbdocs-preview:has(iframe[id*="mobile-drawer"]) { max-width: 390px; }
 .sbdocs-content h1:not(.docs-story *),
 .sbdocs-content > .sbdocs-title {
   box-sizing: border-box; width: 100vw; max-width: none; margin: 0 0 56px -64px; padding: 160px 64px 40px;
   border: 0; background: var(--color-bg-inverse); color: var(--color-text-light);
   font: var(--type-h1); letter-spacing: var(--type-h1-tracking);
 }
-/* lead paragraph right under the title */
-.sbdocs-content h1:not(.docs-story *) + p,
-.sbdocs-content > .sbdocs-title + div > p:first-child { font: var(--type-subtitle); letter-spacing: var(--type-subtitle-tracking); max-width: 704px; margin: 0 0 32px; }
 .sbdocs-content :is(p, li):not(.docs-story *) { font-family: var(--ds-font); font-size: 16px; line-height: 24px; color: var(--color-text-primary); }
 .sbdocs-content :is(p, ul, ol):not(.docs-story *) { max-width: 704px; }
-.sbdocs-content h2:not(.docs-story *) { margin: 80px 0 24px; padding: 0; border: 0; font: var(--type-h3); letter-spacing: var(--type-h3-tracking); color: var(--color-text-primary); }
+.sbdocs-content h2:not(.docs-story *) { margin: 80px 0 24px; padding: 0; border: 0; font: var(--type-h3); letter-spacing: var(--type-h3-tracking); text-transform: none; color: var(--color-text-primary); }
 .sbdocs-content h3:not(.docs-story *) { margin: 48px 0 16px; font: var(--type-subtitle); letter-spacing: var(--type-subtitle-tracking); color: var(--color-text-primary); }
 .sbdocs-content h4:not(.docs-story *) { margin: 32px 0 8px; font: var(--type-body-m-medium); color: var(--color-text-primary); }
 .sbdocs-content strong:not(.docs-story *) { font-weight: 500; }

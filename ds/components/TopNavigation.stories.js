@@ -17,6 +17,8 @@ export default {
 const header = (cls = '') => {
   const h = pick('header.topnav');
   if (cls) h.classList.add(...cls.split(' '));
+  // just the bars: closed menu and search panels are documented in Mega Menu / Search and would only add empty space
+  h.querySelectorAll('.megamenu, .searchpanel').forEach((el) => el.remove());
   return wrap('ds-static-menu', h);
 };
 

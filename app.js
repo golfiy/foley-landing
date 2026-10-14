@@ -341,7 +341,13 @@
     if (k >= 0) {
       spInput.setAttribute('aria-activedescendant', `spo-${k}`);
       const o = $(`#spo-${k}`);
-      if (o) o.scrollIntoView({ block: 'nearest' });
+      // scroll only the results list: scrollIntoView would also scroll the page (and any parent frame)
+      const box = o && o.closest('.sp-body');
+      if (box) {
+        const r = o.getBoundingClientRect(), b = box.getBoundingClientRect();
+        if (r.top < b.top) box.scrollTop -= b.top - r.top;
+        else if (r.bottom > b.bottom) box.scrollTop += r.bottom - b.bottom;
+      }
     } else spInput.removeAttribute('aria-activedescendant');
   }
 
