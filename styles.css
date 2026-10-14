@@ -474,8 +474,8 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
    Hero (component "hero": 1440x627, scaled with zoom below 1440)
    ========================================================================== */
 .hero { position: relative; overflow: hidden; background: #02080d; isolation: isolate; }
-/* wide screens: the dark full-bleed blocks stop at the 1440 canvas and centre (hero, testimonials, banner) */
-.hero, .cases, .band { max-width: var(--layout-canvas); margin-inline: auto; }
+/* wide screens: the hero stops at the 1440 canvas and centres */
+.hero { max-width: var(--layout-canvas); margin-inline: auto; }
 .hero-bg {
   position: absolute;
   inset: -4% 0;
@@ -1071,6 +1071,24 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
 .shot *, .shot *::before, .shot *::after { transition: none !important; animation: none !important; }
 .shot .marquee-track { transform: none; }
 .shot [data-reveal], .shot [data-split] .wi, .shot .hero-lead, .shot .hero-ctas, .shot .hero-rest .line-in { opacity: 1 !important; transform: none !important; }
+
+/* Testimonials and banner sit in the 1280 column as dark cards, 40px inner side padding
+   (Figma 1211:27016 / 1211:27015). Mobile keeps them full-bleed. */
+@media (min-width: 960px) {
+  .cases, .band { width: calc(100% - 2 * var(--gutter)); max-width: var(--layout-content); margin-inline: auto; }
+  .cases { padding: 80px 40px; }
+  .band-in { max-width: none; padding: 80px 40px; }
+  /* photo fills the card like in Figma (it is stretched there too) */
+  .band-photo img { left: 0; width: 100%; object-fit: fill; }
+  /* 482px cards: quotes stop at two lines with an ellipsis, as in Figma */
+  .case blockquote { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; flex: none; }
+}
+@media (min-width: 960px) and (max-width: 1139px) {
+  /* narrower cards: less inner padding, author line may wrap */
+  .cases { padding: 64px 24px; }
+  .band-in { padding: 80px 24px; }
+  .case-by { flex-wrap: wrap; white-space: normal; }
+}
 
 /* Site / DS switch: styles and behaviour live in ds-switch.js (shared with Storybook) */
 

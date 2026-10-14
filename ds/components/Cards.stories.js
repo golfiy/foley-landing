@@ -20,5 +20,5 @@ export const FaqCard = {
 };
 export const TestimonialCard = {
   name: 'Testimonial card',
-  render: () => wrap('ds-pad ds-dark ds-row', pickAll('.case').slice(0, 2).map((c) => { c.style.width = '522px'; c.style.flex = 'none'; return c; })),
+  render: () => wrap('ds-pad ds-dark ds-row', pickAll('.case').slice(0, 2).map((c) => { c.style.width = '482px'; c.style.flex = 'none'; return c; })),
 };

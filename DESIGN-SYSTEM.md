@@ -160,7 +160,7 @@ Inter Display everywhere. Fallback: Inter (Google Fonts) with `font-variation-se
 
 **Breakpoints** (max-width): `1279px` gutters 40 · `1139px` Log in leaves the header · `959px` mobile layout (drawer, stacked blocks, gutters 20).
 
-**Wide screens** (site addition): nothing scales above 1440. The dark full-bleed blocks (hero, testimonials, banner) stop at the 1440 canvas (`--layout-canvas`) and centre; everything else keeps the 1280 column. Every section aligns to the same column edge.
+**Wide screens** (site addition): nothing scales above 1440. The hero stops at the 1440 canvas (`--layout-canvas`) and centres; testimonials and banner are dark cards in the 1280 column (from 960px up, full-bleed on mobile). Every section aligns to the same column edge.
 
 **Rhythm:** section padding 140 (96 mobile) · title block → content 48 (32) · content → CTA 48 (32) · title → subtitle 24 · card padding 32 / 24.
 
@@ -330,10 +330,10 @@ First view: curtain + one automatic pass through the hover states, cancelled by 
 - **Testimonial card** `testimonial_card` (`.case`): 84px logo row + overline, `type/h3` bottom-aligned in 70px, `stroke/primary` rule, `type/subtitle` quote, author `body-m` tertiary, Read case study.
 
 ### Testimonials · `testimonials`
-`--gradient-primary`, two cards visible (522px, 20px gap), round arrows outside (hover `overlay/on-dark-hover`, disabled 30%). Steps one card (800ms), drag / swipe (60px), ←/→. One card per view ≤959.
+`--gradient-primary` card in the 1280 column (padding 80/40), two cards visible (482px, 20px gap, quote clamped to 2 lines), round arrows outside (hover `overlay/on-dark-hover`, disabled 30%). Steps one card (800ms), drag / swipe (60px), ←/→. One card per view ≤959.
 
 ### Banner · `banner`
-688px photo + `--gradient-scrim`, light `title_text` (521px, subtitle 396px), White plain + Outline (52px).
+688px dark card in the 1280 column (copy 40px from its edge), photo fills it as in Figma + `--gradient-scrim`, light `title_text` (521px, subtitle 396px), White plain + Outline (52px).
 
 ### Footer · `footer`
 Top row (3 short columns + CTAs), four stacks of link groups (197px, `type/footnote-medium`, headings `text/tertiary`), brand block (logo, address, phone), BBB + PBSA badges, `stroke/primary` rule, legal row and social icons (24px, 40px gaps).
