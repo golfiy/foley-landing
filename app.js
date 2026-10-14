@@ -900,8 +900,6 @@
     });
 
     let down = false, sx = 0, dx = 0, moved = false, startX0 = 0;
-    // pointer moves in screen px, the track in layout px: divide by the page zoom (wide screens)
-    const pageZoom = () => parseFloat(getComputedStyle(document.documentElement).zoom) || 1;
     cViewport.addEventListener('pointerdown', (e) => {
       if (e.button !== 0 || e.target.closest('a')) return;
       down = true; moved = false; sx = e.clientX; dx = 0;
@@ -910,7 +908,7 @@
     });
     cViewport.addEventListener('pointermove', (e) => {
       if (!down) return;
-      dx = (e.clientX - sx) / pageZoom();
+      dx = e.clientX - sx;
       if (Math.abs(dx) > 6) { moved = true; cViewport.classList.add('is-drag'); cTrack.classList.add('is-dragging'); }
       if (moved) cTrack.style.setProperty('--x', (startX0 + dx) + 'px');
     });

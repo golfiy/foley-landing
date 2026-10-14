@@ -160,7 +160,7 @@ Inter Display everywhere. Fallback: Inter (Google Fonts) with `font-variation-se
 
 **Breakpoints** (max-width): `1279px` gutters 40 · `1139px` Log in leaves the header · `959px` mobile layout (drawer, stacked blocks, gutters 20).
 
-**Wide screens** (site addition): from 1440 to `1920px` the whole page is scaled (`html { zoom }`, width / 1440, max ×1.333), so the Figma composition holds and type grows on big monitors. Above 1920 the scale stops and the page centres: backgrounds stay full-bleed, the hero tile grid continues to the edge and fades, the banner photo is anchored to the column. Every section aligns to the same column edge.
+**Wide screens** (site addition): nothing scales above 1440. The dark full-bleed blocks (hero, testimonials, banner) stop at the 1440 canvas (`--layout-canvas`) and centre; everything else keeps the 1280 column. Every section aligns to the same column edge.
 
 **Rhythm:** section padding 140 (96 mobile) · title block → content 48 (32) · content → CTA 48 (32) · title → subtitle 24 · card padding 32 / 24.
 

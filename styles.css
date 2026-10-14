@@ -40,8 +40,6 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 html, body { margin: 0; }
-/* wide screens: index.html sets --page-zoom = clamp(1, width / 1440, 1.333) */
-html { zoom: var(--page-zoom, 1); }
 
 body {
   min-height: 100vh;
@@ -476,6 +474,8 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
    Hero (component "hero": 1440x627, scaled with zoom below 1440)
    ========================================================================== */
 .hero { position: relative; overflow: hidden; background: #02080d; isolation: isolate; }
+/* wide screens: the dark full-bleed blocks stop at the 1440 canvas and centre (hero, testimonials, banner) */
+.hero, .cases, .band { max-width: var(--layout-canvas); margin-inline: auto; }
 .hero-bg {
   position: absolute;
   inset: -4% 0;
@@ -559,15 +559,6 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
   transform-style: preserve-3d;
 }
 .tile.is-fill { background: var(--color-overlay-tile); }
-/* past the canvas the grid keeps going as faint empty tiles (same 156/157 pitch) and fades out; moves with the grid */
-.hero-grid::after {
-  content: ""; position: absolute; top: 0; left: calc(100% + 1px); width: 1920px; height: 100%; pointer-events: none;
-  background: var(--color-overlay-tile);
-  -webkit-mask: linear-gradient(90deg, #000 156px, transparent 0) 0 0 / 157px 157px, linear-gradient(#000 156px, transparent 0) 0 0 / 157px 157px, linear-gradient(90deg, #000, transparent 640px);
-  -webkit-mask-composite: source-in, source-in;
-  mask: linear-gradient(90deg, #000 156px, transparent 0) 0 0 / 157px 157px, linear-gradient(#000 156px, transparent 0) 0 0 / 157px 157px, linear-gradient(90deg, #000, transparent 640px);
-  mask-composite: intersect;
-}
 .f {
   position: absolute;
   inset: 0;
@@ -862,7 +853,7 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
 
 /* banner */
 .band { position: relative; height: 688px; overflow: hidden; color: var(--color-text-light); background: #0a0f14; }
-.band-photo { position: absolute; inset: 0 0 0 max(0px, calc(50% - 720px)); overflow: hidden; }
+.band-photo { position: absolute; inset: 0; overflow: hidden; }
 /* Figma stretches the photo to fill 1440x688 (squashed ~28% vertically).
    Here it keeps its proportions, right-anchored, and fades into the dark left side */
 .band-photo img {

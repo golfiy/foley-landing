@@ -16,18 +16,6 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="stages.css">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
-  <script>
-    /* wide screens: the page is laid out at 1440 and scaled up to 1920 (x1.333), wider screens centre it */
-    (function () {
-      var root = document.documentElement;
-      function fit() {
-        var w = window.visualViewport ? visualViewport.width : innerWidth;
-        root.style.setProperty('--page-zoom', Math.min(4 / 3, Math.max(1, w / 1440)).toFixed(4));
-      }
-      fit();
-      addEventListener('resize', fit);
-    })();
-  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
