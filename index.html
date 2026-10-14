@@ -22,9 +22,10 @@
   <header class="topnav" id="top" data-topnav>
     <div class="infobar">
       <div class="infobar-in">
-        <button type="button" class="infobar-search" aria-label="Search">
+        <button type="button" class="infobar-search" aria-haspopup="dialog" aria-expanded="false" aria-controls="site-search" data-search-open>
           <img src="assets/v2/ico/search.svg" width="24" height="24" alt="">
           <span>Search</span>
+          <kbd class="infobar-kbd" aria-hidden="true">/</kbd>
         </button>
         <a class="infobar-phone" href="tel:+18608132964">(860) 813-2964</a>
       </div>
@@ -49,6 +50,7 @@
           <a class="btn btn-teal btn-head" href="#contact"><span class="btn-label">Request a demo</span></a>
         </div>
 
+        <button type="button" class="m-search" aria-label="Search" aria-haspopup="dialog" aria-expanded="false" aria-controls="site-search" data-search-open><img src="assets/v2/ico/search.svg" width="24" height="24" alt=""></button>
         <button type="button" class="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu" data-burger><i></i><i></i></button>
       </div>
 
@@ -166,8 +168,47 @@
 
         </div>
       </div>
+
+      <!-- site search: panel under the main bar, same language as the mega menu -->
+      <div class="searchpanel" id="site-search" role="dialog" aria-label="Search Foley" data-search hidden>
+        <div class="sp-stage">
+          <div class="sp-bar">
+            <img class="sp-ico" src="assets/v2/ico/search.svg" width="24" height="24" alt="">
+            <input id="sp-input" class="sp-input" type="search" role="combobox" aria-expanded="true" aria-controls="sp-list" aria-autocomplete="list" aria-describedby="sp-count" placeholder="Search products, guides, industries" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go">
+            <button type="button" class="sp-clear" hidden>Clear</button>
+            <button type="button" class="sp-close" aria-label="Close search"><kbd>Esc</kbd></button>
+          </div>
+          <div class="sp-body">
+            <div class="sp-popular" data-sp-popular>
+              <p class="sp-label">Popular searches</p>
+              <div class="sp-chips">
+                <button type="button" class="sp-chip">DOT audit</button>
+                <button type="button" class="sp-chip">Drug &amp; alcohol testing</button>
+                <button type="button" class="sp-chip">MVR</button>
+                <button type="button" class="sp-chip">Clearinghouse</button>
+                <button type="button" class="sp-chip">Driver qualification</button>
+                <button type="button" class="sp-chip">Pricing</button>
+              </div>
+            </div>
+            <div class="sp-note" data-sp-note hidden></div>
+            <div class="sp-list" id="sp-list" role="listbox" aria-label="Search results"></div>
+            <div class="sp-none" data-sp-none hidden>
+              <p class="sp-none-title">No results for <span data-sp-q></span></p>
+              <p class="sp-none-text">Try a product, a regulation or an industry, for example “MVR”, “drug testing” or “transportation”.</p>
+              <a class="link-arrow" href="#contact" data-sp-contact>Ask a compliance expert <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a>
+            </div>
+          </div>
+          <div class="sp-foot">
+            <span><kbd>↑</kbd><kbd>↓</kbd> to navigate</span>
+            <span><kbd>↵</kbd> to open</span>
+            <span><kbd>Esc</kbd> to close</span>
+            <span class="sp-count" id="sp-count" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
+  <div class="sp-backdrop" data-search-backdrop hidden></div>
 
   <!-- mobile drawer -->
   <div class="drawer" id="drawer" data-drawer hidden>

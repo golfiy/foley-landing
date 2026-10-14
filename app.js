@@ -35,6 +35,7 @@
   Object.values(panels).forEach((p) => { p.hidden = false; p.inert = true; });
 
   function setMenu(name, { focus = false } = {}) {
+    if (name) closeSearch(false);
     clearTimeout(openTimer);
     clearTimeout(closeTimer);
     if (name === openMenu) return;
@@ -104,6 +105,330 @@
   burger.addEventListener('click', () => setDrawer(burger.getAttribute('aria-expanded') !== 'true'));
   drawer.addEventListener('click', (e) => { if (e.target.closest('a')) setDrawer(false); });
   addEventListener('resize', () => { if (innerWidth >= 960 && !drawer.hidden) setDrawer(false); });
+
+  /* ======================================================================
+     Site search: index built from the menus and the page, grouped results,
+     combobox keyboard model, results jump to the matching place on the page
+     ====================================================================== */
+  const sp = $('[data-search]');
+  const spInput = $('#sp-input');
+  const spList = $('#sp-list');
+  const spPopular = $('[data-sp-popular]');
+  const spNote = $('[data-sp-note]');
+  const spNone = $('[data-sp-none]');
+  const spCount = $('#sp-count');
+  const spClear = $('.sp-clear');
+  const spBackdrop = $('[data-search-backdrop]');
+  const spOpeners = $$('[data-search-open]');
+  const IDX = [];
+  let spOpen = false;
+  let spOpener = null;
+  let spShown = [];
+  let spActive = -1;
+  let spScrollY = 0;
+
+  const STOP = new Set(['and', 'of', 'the', 'a', 'to', 'for', 'in', 'on', 'with', 'by', 'your', 'what', 'do', 'i', 'be']);
+  const norm = (t) => t.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/&/g, ' and ').replace(/[^a-z0-9%]+/g, ' ').trim();
+  const words = (t) => norm(t).split(' ').filter(Boolean);
+  const escHtml = (t) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // extra keywords so people find things by the words they actually type
+  const SYN = {
+    'motor vehicle records': 'mvr', 'mvr monitor': 'motor vehicle records', 'drug and alcohol testing': 'drug test screening testing',
+    'pricing': 'price cost plans quote', 'request a demo': 'demo sales talk contact', 'fmcsa clearinghouse': 'clearinghouse query',
+    'driver qualification files': 'dq dqf file', 'csa monitor': 'csa score safety', 'audit risk monitor': 'audit dot',
+    'contact us': 'phone email support', 'careers': 'jobs hiring work', 'eld and hours of service': 'eld hos logs',
+  };
+
+  function addItem(label, crumb, group, go, extra = '') {
+    const ln = norm(label);
+    const sig = words(label).filter((w) => !STOP.has(w));
+    const init = sig.length > 1 ? sig.map((w) => w[0]).join('') : '';
+    const kw = words([crumb, extra, SYN[ln] || '', init, init.slice(0, 2)].join(' '));
+    IDX.push({ label, crumb, group, go, ln, lw: words(label), kw });
+  }
+
+  function buildIndex() {
+    if (IDX.length) return;
+    const caseIdx = (name) => cSlides.findIndex((c) => ($('.case-logo img', c) || {}).alt?.includes(name));
+    const teamRow = (label) => $$('.team-row').find((r) => norm($('.team-title', r).textContent) === norm(label));
+    const faqCard = (re) => $$('.faq-card').find((c) => re.test($('h3', c).textContent));
+    const stageFor = (col, label) => {
+      if (col === 'Hiring and Onboarding') return /onboarding/i.test(label) ? 'onboard' : 'hire';
+      if (col === 'Data Monitoring') return 'monitor';
+      return 'onboard';
+    };
+
+    // On this page
+    [['#platform', 'How it works'], ['#snapshot', 'Product snapshot'], ['#teams', 'Teams'], ['#guidance', 'Built-in guidance'],
+     ['#results', 'Customer stories'], ['#resources', 'Guides'], ['#contact', 'Get started']].forEach(([sel, crumb]) => {
+      const h = $(`${sel} h2`); if (h) addItem(h.textContent.trim(), `On this page › ${crumb}`, 'On this page', { sel, flash: false });
+    });
+    $$('[data-stage]').forEach((st) => {
+      const t = $('.stage-title, .insights-title', st).textContent.trim();
+      const extra = $$('.stage-sub, .insights-sub, .stage-links a, .insights-links a', st).map((x) => x.textContent).join(' ');
+      addItem(t, 'How it works', 'On this page', { stage: st.dataset.stage }, extra);
+    });
+    $$('.snap-item').forEach((b, k) => addItem($('.snap-title', b).textContent.trim(), 'Product snapshot', 'On this page', { snap: k }));
+    $$('.team-row').forEach((r) => addItem($('.team-title', r).textContent.trim(), 'Built for every team', 'On this page', { el: r, row: true }, $('.team-desc', r).textContent));
+    $$('.faq-card').forEach((c) => addItem($('h3', c).textContent.trim(), 'Guides › Not sure where to start', 'Resources', { el: c }));
+    cSlides.forEach((c, k) => {
+      const who = ($('.case-logo img', c) || {}).alt || '';
+      addItem($('h3', c).textContent.trim(), `Customer stories › ${who}`, 'Customer stories', { caseIdx: k }, `${who} ${$('.overline', c).textContent} ${$('blockquote', c).textContent} case study`);
+    });
+
+    // Mega menus
+    $$('.mm-panel').forEach((panel) => {
+      const group = panel.getAttribute('aria-label');
+      $$('.mm-col', panel).forEach((col) => {
+        const colT = $('.mm-title', col).textContent.trim();
+        $$('.mm-links a', col).forEach((a) => {
+          const label = a.textContent.trim();
+          let go = { sel: '#platform', flash: false };
+          if (group === 'Products') go = { stage: stageFor(colT, label) };
+          if (group === 'Solutions') go = colT === 'By Role' && teamRow(label) ? { el: teamRow(label), row: true } : { sel: '#teams', flash: false };
+          if (group === 'Resources') {
+            const card = /driver qualification/i.test(label) ? faqCard(/DQ file/) : /fmcsa compliance guide/i.test(label) ? faqCard(/DOT compliant/) : null;
+            go = card ? { el: card } : /case studies/i.test(label) ? { sel: '#results', flash: false } : { sel: '#resources', flash: false };
+          }
+          if (group === 'Company') go = /customers|case studies/i.test(label) ? { sel: '#results', flash: false } : /contact/i.test(label) ? { sel: '#contact', flash: false } : { sel: '.footer', flash: false };
+          addItem(label, `${group} › ${colT}`, group, go);
+        });
+      });
+      const promo = $('.mm-promo', panel);
+      if (promo) {
+        const title = $('.mm-promo-title', promo).textContent.trim();
+        const k = /koppers/i.test(title) ? caseIdx('Koppers') : /autonomous/i.test(title) ? caseIdx('Torc') : -1;
+        addItem(title, `${group} › ${$('.mm-promo-label', promo).textContent.trim()}`, group === 'Resources' ? 'Resources' : 'Customer stories',
+          k >= 0 ? { caseIdx: k } : { sel: group === 'Resources' ? '#resources' : '#results', flash: false }, 'case study story webinar');
+      }
+      $$('.mm-foot a', panel).forEach((a) => addItem(a.textContent.trim(), group, group, { sel: a.getAttribute('href'), flash: false }));
+    });
+
+    // Top-level
+    addItem('Pricing', 'Plans and quotes', 'Company', { sel: '#contact', flash: false });
+    addItem('Request a demo', 'Talk to the Foley team', 'Company', { sel: '#contact', flash: false });
+  }
+
+  function score(it, toks, nq) {
+    let total = 0;
+    for (const t of toks) {
+      let best = 0;
+      for (const w of it.lw) { if (w === t) best = Math.max(best, 5); else if (w.startsWith(t)) best = Math.max(best, 3); }
+      if (!best && t.length > 2 && it.ln.includes(t)) best = 2;
+      if (!best) for (const w of it.kw) { if (w === t) best = Math.max(best, 2); else if (t.length > 1 && w.startsWith(t)) best = Math.max(best, 1); }
+      if (!best && STOP.has(t)) continue;           // "drug and alcohol" should not fail on "and"
+      if (!best) return 0;
+      total += best;
+    }
+    if (it.ln.startsWith(nq)) total += 6;
+    if (it.ln === nq) total += 10;
+    if (it.group === 'Products' || it.group === 'Resources') total += 0.5;   // tie-break: product and guide pages before stories
+    return total;
+  }
+
+  // one-typo tolerance (two for long words) as a fallback when nothing matches
+  function editDist(a, b, max) {
+    if (Math.abs(a.length - b.length) > max) return max + 1;
+    let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+    for (let i = 1; i <= a.length; i++) {
+      const cur = [i];
+      for (let j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  function correct(toks) {
+    const vocab = new Set(IDX.flatMap((it) => it.lw.concat(it.kw)));
+    let changed = false;
+    const out = toks.map((t) => {
+      if (t.length < 4 || vocab.has(t)) return t;
+      const max = t.length >= 7 ? 2 : 1;
+      let best = null, bd = max + 1;
+      for (const w of vocab) { if (w.length < 3) continue; const d = editDist(t, w, max); if (d < bd) { bd = d; best = w; } }
+      if (best) { changed = true; return best; }
+      return t;
+    });
+    return changed ? out : null;
+  }
+
+  function highlight(label, toks) {
+    const low = label.toLowerCase();
+    const ranges = [];
+    for (const t of toks) {
+      if (STOP.has(t)) continue;
+      let at = -1;
+      const re = new RegExp(`(^|[^a-z0-9])(${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'i');
+      const m = re.exec(low);
+      if (m) at = m.index + m[1].length; else if (t.length > 2) at = low.indexOf(t);
+      if (at >= 0) ranges.push([at, at + t.length]);
+    }
+    ranges.sort((x, y) => x[0] - y[0]);
+    let out = '', pos = 0;
+    for (const [a, b] of ranges) {
+      if (a < pos) continue;
+      out += escHtml(label.slice(pos, a)) + '<mark>' + escHtml(label.slice(a, b)) + '</mark>';
+      pos = b;
+    }
+    return out + escHtml(label.slice(pos));
+  }
+
+  const SUGGESTED = ['Request a demo', 'What happens in a DOT audit?', 'Drug & Alcohol Testing', 'MVR Monitor', 'FMCSA Clearinghouse', 'Case Studies'];
+
+  function renderSearch() {
+    buildIndex();
+    const q = spInput.value;
+    const nq = norm(q);
+    spClear.hidden = !q;
+    spPopular.hidden = !!nq;
+    spNote.hidden = true;
+    let results;
+    let toks = nq ? nq.split(' ') : [];
+    if (!nq) {
+      results = SUGGESTED.map((l) => IDX.find((it) => it.label === l)).filter(Boolean).map((it) => ({ it, s: 1, g: 'Suggested' }));
+    } else {
+      results = IDX.map((it) => ({ it, s: score(it, toks, nq) })).filter((r) => r.s > 0);
+      if (!results.length) {
+        const fixed = correct(toks);
+        if (fixed) {
+          const fq = fixed.join(' ');
+          results = IDX.map((it) => ({ it, s: score(it, fixed, fq) })).filter((r) => r.s > 0);
+          if (results.length) { toks = fixed; spNote.hidden = false; spNote.innerHTML = `Showing results for <b>${escHtml(fq)}</b>`; }
+        }
+      }
+      // collapse exact duplicates (same label, same group), keep the best one
+      const seen = new Map();
+      results.sort((a, b) => b.s - a.s).forEach((r) => { const k = r.it.group + '|' + r.it.ln; if (!seen.has(k)) seen.set(k, r); });
+      results = [...seen.values()];
+    }
+
+    // group, order groups by their best hit, cap each group
+    const groups = new Map();
+    results.forEach((r) => { const g = r.g || r.it.group; if (!groups.has(g)) groups.set(g, []); groups.get(g).push(r); });
+    const ordered = [...groups.entries()].sort((a, b) => b[1][0].s - a[1][0].s);
+    spShown = [];
+    let html = '';
+    ordered.forEach(([g, rs], gi) => {
+      const list = rs.slice(0, nq ? 6 : 8);
+      html += `<div class="sp-group" role="group" aria-labelledby="spg-${gi}"><p class="sp-label" id="spg-${gi}" role="presentation">${escHtml(g)}${nq ? ` <span>${rs.length}</span>` : ''}</p>`;
+      list.forEach((r) => {
+        const k = spShown.length;
+        spShown.push(r.it);
+        html += `<div class="sp-opt" role="option" id="spo-${k}" data-k="${k}" aria-selected="false">`
+          + `<span class="sp-opt-main"><span class="sp-opt-title">${nq ? highlight(r.it.label, toks) : escHtml(r.it.label)}</span><span class="sp-opt-crumb">${escHtml(r.it.crumb)}</span></span>`
+          + `<span class="sp-opt-go" aria-hidden="true">Open <kbd>↵</kbd></span></div>`;
+      });
+      html += '</div>';
+    });
+    spList.innerHTML = html;
+    spNone.hidden = !(nq && !spShown.length);
+    if (!spNone.hidden) $('[data-sp-q]', spNone).textContent = `“${q.trim()}”`;
+    const n = nq ? results.length : 0;
+    spCount.textContent = nq ? (n ? `${n} result${n === 1 ? '' : 's'}` : 'No results') : '';
+    setActive(nq && spShown.length ? 0 : -1);
+  }
+
+  function setActive(k) {
+    spActive = k;
+    $$('.sp-opt', spList).forEach((o) => o.setAttribute('aria-selected', String(+o.dataset.k === k)));
+    if (k >= 0) {
+      spInput.setAttribute('aria-activedescendant', `spo-${k}`);
+      const o = $(`#spo-${k}`);
+      if (o) o.scrollIntoView({ block: 'nearest' });
+    } else spInput.removeAttribute('aria-activedescendant');
+  }
+
+  function openSearch(opener, q = '') {
+    if (spOpen) { spInput.focus(); return; }
+    spOpen = true;
+    spOpener = opener || document.activeElement;
+    setMenu(null);
+    if (!drawer.hidden) setDrawer(false);
+    sp.hidden = false;
+    spBackdrop.hidden = false;
+    void sp.offsetWidth;
+    topnav.classList.add('is-searching');
+    spBackdrop.classList.add('is-on');
+    spOpeners.forEach((b) => b.setAttribute('aria-expanded', 'true'));
+    spInput.value = q;
+    renderSearch();
+    spScrollY = scrollY;
+    if (innerWidth < 960) document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => spInput.focus({ preventScroll: true }));
+  }
+
+  function closeSearch(restoreFocus = true) {
+    if (!spOpen) return;
+    spOpen = false;
+    topnav.classList.remove('is-searching');
+    spBackdrop.classList.remove('is-on');
+    spOpeners.forEach((b) => b.setAttribute('aria-expanded', 'false'));
+    document.body.style.overflow = '';
+    setTimeout(() => { if (!spOpen) { sp.hidden = true; spBackdrop.hidden = true; } }, 360 * SLOW);
+    if (restoreFocus && spOpener && spOpener.focus) spOpener.focus({ preventScroll: true });
+  }
+
+  function flash(el) {
+    if (!el) return;
+    el.classList.remove('search-hit');
+    void el.offsetWidth;
+    el.classList.add('search-hit');
+    setTimeout(() => el.classList.remove('search-hit'), 2000);
+  }
+
+  function jumpTo(go) {
+    let el = go.el || (go.sel && $(go.sel));
+    if (go.stage) el = $(`[data-stage="${go.stage}"]`);
+    if (go.caseIdx != null) el = $('.cases');
+    if (go.snap != null) { el = $('.snap'); setSnap(go.snap); }
+    if (!el) return;
+    const behavior = RM ? 'auto' : 'smooth';
+    const centre = go.stage || go.caseIdx != null || go.snap != null || go.row || go.el;
+    el.scrollIntoView({ behavior, block: centre ? 'center' : 'start' });
+    let done = false;
+    const after = () => {
+      if (done) return;
+      done = true;
+      if (go.stage && window.FoleyStages) window.FoleyStages.setActive(go.stage);
+      if (go.caseIdx != null) { goCase(go.caseIdx); flash(cSlides[go.caseIdx]); }
+      if (go.row) { el.classList.add('is-hover'); setTimeout(() => el.classList.remove('is-hover'), 2200); }
+      if (go.el && !go.row) flash(el);
+    };
+    addEventListener('scrollend', after, { once: true });
+    setTimeout(after, behavior === 'auto' ? 40 : 1000);
+  }
+
+  function choose(k) {
+    const it = spShown[k];
+    if (!it) return;
+    closeSearch(false);
+    requestAnimationFrame(() => jumpTo(it.go));
+  }
+
+  spOpeners.forEach((b) => b.addEventListener('click', () => (spOpen ? closeSearch() : openSearch(b))));
+  spInput.addEventListener('input', renderSearch);
+  spInput.addEventListener('keydown', (e) => {
+    const n = spShown.length;
+    if (e.key === 'ArrowDown' && n) { e.preventDefault(); setActive((spActive + 1) % n); }
+    else if (e.key === 'ArrowUp' && n) { e.preventDefault(); setActive((spActive - 1 + n) % n); }
+    else if (e.key === 'Home' && n && !spInput.value) { e.preventDefault(); setActive(0); }
+    else if (e.key === 'Enter') { e.preventDefault(); if (spActive >= 0) choose(spActive); }
+    else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeSearch(); }
+  });
+  spList.addEventListener('mousemove', (e) => { const o = e.target.closest('.sp-opt'); if (o && +o.dataset.k !== spActive) setActive(+o.dataset.k); });
+  spList.addEventListener('click', (e) => { const o = e.target.closest('.sp-opt'); if (o) choose(+o.dataset.k); });
+  spClear.addEventListener('click', () => { spInput.value = ''; renderSearch(); spInput.focus(); });
+  $('.sp-close', sp).addEventListener('click', () => closeSearch());
+  $$('.sp-chip', sp).forEach((c) => c.addEventListener('click', () => { spInput.value = c.textContent; renderSearch(); spInput.focus(); }));
+  $('[data-sp-contact]', sp).addEventListener('click', (e) => { e.preventDefault(); closeSearch(false); jumpTo({ sel: '#contact', flash: false }); });
+  spBackdrop.addEventListener('click', () => closeSearch());
+  document.addEventListener('pointerdown', (e) => { if (spOpen && !e.target.closest('[data-search], [data-search-open]')) closeSearch(false); });
+  sp.addEventListener('focusout', (e) => { if (spOpen && e.relatedTarget && !sp.contains(e.relatedTarget) && !spOpeners.includes(e.relatedTarget)) closeSearch(false); });
+  addEventListener('scroll', () => { if (spOpen && innerWidth >= 960 && Math.abs(scrollY - spScrollY) > 80) closeSearch(false); }, { passive: true });
+  document.addEventListener('keydown', (e) => {
+    const typing = e.target.closest('input, textarea, [contenteditable]');
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); spOpen ? closeSearch() : openSearch(spOpeners[innerWidth < 960 ? 1 : 0]); }
+    else if (e.key === '/' && !typing && !spOpen) { e.preventDefault(); openSearch(spOpeners[innerWidth < 960 ? 1 : 0]); }
+  });
 
   /* ======================================================================
      Hero scenes: a 6x4 tile grid, every tile shows its slice of a scene
@@ -628,6 +953,8 @@
     setInterval(syncDemo, 800);
     syncDemo();
   }
+
+  if (params.has('search')) setTimeout(() => openSearch(spOpeners[0], params.get('search') || ''), 50);
 
   /* ?shot mirrors the Figma frame: first team row is shown hovered */
   if (SHOT) { const row = $('.team-row'); if (row) row.classList.add('is-hover'); }
