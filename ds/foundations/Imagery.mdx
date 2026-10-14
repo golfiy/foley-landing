@@ -10,7 +10,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 52px)', gridAutoRows: '52px', gap: 1, background: '#0A171C', padding: 12, width: 'fit-content', margin: '16px 0' }}>
   {['', 'A', 'A', 'A', '', '', '', 'A', 'A', 'A', 'T', 'T', '', '', 'C', 'C', 'T', 'T', '', '', 'C', 'C', 'C', ''].map((c, i) => (
-    <div key={i} style={{ background: c === 'A' ? '#4A87A2' : c === 'T' ? '#294C5A' : c === 'C' ? '#81E014' : 'rgba(255,255,255,.06)', color: '#fff', font: '600 12px Inter', display: 'grid', placeItems: 'center' }}>{c}</div>
+    <div key={i} style={{ background: c === 'A' ? '#4A87A2' : c === 'T' ? '#294C5A' : c === 'C' ? '#81E014' : 'rgba(255,255,255,.06)', color: '#fff', font: '600 12px var(--ds-font)', display: 'grid', placeItems: 'center' }}>{c}</div>
   ))}
 </div>
 

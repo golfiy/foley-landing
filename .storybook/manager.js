@@ -1,22 +1,8 @@
 import { addons } from 'storybook/manager-api';
-import { create } from 'storybook/theming';
+import { foleyTheme } from './theme.js';
 
 addons.setConfig({
-  theme: create({
-    base: 'light',
-    brandTitle: 'Foley · Design System',
-    brandUrl: 'http://127.0.0.1:4965/',
-    brandTarget: '_self',
-    colorPrimary: '#294C5A',
-    colorSecondary: '#1A3946',
-    appBg: '#F8F9FC',
-    appContentBg: '#FFFFFF',
-    appBorderColor: '#E1EAFA',
-    textColor: '#111117',
-    textMutedColor: '#70707D',
-    barBg: '#FFFFFF',
-    fontBase: '"Inter Display", Inter, system-ui, sans-serif',
-  }),
+  theme: foleyTheme,
   sidebar: { showRoots: true },
 });
 

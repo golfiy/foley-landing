@@ -4,6 +4,7 @@ import '../stages.css';
 import './preview.css';
 import appSrc from '../app.js?raw';
 import stagesSrc from '../stages.js?raw';
+import { foleyTheme } from './theme.js';
 
 /**
  * Live stories run the site's real app.js / stages.js against the story markup.
@@ -46,7 +47,7 @@ export default {
         dark: { name: 'Petrol', value: '#0A171C' },
       },
     },
-    docs: { story: { inline: true }, codePanel: true },
+    docs: { theme: foleyTheme, story: { inline: true }, codePanel: true },
     options: {
       storySort: {
         order: [

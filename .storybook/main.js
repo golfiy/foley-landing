@@ -33,6 +33,8 @@ export default {
   ],
   staticDirs: [{ from: '../assets', to: '/assets' }],
   core: { disableTelemetry: true, disableWhatsNewNotifications: true },
+  // hide Storybook's own "Get started" onboarding widget, it is noise in a DS
+  features: { sidebarOnboardingChecklist: false, menuOnboardingChecklist: false },
   docs: { defaultName: 'Overview' },
   viteFinal: (config) => {
     config.plugins = [...(config.plugins || []), foleySite()];

@@ -12,11 +12,11 @@ const src = (t) => t.$extensions?.foley?.source || t.$extensions?.foley?.figmaSt
 const isSite = (t) => src(t) === 'site';
 
 const S = {
-  table: { width: '100%', borderCollapse: 'collapse', font: '400 14px/1.4 var(--font-ui)', margin: '16px 0 32px' },
+  table: { width: '100%', borderCollapse: 'collapse', font: '400 14px/1.4 var(--ds-font)', margin: '16px 0 32px' },
   th: { textAlign: 'left', padding: '8px 12px', borderBottom: '1px solid var(--color-stroke-primary)', color: 'var(--color-text-tertiary)', fontWeight: 500, fontSize: 12, letterSpacing: '.04em', textTransform: 'uppercase' },
   td: { padding: '10px 12px', borderBottom: '1px solid var(--color-stroke-secondary)', verticalAlign: 'middle' },
   code: { font: '500 12.5px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace', color: 'var(--color-text-secondary)' },
-  tag: (site) => ({ display: 'inline-block', padding: '2px 6px', font: '600 11px/1.3 var(--font-ui)', borderRadius: 4, background: site ? '#FFF4E5' : '#EAF1FC', color: site ? '#9A4D00' : '#294C5A' }),
+  tag: (site) => ({ display: 'inline-block', padding: '2px 6px', font: '600 11px/1.3 var(--ds-font)', borderRadius: 4, background: site ? '#FFF4E5' : '#EAF1FC', color: site ? '#9A4D00' : '#294C5A' }),
 };
 const Tag = ({ t }) => h('span', { style: S.tag(isSite(t)) }, isSite(t) ? 'site addition' : src(t).replace(/^figma: /, 'Figma '));
 const Code = ({ children }) => h('code', { style: S.code }, children);
@@ -134,7 +134,7 @@ export function ContrastTable() {
     rows: pairs.map(([fn, fv, bn, bv]) => { const r = ratio(fv, bv); const grade = r >= 7 ? 'AAA' : r >= 4.5 ? 'AA' : r >= 3 ? 'AA large only' : 'Decorative only'; return h('tr', { key: fn + bn },
       h('td', { style: S.td }, h('span', { style: { display: 'inline-block', width: 14, height: 14, background: fv, border: '1px solid var(--color-stroke-secondary)', marginRight: 8, verticalAlign: -2 } }), h(Code, null, fn)),
       h('td', { style: S.td }, h('span', { style: { display: 'inline-block', width: 14, height: 14, background: bv, border: '1px solid var(--color-stroke-secondary)', marginRight: 8, verticalAlign: -2 } }), h(Code, null, bn)),
-      h('td', { style: S.td }, h('span', { style: { padding: '4px 10px', background: bv, color: fv, font: '500 14px var(--font-display)' } }, `${r.toFixed(2)}:1`)),
+      h('td', { style: S.td }, h('span', { style: { padding: '4px 10px', background: bv, color: fv, font: '500 14px var(--ds-font)' } }, `${r.toFixed(2)}:1`)),
       h('td', { style: S.td }, grade)); }),
   });
 }

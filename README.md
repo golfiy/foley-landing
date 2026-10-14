@@ -103,6 +103,8 @@ Headless Chrome 1440 (`?shot`) против `get_screenshot` фреймов. В�
 - **Live** истории – подключают настоящие `app.js` / `stages.js` (мега-меню, поиск, drawer, hero, карусель, how it works); при переходе между live-историями iframe перезагружается
 - Разделы: Introduction, Foundations (Colors, Typography, Layout, Iconography, Motion, Imagery, Accessibility), Components (17), Pages / Homepage, Design System (MD)
 
+Шрифт интерфейса Storybook (сайдбар, тулбар, docs-страницы) – **Inter Display в светлом начертании**: семейство `Foley SB` (`.storybook/theme.js`, `manager-head.html`, `preview.css`) сдвигает веса на шаг легче (обычный текст → Light, medium → Regular, bold → Medium). Превью компонентов остаются со шрифтами сайта, код – моноширинный. Виджет «Get started» и тосты «What's new» отключены.
+
 Проверка: `ref/tools/sbcheck.mjs` открывает все истории и docs-страницы (84) и ловит ошибки рендера.
 
 Сборка статикой: `npm run build-storybook` → `storybook-static/` (в .gitignore).
