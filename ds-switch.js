@@ -4,6 +4,7 @@
  *
  * - a white thumb slides to the chosen half, then the page changes (360ms, instant with reduced motion)
  * - on arrival the thumb starts on the side you came from (document.referrer) and slides home
+ * - links carry data-ds-hosted: the relative path used off localhost (GitHub Pages: site at /, Storybook at /storybook/)
  * - Back from the other page (bfcache) slides the thumb back to the current side
  * Values are Foley tokens written out, because the Storybook manager has no tokens.css.
  */
@@ -40,7 +41,8 @@
 `;
   const LEAVE_MS = 360;
   const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const origin = (href) => { try { return new URL(href, location.href).origin; } catch { return ''; } };
+  const LOCAL = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+  const base = (href) => { try { const u = new URL(href, location.href); return u.origin + u.pathname; } catch { return ''; } };
 
   function mount(nav) {
     if (!nav || nav.dataset.mounted) return;
@@ -52,6 +54,7 @@
       document.head.append(st);
     }
     const links = [...nav.querySelectorAll('a')];
+    if (!LOCAL) links.forEach((a) => { if (a.dataset.dsHosted) a.setAttribute('href', a.dataset.dsHosted); });
     const cur = Math.max(0, links.findIndex((a) => a.getAttribute('aria-current') === 'page'));
     const thumb = document.createElement('span');
     thumb.className = 'ds-switch-thumb';
@@ -66,8 +69,10 @@
         nav.dataset.pos = cur;
       }));
     };
-    const ref = document.referrer ? origin(document.referrer) : '';
-    const from = ref ? links.findIndex((a, i) => i !== cur && origin(a.href) === ref) : -1;
+    // which side did we come from: the link whose URL is the longest prefix of the referrer
+    const ref = document.referrer;
+    let from = -1, best = 0;
+    if (ref) links.forEach((a, i) => { const b = base(a.href); if (b && ref.startsWith(b) && b.length > best) { best = b.length; from = i; } });
     slideHome(from >= 0 ? from : cur);
     addEventListener('pageshow', (e) => { if (e.persisted) slideHome(Number(nav.dataset.pos) || 0); });
 

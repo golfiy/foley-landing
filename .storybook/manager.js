@@ -13,7 +13,7 @@ const SITE_URL = 'http://127.0.0.1:4965/';
 window.addEventListener('DOMContentLoaded', () => {
   const dock = document.createElement('div');
   dock.className = 'foley-ds-dock';
-  dock.innerHTML = `<nav class="ds-switch" aria-label="Site or design system"><a href="${SITE_URL}">Site</a><a href="./" aria-current="page">DS</a></nav>`;
+  dock.innerHTML = `<nav class="ds-switch" aria-label="Site or design system"><a href="${SITE_URL}" data-ds-hosted="../">Site</a><a href="./" aria-current="page">DS</a></nav>`;
   document.body.append(dock);
   window.FoleyDsSwitch.mount(dock.firstElementChild);
 

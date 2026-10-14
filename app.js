@@ -452,10 +452,13 @@
   const grid = $o('[data-hero-grid]');
   const wordEl = $o('[data-hero-word]');
 
+  // absolute URLs: the scenes go into CSS custom properties, and a relative url() there resolves
+  // against the stylesheet that uses it (breaks once CSS is bundled elsewhere, e.g. the Storybook build)
+  const abs = (p) => new URL(p, document.baseURI).href;
   const SCENES = [
-    { id: 'hire',    word: 'Hire',    src: 'assets/hero/scenes/hire.webp' },
-    { id: 'onboard', word: 'Onboard', src: 'assets/hero/scenes/onboard.webp' },
-    { id: 'monitor', word: 'Monitor', src: 'assets/hero/scenes/monitor.webp' },
+    { id: 'hire',    word: 'Hire',    src: abs('assets/hero/scenes/hire.webp') },
+    { id: 'onboard', word: 'Onboard', src: abs('assets/hero/scenes/onboard.webp') },
+    { id: 'monitor', word: 'Monitor', src: abs('assets/hero/scenes/monitor.webp') },
   ];
   const START = 1;                                                          // Onboard = the Figma frame
 

@@ -8,10 +8,13 @@ import { create } from 'storybook/theming';
  */
 export const DS_FONT = '"Inter Display", Inter, system-ui, sans-serif';
 
+// local dev runs site and Storybook on two ports; on GitHub Pages Storybook lives in /storybook/
+const LOCAL = typeof location === 'undefined' || /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+
 export const foleyTheme = create({
   base: 'light',
   brandTitle: 'Foley <b>Design System</b>',
-  brandUrl: 'http://127.0.0.1:4965/',
+  brandUrl: LOCAL ? 'http://127.0.0.1:4965/' : '../',
   brandTarget: '_self',
   colorPrimary: '#294C5A',
   colorSecondary: '#294C5A',
