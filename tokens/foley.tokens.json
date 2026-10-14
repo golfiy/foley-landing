@@ -1,0 +1,965 @@
+{
+  "$description": "Foley landing design tokens. Source of truth: Figma file 1595 – Start Stream, page 8 (variables + text styles) and the live landing. Tokens marked source=site are states and patterns that are not drawn in Figma.",
+  "color": {
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "#111117",
+        "$description": "Headings, body copy, icons on light",
+        "$extensions": {
+          "foley": {
+            "source": "figma: text/primary"
+          }
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#1A3946",
+        "$description": "Links, supporting copy, link-arrow labels",
+        "$extensions": {
+          "foley": {
+            "source": "figma: text/secondary"
+          }
+        }
+      },
+      "tertiary": {
+        "$type": "color",
+        "$value": "#70707D",
+        "$description": "Meta text, overlines, descriptions",
+        "$extensions": {
+          "foley": {
+            "source": "figma: text/tertiary"
+          }
+        }
+      },
+      "light": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Text on dark and photo backgrounds",
+        "$extensions": {
+          "foley": {
+            "source": "figma: text/light"
+          }
+        }
+      }
+    },
+    "bg": {
+      "primary": {
+        "$type": "color",
+        "$value": "#294C5A",
+        "$description": "Primary button, brand surfaces",
+        "$extensions": {
+          "foley": {
+            "source": "figma: bg/primary"
+          }
+        }
+      },
+      "primary-hover": {
+        "$type": "color",
+        "$value": "#1C3843",
+        "$description": "Primary button hover fill",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#EEEEF2",
+        "$description": "Selected / active card, hover column",
+        "$extensions": {
+          "foley": {
+            "source": "figma: bg/secondary"
+          }
+        }
+      },
+      "tertiary": {
+        "$type": "color",
+        "$value": "#F8F9FC",
+        "$description": "Cards and list rows at rest",
+        "$extensions": {
+          "foley": {
+            "source": "figma: bg/tertiary"
+          }
+        }
+      },
+      "tertiary-hover": {
+        "$type": "color",
+        "$value": "#F1F3FA",
+        "$description": "Card hover (FAQ, snapshot tabs)",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
+      },
+      "light": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Page, header, menus",
+        "$extensions": {
+          "foley": {
+            "source": "figma: bg/light"
+          }
+        }
+      },
+      "light-hover": {
+        "$type": "color",
+        "$value": "#E9ECF4",
+        "$description": "White button hover fill",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "#0A171C",
+        "$description": "Darkest petrol, text on brand green",
+        "$extensions": {
+          "foley": {
+            "source": "figma: linear/primary end stop"
+          }
+        }
+      }
+    },
+    "stroke": {
+      "primary": {
+        "$type": "color",
+        "$value": "#C1CFE6",
+        "$description": "Card and column borders, rules",
+        "$extensions": {
+          "foley": {
+            "source": "figma: stroke/primary"
+          }
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#E1EAFA",
+        "$description": "Hairlines in menus, lists, header",
+        "$extensions": {
+          "foley": {
+            "source": "figma: stroke/secondary"
+          }
+        }
+      },
+      "light": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Outline button on dark",
+        "$extensions": {
+          "foley": {
+            "source": "figma: stroke/light"
+          }
+        }
+      }
+    },
+    "brand": {
+      "primary": {
+        "$type": "color",
+        "$value": "#81E014",
+        "$description": "Brand green: display word, marks. Decorative on light (contrast 1.7:1), never body text on light",
+        "$extensions": {
+          "foley": {
+            "source": "figma: brand/primary"
+          }
+        }
+      }
+    },
+    "petrol": {
+      "700": {
+        "$type": "color",
+        "$value": "#285A6B",
+        "$description": "Gradient text start, TBD badge",
+        "$extensions": {
+          "foley": {
+            "source": "figma: linear/secondary stop"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#4A87A2",
+        "$description": "Gradient text end",
+        "$extensions": {
+          "foley": {
+            "source": "figma: linear/secondary stop"
+          }
+        }
+      }
+    },
+    "overlay": {
+      "backdrop": {
+        "$type": "color",
+        "$value": "rgba(10, 23, 28, 0.32)",
+        "$description": "Page dim behind search",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
+      },
+      "on-dark-hover": {
+        "$type": "color",
+        "$value": "rgba(255, 255, 255, 0.12)",
+        "$description": "Hover fill for icon buttons on dark",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
+      },
+      "tile": {
+        "$type": "color",
+        "$value": "rgba(255, 255, 255, 0.04)",
+        "$description": "Empty hero mosaic tile",
+        "$extensions": {
+          "foley": {
+            "source": "figma: hero box_image_pattern"
+          }
+        }
+      }
+    },
+    "focus": {
+      "ring": {
+        "$type": "color",
+        "$value": "#111117",
+        "$description": "2px focus outline on light (white on dark)",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
+      },
+      "highlight": {
+        "$type": "color",
+        "$value": "rgba(74, 135, 162, 0.55)",
+        "$description": "Pulse around a search result target",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
+      }
+    }
+  },
+  "gradient": {
+    "primary": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": "#1B3B48",
+          "position": 0
+        },
+        {
+          "color": "#163039",
+          "position": 0.5
+        },
+        {
+          "color": "#0A171C",
+          "position": 1
+        }
+      ],
+      "$description": "Dark petrol sections: how it works panel, snapshot stage, testimonials",
+      "$extensions": {
+        "foley": {
+          "angle": 180,
+          "source": "figma: linear/primary"
+        }
+      }
+    },
+    "secondary": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": "#285A6B",
+          "position": 0
+        },
+        {
+          "color": "#4A87A2",
+          "position": 0.49721
+        },
+        {
+          "color": "#4A87A2",
+          "position": 1
+        }
+      ],
+      "$description": "Gradient text: Insights title, Navigator AI note",
+      "$extensions": {
+        "foley": {
+          "angle": 90,
+          "source": "figma: linear/secondary"
+        }
+      }
+    },
+    "tertiary": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": "#FFFFFF",
+          "position": 0
+        },
+        {
+          "color": "#CCD6EC",
+          "position": 1
+        }
+      ],
+      "$description": "Insights band, active",
+      "$extensions": {
+        "foley": {
+          "angle": 180,
+          "source": "figma: linear/tertiary"
+        }
+      }
+    },
+    "tertiary-rest": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": "#FFFFFF",
+          "position": 0
+        },
+        {
+          "color": "#E8F0FF",
+          "position": 1
+        }
+      ],
+      "$description": "Insights band, rest",
+      "$extensions": {
+        "foley": {
+          "angle": 180,
+          "source": "site"
+        }
+      }
+    },
+    "light": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": "#F4F7FE",
+          "position": 0
+        },
+        {
+          "color": "#E1E9FB",
+          "position": 1
+        }
+      ],
+      "$description": "Mega menu promo card",
+      "$extensions": {
+        "foley": {
+          "angle": 180,
+          "source": "figma: linear/light (approximated from render)"
+        }
+      }
+    },
+    "scrim": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": "rgba(0, 0, 0, 0.88)",
+          "position": 0.1984
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.74)",
+          "position": 0.38374
+        },
+        {
+          "color": "rgba(0, 0, 0, 0)",
+          "position": 0.63854
+        }
+      ],
+      "$description": "Banner photo scrim",
+      "$extensions": {
+        "foley": {
+          "angle": 90,
+          "source": "figma: banner overlay"
+        }
+      }
+    }
+  },
+  "shadow": {
+    "overlay": {
+      "$type": "shadow",
+      "$value": "0 30px 60px -20px rgba(10, 23, 28, 0.28)",
+      "$description": "Mega menu and search panel",
+      "$extensions": {
+        "foley": {
+          "source": "site"
+        }
+      }
+    },
+    "header": {
+      "$type": "shadow",
+      "$value": "0 1px 0 #E1EAFA, 0 10px 30px rgba(10, 23, 28, 0.06)",
+      "$description": "Sticky main bar after scroll",
+      "$extensions": {
+        "foley": {
+          "source": "site"
+        }
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "display": {
+        "$type": "fontFamily",
+        "$value": [
+          "Inter Display",
+          "Inter",
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "$description": "All UI and editorial text. Fallback: Inter with opsz 32 (same drawing)"
+      },
+      "ui": {
+        "$type": "fontFamily",
+        "$value": [
+          "Inter",
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "$description": "Product illustrations only (opsz 14)"
+      }
+    }
+  },
+  "typography": {
+    "display": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 400,
+        "fontSize": "116px",
+        "lineHeight": "120px",
+        "letterSpacing": "-3.48px"
+      },
+      "$description": "Hero word (-3%)",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "header/display"
+        }
+      }
+    },
+    "h1": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 400,
+        "fontSize": "60px",
+        "lineHeight": "64px",
+        "letterSpacing": "-1.2px"
+      },
+      "$description": "Hero headline (-2%)",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "header/h1"
+        }
+      }
+    },
+    "h2": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 500,
+        "fontSize": "44px",
+        "lineHeight": "1.1",
+        "letterSpacing": "-0.5px"
+      },
+      "$description": "Section titles",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "header/h2"
+        }
+      }
+    },
+    "h3": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 500,
+        "fontSize": "32px",
+        "lineHeight": "1.1",
+        "letterSpacing": "-0.5px"
+      },
+      "$description": "Card titles, stage titles",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "header/h3"
+        }
+      }
+    },
+    "h4": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 500,
+        "fontSize": "24px",
+        "lineHeight": "1.1",
+        "letterSpacing": "-1px"
+      },
+      "$description": "List and tab titles",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "header/h4"
+        }
+      }
+    },
+    "subtitle": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 400,
+        "fontSize": "24px",
+        "lineHeight": "1.2",
+        "letterSpacing": "-0.5px"
+      },
+      "$description": "Section subtitles, quotes",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "subtitle/subtitle"
+        }
+      }
+    },
+    "subtitle-medium": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 500,
+        "fontSize": "24px",
+        "lineHeight": "1.2",
+        "letterSpacing": "-0.5px"
+      },
+      "$description": "Navigator AI note",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "subtitle/subtitle_medium"
+        }
+      }
+    },
+    "body-l": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 400,
+        "fontSize": "20px",
+        "lineHeight": "1.2",
+        "letterSpacing": "0"
+      },
+      "$description": "Hero lead, FAQ copy",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "body/body_l"
+        }
+      }
+    },
+    "body-l-medium": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 500,
+        "fontSize": "20px",
+        "lineHeight": "1.2",
+        "letterSpacing": "-0.5px"
+      },
+      "$description": "Stage links, logo row title",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "body/body_l_medium"
+        }
+      }
+    },
+    "body-m": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 400,
+        "fontSize": "18px",
+        "lineHeight": "1.2",
+        "letterSpacing": "-0.09px"
+      },
+      "$description": "Card copy (-0.5%)",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "body/body_m"
+        }
+      }
+    },
+    "body-m-medium": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 500,
+        "fontSize": "18px",
+        "lineHeight": "1.2",
+        "letterSpacing": "-0.5px"
+      },
+      "$description": "Mega menu column titles, stage subtitles",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "body/body_m_medium"
+        }
+      }
+    },
+    "body-s": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 400,
+        "fontSize": "16px",
+        "lineHeight": "1.2",
+        "letterSpacing": "0"
+      },
+      "$description": "Snapshot copy",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "body/body_s"
+        }
+      }
+    },
+    "body-s-medium": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 500,
+        "fontSize": "16px",
+        "lineHeight": "24px",
+        "letterSpacing": "0"
+      },
+      "$description": "Nav items, info bar",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "body/body_s_medium"
+        }
+      }
+    },
+    "footnote": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 400,
+        "fontSize": "14px",
+        "lineHeight": "1.2",
+        "letterSpacing": "0"
+      },
+      "$description": "Legal, descriptions",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "footnote/footnote"
+        }
+      }
+    },
+    "footnote-medium": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 500,
+        "fontSize": "14px",
+        "lineHeight": "1.2",
+        "letterSpacing": "0"
+      },
+      "$description": "Menu and footer links",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "footnote/footnote_medium"
+        }
+      }
+    },
+    "overline": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 500,
+        "fontSize": "16px",
+        "lineHeight": "1.2",
+        "letterSpacing": "0.32px"
+      },
+      "$description": "Eyebrows, uppercase (+2%)",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "overline"
+        }
+      }
+    },
+    "button": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "display",
+        "fontWeight": 600,
+        "fontSize": "18px",
+        "lineHeight": "20px",
+        "letterSpacing": "-0.5px"
+      },
+      "$description": "Buttons and text links",
+      "$extensions": {
+        "foley": {
+          "figmaStyle": "button"
+        }
+      }
+    }
+  },
+  "space": {
+    "1": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$description": ""
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$description": ""
+    },
+    "3": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$description": ""
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": ""
+    },
+    "5": {
+      "$type": "dimension",
+      "$value": "20px",
+      "$description": ""
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$description": ""
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$description": ""
+    },
+    "10": {
+      "$type": "dimension",
+      "$value": "40px",
+      "$description": ""
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": "48px",
+      "$description": ""
+    },
+    "16": {
+      "$type": "dimension",
+      "$value": "64px",
+      "$description": ""
+    },
+    "20": {
+      "$type": "dimension",
+      "$value": "80px",
+      "$description": ""
+    },
+    "35": {
+      "$type": "dimension",
+      "$value": "140px",
+      "$description": ""
+    }
+  },
+  "layout": {
+    "canvas": {
+      "$type": "dimension",
+      "$value": "1440px",
+      "$description": "Design width"
+    },
+    "content": {
+      "$type": "dimension",
+      "$value": "1280px",
+      "$description": "Content width inside 80px gutters"
+    },
+    "gutter-lg": {
+      "$type": "dimension",
+      "$value": "80px",
+      "$description": "≥ 1280"
+    },
+    "gutter-md": {
+      "$type": "dimension",
+      "$value": "40px",
+      "$description": "960–1279"
+    },
+    "gutter-sm": {
+      "$type": "dimension",
+      "$value": "20px",
+      "$description": "< 960"
+    },
+    "section-y": {
+      "$type": "dimension",
+      "$value": "140px",
+      "$description": "Vertical section padding"
+    },
+    "header-info": {
+      "$type": "dimension",
+      "$value": "33px",
+      "$description": "Info bar"
+    },
+    "header-main": {
+      "$type": "dimension",
+      "$value": "76px",
+      "$description": "Main bar (64px < 960)"
+    }
+  },
+  "breakpoint": {
+    "lg": {
+      "$type": "dimension",
+      "$value": "1279px",
+      "$description": "max-width: gutters 40px, tighter nav"
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "1139px",
+      "$description": "max-width: Log in hidden in header"
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "959px",
+      "$description": "max-width: mobile layout, drawer"
+    }
+  },
+  "radius": {
+    "none": {
+      "$type": "dimension",
+      "$value": "0px",
+      "$description": "Foley UI is square. Only icon chips (AI badge, carousel arrows) are round"
+    }
+  },
+  "motion": {
+    "duration": {
+      "out": {
+        "$type": "duration",
+        "$value": "140ms",
+        "$description": "Content leaving on hover-out"
+      },
+      "return": {
+        "$type": "duration",
+        "$value": "90ms",
+        "$description": "Lead before default content returns"
+      },
+      "fade": {
+        "$type": "duration",
+        "$value": "300ms",
+        "$description": "Opacity in"
+      },
+      "bg": {
+        "$type": "duration",
+        "$value": "320ms",
+        "$description": "Background colour change"
+      },
+      "move": {
+        "$type": "duration",
+        "$value": "520ms",
+        "$description": "Position in"
+      },
+      "stagger": {
+        "$type": "duration",
+        "$value": "40ms",
+        "$description": "Between list items"
+      },
+      "lead": {
+        "$type": "duration",
+        "$value": "70ms",
+        "$description": "Before the first staggered item"
+      },
+      "reveal": {
+        "$type": "duration",
+        "$value": "900ms",
+        "$description": "Scroll reveal opacity"
+      },
+      "reveal-move": {
+        "$type": "duration",
+        "$value": "1000ms",
+        "$description": "Scroll reveal translate"
+      },
+      "split": {
+        "$type": "duration",
+        "$value": "1100ms",
+        "$description": "Heading word mask"
+      },
+      "menu-open": {
+        "$type": "duration",
+        "$value": "620ms",
+        "$description": "Mega menu / search curtain in"
+      },
+      "menu-close": {
+        "$type": "duration",
+        "$value": "380ms",
+        "$description": "Curtain out"
+      },
+      "scene": {
+        "$type": "duration",
+        "$value": "6000ms",
+        "$description": "Hero scene and snapshot autoplay"
+      }
+    },
+    "easing": {
+      "out": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.16,
+          1,
+          0.3,
+          1
+        ],
+        "$description": "Default for anything entering"
+      },
+      "in": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.4,
+          0,
+          1,
+          1
+        ],
+        "$description": "Anything leaving"
+      },
+      "standard": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.4,
+          0,
+          0.2,
+          1
+        ],
+        "$description": "Colour and opacity"
+      },
+      "odometer": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.76,
+          0,
+          0.24,
+          1
+        ],
+        "$description": "Hero word roll"
+      }
+    }
+  },
+  "z": {
+    "drawer": {
+      "$type": "number",
+      "$value": 55
+    },
+    "backdrop": {
+      "$type": "number",
+      "$value": 58
+    },
+    "header": {
+      "$type": "number",
+      "$value": 60
+    },
+    "demo": {
+      "$type": "number",
+      "$value": 90
+    },
+    "skip": {
+      "$type": "number",
+      "$value": 100
+    }
+  }
+}

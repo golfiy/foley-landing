@@ -1,0 +1,135 @@
+/* GENERATED from tokens/foley.tokens.json by scripts/build-tokens.mjs. Do not edit by hand. */
+:root {
+  --color-text-primary: #111117;
+  --color-text-secondary: #1A3946;
+  --color-text-tertiary: #70707D;
+  --color-text-light: #FFFFFF;
+  --color-bg-primary: #294C5A;
+  --color-bg-primary-hover: #1C3843;
+  --color-bg-secondary: #EEEEF2;
+  --color-bg-tertiary: #F8F9FC;
+  --color-bg-tertiary-hover: #F1F3FA;
+  --color-bg-light: #FFFFFF;
+  --color-bg-light-hover: #E9ECF4;
+  --color-bg-inverse: #0A171C;
+  --color-stroke-primary: #C1CFE6;
+  --color-stroke-secondary: #E1EAFA;
+  --color-stroke-light: #FFFFFF;
+  --color-brand-primary: #81E014;
+  --color-petrol-500: #4A87A2;
+  --color-petrol-700: #285A6B;
+  --color-overlay-backdrop: rgba(10, 23, 28, 0.32);
+  --color-overlay-on-dark-hover: rgba(255, 255, 255, 0.12);
+  --color-overlay-tile: rgba(255, 255, 255, 0.04);
+  --color-focus-ring: #111117;
+  --color-focus-highlight: rgba(74, 135, 162, 0.55);
+  --gradient-primary: linear-gradient(180deg, #1B3B48 0%, #163039 50%, #0A171C 100%);
+  --gradient-secondary: linear-gradient(90deg, #285A6B 0%, #4A87A2 49.721%, #4A87A2 100%);
+  --gradient-tertiary: linear-gradient(180deg, #FFFFFF 0%, #CCD6EC 100%);
+  --gradient-tertiary-rest: linear-gradient(180deg, #FFFFFF 0%, #E8F0FF 100%);
+  --gradient-light: linear-gradient(180deg, #F4F7FE 0%, #E1E9FB 100%);
+  --gradient-scrim: linear-gradient(90deg, rgba(0, 0, 0, 0.88) 19.84%, rgba(0, 0, 0, 0.74) 38.374%, rgba(0, 0, 0, 0) 63.854%);
+  --shadow-overlay: 0 30px 60px -20px rgba(10, 23, 28, 0.28);
+  --shadow-header: 0 1px 0 #E1EAFA, 0 10px 30px rgba(10, 23, 28, 0.06);
+  --font-display: "Inter Display", Inter, system-ui, -apple-system, sans-serif;
+  --font-ui: Inter, system-ui, -apple-system, sans-serif;
+  --type-display: 400 116px/120px var(--font-display);
+  --type-display-tracking: -3.48px;
+  --type-h1: 400 60px/64px var(--font-display);
+  --type-h1-tracking: -1.2px;
+  --type-h2: 500 44px/1.1 var(--font-display);
+  --type-h2-tracking: -0.5px;
+  --type-h3: 500 32px/1.1 var(--font-display);
+  --type-h3-tracking: -0.5px;
+  --type-h4: 500 24px/1.1 var(--font-display);
+  --type-h4-tracking: -1px;
+  --type-subtitle: 400 24px/1.2 var(--font-display);
+  --type-subtitle-tracking: -0.5px;
+  --type-subtitle-medium: 500 24px/1.2 var(--font-display);
+  --type-subtitle-medium-tracking: -0.5px;
+  --type-body-l: 400 20px/1.2 var(--font-display);
+  --type-body-l-tracking: 0px;
+  --type-body-l-medium: 500 20px/1.2 var(--font-display);
+  --type-body-l-medium-tracking: -0.5px;
+  --type-body-m: 400 18px/1.2 var(--font-display);
+  --type-body-m-tracking: -0.09px;
+  --type-body-m-medium: 500 18px/1.2 var(--font-display);
+  --type-body-m-medium-tracking: -0.5px;
+  --type-body-s: 400 16px/1.2 var(--font-display);
+  --type-body-s-tracking: 0px;
+  --type-body-s-medium: 500 16px/24px var(--font-display);
+  --type-body-s-medium-tracking: 0px;
+  --type-footnote: 400 14px/1.2 var(--font-display);
+  --type-footnote-tracking: 0px;
+  --type-footnote-medium: 500 14px/1.2 var(--font-display);
+  --type-footnote-medium-tracking: 0px;
+  --type-overline: 500 16px/1.2 var(--font-display);
+  --type-overline-tracking: 0.32px;
+  --type-button: 600 18px/20px var(--font-display);
+  --type-button-tracking: -0.5px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-35: 140px;
+  --layout-canvas: 1440px;
+  --layout-content: 1280px;
+  --layout-gutter-lg: 80px;
+  --layout-gutter-md: 40px;
+  --layout-gutter-sm: 20px;
+  --layout-section-y: 140px;
+  --layout-header-info: 33px;
+  --layout-header-main: 76px;
+  --breakpoint-lg: 1279px;
+  --breakpoint-md: 1139px;
+  --breakpoint-sm: 959px;
+  --radius-none: 0px;
+  --motion-duration-out: 140ms;
+  --motion-duration-return: 90ms;
+  --motion-duration-fade: 300ms;
+  --motion-duration-bg: 320ms;
+  --motion-duration-move: 520ms;
+  --motion-duration-stagger: 40ms;
+  --motion-duration-lead: 70ms;
+  --motion-duration-reveal: 900ms;
+  --motion-duration-reveal-move: 1000ms;
+  --motion-duration-split: 1100ms;
+  --motion-duration-menu-open: 620ms;
+  --motion-duration-menu-close: 380ms;
+  --motion-duration-scene: 6000ms;
+  --motion-easing-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-easing-in: cubic-bezier(0.4, 0, 1, 1);
+  --motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-easing-odometer: cubic-bezier(0.76, 0, 0.24, 1);
+  --z-drawer: 55;
+  --z-backdrop: 58;
+  --z-header: 60;
+  --z-demo: 90;
+  --z-skip: 100;
+}
+
+/* Type helpers: one class per Figma text style */
+.type-display { font: var(--type-display); letter-spacing: var(--type-display-tracking); font-variation-settings: "opsz" 32; }
+.type-h1 { font: var(--type-h1); letter-spacing: var(--type-h1-tracking); font-variation-settings: "opsz" 32; }
+.type-h2 { font: var(--type-h2); letter-spacing: var(--type-h2-tracking); font-variation-settings: "opsz" 32; }
+.type-h3 { font: var(--type-h3); letter-spacing: var(--type-h3-tracking); font-variation-settings: "opsz" 32; }
+.type-h4 { font: var(--type-h4); letter-spacing: var(--type-h4-tracking); font-variation-settings: "opsz" 32; }
+.type-subtitle { font: var(--type-subtitle); letter-spacing: var(--type-subtitle-tracking); font-variation-settings: "opsz" 32; }
+.type-subtitle-medium { font: var(--type-subtitle-medium); letter-spacing: var(--type-subtitle-medium-tracking); font-variation-settings: "opsz" 32; }
+.type-body-l { font: var(--type-body-l); letter-spacing: var(--type-body-l-tracking); font-variation-settings: "opsz" 32; }
+.type-body-l-medium { font: var(--type-body-l-medium); letter-spacing: var(--type-body-l-medium-tracking); font-variation-settings: "opsz" 32; }
+.type-body-m { font: var(--type-body-m); letter-spacing: var(--type-body-m-tracking); font-variation-settings: "opsz" 32; }
+.type-body-m-medium { font: var(--type-body-m-medium); letter-spacing: var(--type-body-m-medium-tracking); font-variation-settings: "opsz" 32; }
+.type-body-s { font: var(--type-body-s); letter-spacing: var(--type-body-s-tracking); font-variation-settings: "opsz" 32; }
+.type-body-s-medium { font: var(--type-body-s-medium); letter-spacing: var(--type-body-s-medium-tracking); font-variation-settings: "opsz" 32; }
+.type-footnote { font: var(--type-footnote); letter-spacing: var(--type-footnote-tracking); font-variation-settings: "opsz" 32; }
+.type-footnote-medium { font: var(--type-footnote-medium); letter-spacing: var(--type-footnote-medium-tracking); font-variation-settings: "opsz" 32; }
+.type-overline { font: var(--type-overline); letter-spacing: var(--type-overline-tracking); text-transform: uppercase; font-variation-settings: "opsz" 32; }
+.type-button { font: var(--type-button); letter-spacing: var(--type-button-tracking); font-variation-settings: "opsz" 32; }
