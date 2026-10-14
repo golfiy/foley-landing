@@ -1,5 +1,5 @@
 {
-  "$description": "Foley landing design tokens. Source of truth: Figma file 1595 – Start Stream, page 8 (variables + text styles) and the live landing. Tokens marked source=site are states and patterns that are not drawn in Figma.",
+  "$description": "Foley landing design tokens. Source of truth: the Figma variables and text styles (final file: to be added by the owner of the final figma file) and the live landing. Tokens marked source=site are states and patterns that are not drawn in Figma.",
   "color": {
     "text": {
       "primary": {

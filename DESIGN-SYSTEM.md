@@ -4,7 +4,7 @@ Version 1.0 · October 2026 · Landing prototype `foley-landing`
 
 The tokens, components and rules behind the Foley landing page. This document is the written spec; the interactive reference is the Storybook (`npm run storybook` → http://127.0.0.1:4967). Both are built from the same files as the site.
 
-- **Figma:** [1595 – Start Stream, page 8](https://www.figma.com/design/Dvi1gBhoXvurjb74BzXcKg/1595---Start-Stream?node-id=1140-9359): `homepage` (1195:12173), `navigation` (1195:17678), `how_it_works hover states` (1195:12266)
+- **Figma:** *To be added by the owner of the final Figma file.* Frames: `homepage`, `navigation`, `how_it_works hover states`
 - **Site:** http://127.0.0.1:4965/
 - **Source of truth:** the current Figma variables and text styles, plus the states and patterns designed on the site (marked **site** below). Everything is captured in `tokens/foley.tokens.json`.
 
