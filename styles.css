@@ -776,9 +776,7 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
   background: var(--gradient-primary);
 }
 .cases-in { max-width: 1280px; margin: 0 auto; }
-.cases-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
-.cases-arrows { flex: none; display: flex; gap: 8px; }
-.cases-stage { margin-top: 64px; }
+.cases-stage { display: flex; align-items: center; gap: 20px; margin-top: 64px; }
 .cases-nav {
   flex: none;
   display: grid;
@@ -792,14 +790,15 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
   cursor: pointer;
   transition: opacity .3s var(--motion-easing-standard), background-color .3s var(--motion-easing-standard), transform .5s var(--motion-easing-out);
 }
+.cases-prev { margin-right: 48px; }
+.cases-next { margin-left: 48px; }
 .cases-nav img { width: 24px; height: 24px; }
 .cases-nav:hover { background: var(--color-overlay-on-dark-hover); }
 .cases-prev:hover { transform: translateX(-3px); }
 .cases-next:hover { transform: translateX(3px); }
 .cases-nav:focus-visible { outline-color: var(--color-text-light); }
 .cases-nav[disabled] { opacity: .3; pointer-events: none; }
-/* the track starts at the column and runs off the right edge (next card peeks); clipped on the left only */
-.cases-viewport { overflow: visible; clip-path: inset(-40px -100vw -40px -10px); touch-action: pan-y; cursor: grab; }
+.cases-viewport { flex: 1; min-width: 0; overflow: hidden; touch-action: pan-y; cursor: grab; }
 .cases-viewport.is-drag { cursor: grabbing; }
 .cases-viewport:focus-visible { outline-color: var(--color-text-light); outline-offset: 6px; }
 .cases-track {
@@ -811,7 +810,7 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
 }
 .cases-track.is-dragging { transition: none; }
 .case {
-  flex: 0 0 min(522px, calc((100% - 20px) / 2));
+  flex: 0 0 calc((100% - 20px) / 2);
   min-height: 416px;
   display: flex;
   flex-direction: column;
@@ -951,6 +950,8 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
   .nav-list { gap: 22px; }
   .case h3 { font-size: 28px; }
   .case blockquote { font-size: 21px; }
+  .cases-prev { margin-right: 8px; }
+  .cases-next { margin-left: 8px; }
   .f-badges { position: static; margin-left: auto; }
   .f-main { flex-wrap: wrap; }
 }
@@ -1025,10 +1026,13 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
   .sec-faq { padding: 96px 0 40px; }
 
   .cases { padding: 64px 20px 72px; }
-  .cases-stage { margin-top: 32px; }
-  .case { flex-basis: calc(100% - 40px); padding: 0 22px 16px; }   /* next card peeks at the edge */
+  .cases-stage { position: relative; margin-top: 32px; padding-bottom: 64px; }
+  .case { flex-basis: 100%; padding: 0 22px 16px; }
   .case h3 { font-size: 26px; height: auto; }
   .case-body { height: auto; }
+  .cases-nav { position: absolute; bottom: 0; margin: 0; }
+  .cases-prev { left: calc(50% - 52px); }
+  .cases-next { right: calc(50% - 52px); }
 
   .band { height: auto; min-height: 560px; }
   .band-shade { background: linear-gradient(180deg, rgba(0, 0, 0, .55), rgba(0, 0, 0, .82)); }

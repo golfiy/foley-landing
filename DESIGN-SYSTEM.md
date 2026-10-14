@@ -330,7 +330,7 @@ First view: curtain + one automatic pass through the hover states, cancelled by 
 - **Testimonial card** `testimonial_card` (`.case`): 84px logo row + overline, `type/h3` bottom-aligned in 70px, `stroke/primary` rule, `type/subtitle` quote, author `body-m` tertiary, Read case study.
 
 ### Testimonials · `testimonials`
-`--gradient-primary`, cards 522px with a 20px gap start at the column edge and run off the right edge of the screen (the next card peeks); round arrows sit in the title row on the right (hover `overlay/on-dark-hover`, disabled 30%). Site change from Figma, where the arrows sit outside a centred two-card track. Steps one card (800ms), drag / swipe (60px), ←/→. One card per view ≤959.
+`--gradient-primary`, two cards visible (522px, 20px gap), round arrows outside (hover `overlay/on-dark-hover`, disabled 30%). Steps one card (800ms), drag / swipe (60px), ←/→. One card per view ≤959.
 
 ### Banner · `banner`
 688px photo + `--gradient-scrim`, light `title_text` (521px, subtitle 396px), White plain + Outline (52px).
