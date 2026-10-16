@@ -195,7 +195,7 @@ Inter Display everywhere. Fallback: Inter (Google Fonts) with `font-variation-se
 
 ### 2.4 Iconography
 
-24px on a 24px grid, 1.6px stroke, round caps and joins (Figma `ico/*`). Colours are baked per use: ink on light, white on dark, `text/secondary` for link arrows. Buttons and links always use `ico/arrow/right` at 24px; mega-menu column heads use it at 20px. Files: `assets/v2/ico`, `assets/v2/social`.
+24px on a 24px grid, 1.6px stroke, round caps and joins (Figma `ico/*`). Colours are baked per use: ink on light, white on dark, `text/secondary` for link arrows. Buttons and links always use `ico/arrow/right` at 24px; mega-menu column heads use it at 20px. Exception: `ico/ai` (32px, Figma 1227:27470) is the multi-colour AI mark (star filled with blurred colour fields), used only in the Insights badge. Files: `assets/v2/ico`, `assets/v2/social`.
 
 ### 2.5 Motion
 
