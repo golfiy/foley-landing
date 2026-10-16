@@ -905,9 +905,13 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
 .footer-logo img { transition: transform .6s var(--motion-easing-out); }
 .footer-logo:hover img { transform: translateY(-3px); }
 .f-brand p { font-weight: 500; font-size: 16px; line-height: 24px; color: var(--color-text-primary); }
-.f-badges { position: absolute; right: 0; bottom: 0; display: flex; align-items: center; gap: 21px; }
-.f-badges img:first-child { width: 114px; height: 86px; object-fit: cover; }
-.f-badges img:last-child { width: 88px; height: 88px; object-fit: cover; }
+.f-badges { position: absolute; left: 433px; right: 0; bottom: 0; display: flex; align-items: flex-end; gap: 21px; }
+/* UCR disclaimer (Figma footer 1221:27198): bottom-aligned with the badges */
+.f-ucr { flex: 0 1 603px; margin-right: auto; padding-right: 48px; font-size: 14px; line-height: 17px; color: var(--color-text-tertiary); }
+.f-ucr a { color: var(--color-text-secondary); text-decoration: underline; text-underline-offset: 2px; transition: color .25s var(--motion-easing-standard); }
+.f-ucr a:hover { color: var(--color-text-primary); }
+.f-badges img:first-of-type { width: 114px; height: 86px; object-fit: cover; }
+.f-badges img:last-of-type { width: 88px; height: 88px; object-fit: cover; }
 .f-line { display: block; height: 1px; background: var(--color-stroke-primary); }
 .f-bottom { display: flex; justify-content: space-between; align-items: center; }
 .f-copy { font-weight: 400; font-size: 14px; line-height: 1.2; color: var(--color-text-tertiary); }
@@ -942,7 +946,7 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
   .head-cta { gap: 32px; }
   .snap-list, .teams-list { flex-basis: 380px; }
   .f-brand { width: auto; }
-  .f-cols { flex-wrap: wrap; }
+  .f-cols { flex: none; flex-wrap: wrap; }   /* keep the four link columns in one row; the address block takes what is left */
 }
 
 @media (max-width: 1139px) {
@@ -952,8 +956,8 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
   .case blockquote { font-size: 21px; }
   .cases-prev { margin-right: 8px; }
   .cases-next { margin-left: 8px; }
-  .f-badges { position: static; margin-left: auto; }
   .f-main { flex-wrap: wrap; }
+  .f-badges { position: static; flex-basis: 100%; }
 }
 
 @media (max-width: 959px) {
@@ -1047,7 +1051,8 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border: 1px soli
   .f-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 20px; }
   .f-stack { width: auto; }
   .f-brand { margin-left: 0; align-items: flex-start; text-align: left; }
-  .f-badges { position: static; margin-left: 0; }
+  .f-badges { position: static; margin-left: 0; flex-wrap: wrap; gap: 24px 21px; }
+  .f-ucr { flex-basis: 100%; padding-right: 0; }
   .f-bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
   .f-legal { flex-wrap: wrap; gap: 12px 24px; }
   .f-social { gap: 28px; }

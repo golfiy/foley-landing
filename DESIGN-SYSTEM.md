@@ -336,7 +336,7 @@ First view: curtain + one automatic pass through the hover states, cancelled by 
 688px dark card in the 1280 column (copy 40px from its edge), photo fills it as in Figma + `--gradient-scrim`, light `title_text` (521px, subtitle 396px), White plain + Outline (52px).
 
 ### Footer · `footer`
-Top row (3 short columns + CTAs), four stacks of link groups (197px, `type/footnote-medium`, headings `text/tertiary`), brand block (logo, address, phone), BBB + PBSA badges, `stroke/primary` rule, legal row and social icons (24px, 40px gaps).
+Top row (3 short columns + CTAs), four stacks of link groups (197px, `type/footnote-medium`, headings `text/tertiary`), brand block (logo, address, phone), UCR disclaimer (`type/footnote`, `text/tertiary`, link `text/secondary` underlined) bottom-aligned with the BBB + PBSA badges from the third column (Figma 1221:27198), `stroke/primary` rule, legal row and social icons (24px, 40px gaps).
 
 ---
 
