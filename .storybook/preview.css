@@ -72,3 +72,7 @@
 
 /* focus ring on dark demo canvases */
 .ds-dark :where(a, button, [tabindex]):focus-visible { outline-color: var(--color-text-light); }
+
+/* page modules: 1280 modules sit in the 1440 frame with 80px around (Figma frames) */
+.ds-mod { padding: 80px; background: var(--color-bg-light); }
+.ds-mod-flush { background: var(--color-bg-light); }

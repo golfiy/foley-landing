@@ -56,6 +56,9 @@
   /* Storybook paints the row menu button in the accent with a shadow fade (made for its dark selected row) */
   #storybook-explorer-tree .sidebar-item [data-testid="context-menu"] { background: transparent; box-shadow: none; color: var(--sb-muted); border-radius: 0; }
   #storybook-explorer-tree .sidebar-item [data-testid="context-menu"]:hover { background: var(--sb-current); color: var(--sb-ink); }
+  /* "new / modified" status badge (uncommitted stories): same treatment, accent tint instead of blue */
+  #storybook-explorer-tree .sidebar-item [data-testid="tree-change-status-button"] { background: transparent; box-shadow: none; color: var(--sb-accent); border-radius: 0; }
+  #storybook-explorer-tree .sidebar-item [data-testid="tree-change-status-button"]:hover { background: var(--sb-current); }
 
   /* groups: sentence-case headings with a divider, instead of small caps */
   #storybook-explorer-tree .sidebar-subheading { min-height: 32px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--sb-line); }

@@ -244,6 +244,18 @@
           }
         }
       }
+    },
+    "status": {
+      "error": {
+        "$type": "color",
+        "$value": "#B42318",
+        "$description": "Form validation: 1px input ring and the 14px message under the field (6.2:1 on white, 5.6:1 on bg/secondary)",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
+      }
     }
   },
   "gradient": {

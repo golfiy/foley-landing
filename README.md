@@ -119,6 +119,7 @@ Headless Chrome 1440 (`?shot`) против `get_screenshot` фреймов. В�
 - `tokens/foley.tokens.json` → `tokens.css` – дизайн-токены (см. выше)
 - `styles.css` – алиасы на токены, кнопки, шапка/меню, hero, секции, адаптив (1279 / 1139 / 959), reduced motion, demo panel
 - `stages.css`, `stages.js` – how it works (state machine, морф CTA, `FoleyStages.hint()`, `?shot=all`)
+- `modules.html`, `modules.css`, `modules.js` – модули для внутренних страниц (Figma «modules», 1243:21982): hero ×5, callout ×4, all-in ×4, carousel ×4, tiles ×2, accordion, FAQ ×2, contact form ×6 + инпуты; живая галерея по адресу `/modules.html`
 - `app.js` – мега-меню, drawer, поиск, hero-сцены, reveals, scroll engine, snapshot, карусель, demo panel (переживает отсутствие любого блока – нужно для изолированных историй)
 - `.storybook/`, `ds/`, `DESIGN-SYSTEM.md`, `package.json` – дизайн-система
 - `assets/v2/` – ассеты нового макета (иконки 24px, логотипы SVG, фото, промо мега-меню, бейджи, соцсети)
@@ -154,3 +155,9 @@ Headless Chrome 1440 (`?shot`) против `get_screenshot` фреймов. В�
 Storybook на :4967 + `DESIGN-SYSTEM.md`, токены вынесены в DTCG JSON (сайт после рефакторинга совпадает пиксель в пиксель). Заголовки колонок мега-меню стали ссылками со стрелкой. Найдено по пути: невидимое фокус-кольцо на тёмных секциях (теперь белое), падение режима `?menu=` (исправлено ранее).
 
 Фавиконка: `assets/favicon.svg` (буква «O» из логотипа на белой скруглённой плашке) + `favicon-32.png` и `apple-touch-icon.png` для браузеров без SVG.
+
+## Модули (2026-10-20)
+
+`modules.html` – все модули из Figma «modules» на одной странице (http://127.0.0.1:4965/modules.html, на Pages – `/modules.html`). Тексты – плейсхолдеры из Figma. Сверка с Figma на 1440: формы и карточки совпадают (mean diff 0.4–4 из 255), hero с фото – 11–14 (в Figma кадр 1444px со свесом). В DS: раздел **Modules** + **Components / Input**; спецификации в `DESIGN-SYSTEM.md`, раздел 4.
+
+Поведение (дописано, в Figma нет): аккордеоны и FAQ (одна открытая, анимация), фильтр тем в FAQ, вертикальная карусель-аккордеон, горизонтальная – табы со стрелками, валидация формы с ошибками. Токен `status/error` (#B42318) – добавлен для ошибок.

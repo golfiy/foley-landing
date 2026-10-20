@@ -1,9 +1,11 @@
 import '../tokens.css';
 import '../styles.css';
 import '../stages.css';
+import '../modules.css';
 import './preview.css';
 import appSrc from '../app.js?raw';
 import stagesSrc from '../stages.js?raw';
+import modulesSrc from '../modules.js?raw';
 import { foleyTheme } from './theme.js';
 
 /**
@@ -34,8 +36,20 @@ const live = (storyFn, ctx) => {
   return out;
 };
 
+// page modules: modules.js binds per element, so it is loaded once and re-run on every render
+{
+  const s = document.createElement('script');
+  s.textContent = modulesSrc;
+  document.head.append(s);
+}
+const modules = (storyFn) => {
+  const out = storyFn();
+  requestAnimationFrame(() => window.FoleyModules && window.FoleyModules.init(document));
+  return out;
+};
+
 export default {
-  decorators: [live],
+  decorators: [live, modules],
   parameters: {
     layout: 'fullscreen',
     controls: { expanded: true },
@@ -53,7 +67,8 @@ export default {
         order: [
           'Introduction',
           'Foundations', ['Colors', 'Typography', 'Layout & Spacing', 'Iconography', 'Motion', 'Imagery', 'Accessibility'],
-          'Components', ['Button', 'Link', 'Badge & Mark', 'Title Text', 'Top Navigation', 'Mega Menu', 'Search', 'Mobile Drawer', 'Hero', 'Partner Logos', 'How It Works', 'Snapshot Tabs', 'Category Row', 'Cards', 'Testimonials', 'Banner', 'Footer'],
+          'Components', ['Button', 'Link', 'Input', 'Badge & Mark', 'Title Text', 'Top Navigation', 'Mega Menu', 'Search', 'Mobile Drawer', 'Hero', 'Partner Logos', 'How It Works', 'Snapshot Tabs', 'Category Row', 'Cards', 'Testimonials', 'Banner', 'Footer'],
+          'Modules', ['Overview', 'Hero Screen', 'Callout Card', 'All-in Block', 'Carousel', 'Tiles Row', 'Accordion', 'FAQ', 'Contact Form'],
           'Pages',
           'Design System (MD)',
         ],

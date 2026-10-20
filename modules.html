@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <script src="assets/gate.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Foley – Modules</title>
+  <meta name="description" content="Foley page modules: hero screens, callout cards, all-in blocks, carousels, tiles, accordions, FAQ and contact forms.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="modules.css">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+</head>
+<body>
+  <!--
+    Page modules from Figma "modules" (1243:21982). Copy is the Figma placeholder copy.
+    Each module is self-contained: markup here, styles in modules.css, behaviour in modules.js.
+    The design system (Storybook) clones these blocks from this file.
+  -->
+  <header class="mod-bar">
+    <div class="mod-bar-in">
+      <a class="logo" href="./" aria-label="Foley homepage"><img src="assets/ui/logo.svg" width="118" height="27" alt="Foley"></a>
+      <p class="mod-bar-title">Modules</p>
+      <nav class="mod-bar-nav" aria-label="Modules">
+        <a href="#hero">Hero</a><a href="#callout">Callout</a><a href="#all-in">All-in</a><a href="#carousel">Carousel</a><a href="#tiles">Tiles</a><a href="#accordion">Accordion</a><a href="#faq">FAQ</a><a href="#contact">Contact form</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================================================================ hero screen -->
+    <section class="mod-sec mod-sec--flush" id="hero" aria-label="Hero screen">
+      <p class="mod-label wrap">Hero screen · view=main is the homepage hero (Components / Hero)</p>
+
+      <p class="mod-label wrap">view=light bg</p>
+      <div class="m-hero m-hero--light-bg" data-module="hero-light-bg">
+        <div class="m-hero-media" aria-hidden="true">
+          <img class="m-hero-boxes" src="assets/modules/box-pattern.svg" width="568" height="750" alt="">
+          <div class="m-hero-glass"><div class="m-hero-shot"><img src="assets/modules/hero-dashboard.webp" width="907" height="802" alt=""></div></div>
+        </div>
+        <div class="m-hero-copy">
+          <div class="m-hero-text">
+            <h2 class="m-hero-title">What is Foley’s Hiring and Onboarding Platform?</h2>
+            <p class="m-hero-sub">Hiring shouldn’t feel like a juggling act. With Foley, you can post jobs, review applications, and manage screenings without bouncing between systems.</p>
+          </div>
+          <a class="btn btn-teal" href="#contact">Get started <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
+        </div>
+      </div>
+
+      <p class="mod-label wrap">view=light image</p>
+      <div class="m-hero m-hero--light-image" data-module="hero-light-image">
+        <div class="m-hero-media" aria-hidden="true"><img class="m-hero-photo" src="assets/modules/hero-light-image.webp" width="1504" height="1288" alt=""></div>
+        <div class="m-hero-copy">
+          <div class="m-hero-text">
+            <h2 class="m-hero-title">The Only Transportation Compliance Service You'll Ever Need</h2>
+            <p class="m-hero-sub">Finally, software for transportation companies that anticipates what you need, when you need it, that's always current with DOT regulations.</p>
+          </div>
+          <a class="btn btn-teal" href="#contact">Get started <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
+        </div>
+      </div>
+
+      <p class="mod-label wrap">view=dark image</p>
+      <div class="m-hero m-hero--dark m-hero--dark-image" data-module="hero-dark-image">
+        <div class="m-hero-media" aria-hidden="true"><img class="m-hero-photo" src="assets/modules/hero-dark-image.webp" width="1504" height="1250" alt=""></div>
+        <div class="m-hero-copy">
+          <div class="m-hero-text">
+            <h2 class="m-hero-title">Foley: When You're Building More than Safety</h2>
+            <p class="m-hero-sub">When your fleet is a mix of heavy equipment, flatbeds, and pick-up trucks hauling supplies, you need a compliance and onboarding platform that can do it all.</p>
+          </div>
+          <a class="btn btn-white" href="#contact">Get started <img class="btn-ico" src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></a>
+        </div>
+      </div>
+
+      <p class="mod-label wrap">view=dark boxed</p>
+      <div class="m-hero m-hero--dark m-hero--dark-boxed" data-module="hero-dark-boxed">
+        <div class="m-hero-boxfield" aria-hidden="true"><img src="assets/modules/box-pattern.svg" width="1211" height="1599" alt=""></div>
+        <div class="m-hero-copy">
+          <div class="m-hero-text">
+            <h2 class="m-hero-title">Foley: Everything You Need to Stay Compliant</h2>
+            <p class="m-hero-sub">From background checks and driver onboarding to ongoing compliance monitoring, Foley brings your essential workflows together in one place.</p>
+          </div>
+          <a class="btn btn-white" href="#contact">Get started <img class="btn-ico" src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></a>
+        </div>
+      </div>
+
+      <p class="mod-label wrap">view=dark pattern</p>
+      <div class="m-hero m-hero--dark m-hero--dark-pattern" data-module="hero-dark-pattern">
+        <img class="m-hero-bg" src="assets/modules/hero-dark-pattern.webp" width="4096" height="1783" alt="" aria-hidden="true">
+        <div class="m-hero-copy">
+          <div class="m-hero-text">
+            <h2 class="m-hero-title">Foley: Keep Your Fleet Moving Forward</h2>
+            <p class="m-hero-sub">Manage driver qualifications, streamline onboarding, and stay ahead of compliance requirements with solutions designed for businesses on the move.</p>
+          </div>
+          <a class="btn btn-white" href="#contact">Get started <img class="btn-ico" src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ callout card -->
+    <section class="mod-sec" id="callout" aria-label="Callout card">
+      <div class="wrap mod-stack">
+        <p class="mod-label">Callout card · view=light image left</p>
+        <article class="m-split m-callout" data-module="callout-light-left">
+          <span class="mark" aria-hidden="true"></span>
+          <div class="m-split-media"><img src="assets/modules/callout-photo.webp" width="760" height="524" alt="" loading="lazy"></div>
+          <div class="m-split-body">
+            <div class="m-split-top">
+              <h3 class="m-split-title">Compliance &amp; Background Check Solutions for Construction &amp; Utility Companies</h3>
+              <div class="m-split-text"><p>Construction and utility workers take on high-risk duties every day, but a streamlined compliance system can create a proactive safety culture.</p><p>Foley’s background checks also help your company hire better, avoid fines, keep vendor relationships strong, and ensure your safety scores don’t keep you from winning the next bid.</p></div>
+            </div>
+            <a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
+          </div>
+        </article>
+
+        <p class="mod-label">Callout card · view=light image right</p>
+        <article class="m-split m-callout m-split--image-right" data-module="callout-light-right">
+          <span class="mark" aria-hidden="true"></span>
+          <div class="m-split-media"><img src="assets/modules/callout-photo.webp" width="760" height="524" alt="" loading="lazy"></div>
+          <div class="m-split-body">
+            <div class="m-split-top">
+              <h3 class="m-split-title">Compliance &amp; Background Check Solutions for Construction &amp; Utility Companies</h3>
+              <div class="m-split-text"><p>Construction and utility workers take on high-risk duties every day, but a streamlined compliance system can create a proactive safety culture.</p><p>Foley’s background checks also help your company hire better, avoid fines, keep vendor relationships strong, and ensure your safety scores don’t keep you from winning the next bid.</p></div>
+            </div>
+            <a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
+          </div>
+        </article>
+
+        <p class="mod-label">Callout card · view=dark image left</p>
+        <article class="m-split m-callout m-split--dark" data-module="callout-dark-left">
+          <div class="m-split-media"><img src="assets/modules/callout-photo.webp" width="760" height="524" alt="" loading="lazy"></div>
+          <div class="m-split-body">
+            <div class="m-split-top">
+              <h3 class="m-split-title">Compliance &amp; Background Check Solutions for Construction &amp; Utility Companies</h3>
+              <div class="m-split-text"><p>Construction and utility workers take on high-risk duties every day, but a streamlined compliance system can create a proactive safety culture.</p><p>Foley’s background checks also help your company hire better, avoid fines, keep vendor relationships strong, and ensure your safety scores don’t keep you from winning the next bid.</p></div>
+            </div>
+            <a class="btn btn-white" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></a>
+          </div>
+        </article>
+
+        <p class="mod-label">Callout card · view=dark image right</p>
+        <article class="m-split m-callout m-split--dark m-split--image-right" data-module="callout-dark-right">
+          <div class="m-split-media"><img src="assets/modules/callout-photo.webp" width="760" height="524" alt="" loading="lazy"></div>
+          <div class="m-split-body">
+            <div class="m-split-top">
+              <h3 class="m-split-title">Compliance &amp; Background Check Solutions for Construction &amp; Utility Companies</h3>
+              <div class="m-split-text"><p>Construction and utility workers take on high-risk duties every day, but a streamlined compliance system can create a proactive safety culture.</p><p>Foley’s background checks also help your company hire better, avoid fines, keep vendor relationships strong, and ensure your safety scores don’t keep you from winning the next bid.</p></div>
+            </div>
+            <a class="btn btn-white" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================================================================ all in block -->
+    <section class="mod-sec" id="all-in" aria-label="All-in block">
+      <div class="wrap mod-stack">
+        <p class="mod-label">All-in block · view=light image left</p>
+        <article class="m-split m-allin" data-module="allin-light-left">
+          <span class="mark" aria-hidden="true"></span>
+          <div class="m-split-media"><img src="assets/modules/allin-photo.webp" width="1333" height="889" alt="" loading="lazy"></div>
+          <div class="m-split-body">
+            <div class="m-split-top">
+              <h3 class="m-split-title">Stay compliant without slowing down</h3>
+              <div class="m-split-text"><p>Simplify DOT compliance with Foley's all-in-one platform. Manage driver records, testing programs, and compliance requirements while keeping your business moving forward.</p></div>
+              <ul class="m-checks">
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check.svg" width="24" height="24" alt=""></span>Keep driver qualification files organized and up to date</li>
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check.svg" width="24" height="24" alt=""></span>Simplify drug and alcohol testing with automated workflows</li>
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check.svg" width="24" height="24" alt=""></span>Stay ahead of compliance deadlines and reduce risks</li>
+              </ul>
+            </div>
+            <a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
+          </div>
+        </article>
+
+        <p class="mod-label">All-in block · view=light image right</p>
+        <article class="m-split m-allin m-split--image-right" data-module="allin-light-right">
+          <span class="mark" aria-hidden="true"></span>
+          <div class="m-split-media"><img src="assets/modules/allin-photo.webp" width="1333" height="889" alt="" loading="lazy"></div>
+          <div class="m-split-body">
+            <div class="m-split-top">
+              <h3 class="m-split-title">Stay compliant without slowing down</h3>
+              <div class="m-split-text"><p>Simplify DOT compliance with Foley's all-in-one platform. Manage driver records, testing programs, and compliance requirements while keeping your business moving forward.</p></div>
+              <ul class="m-checks">
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check.svg" width="24" height="24" alt=""></span>Keep driver qualification files organized and up to date</li>
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check.svg" width="24" height="24" alt=""></span>Simplify drug and alcohol testing with automated workflows</li>
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check.svg" width="24" height="24" alt=""></span>Stay ahead of compliance deadlines and reduce risks</li>
+              </ul>
+            </div>
+            <a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
+          </div>
+        </article>
+
+        <p class="mod-label">All-in block · view=dark image left</p>
+        <article class="m-split m-allin m-split--dark" data-module="allin-dark-left">
+          <div class="m-split-media"><img src="assets/modules/allin-photo.webp" width="1333" height="889" alt="" loading="lazy"></div>
+          <div class="m-split-body">
+            <div class="m-split-top">
+              <h3 class="m-split-title">Stay compliant without slowing down</h3>
+              <div class="m-split-text"><p>Simplify DOT compliance with Foley's all-in-one platform. Manage driver records, testing programs, and compliance requirements while keeping your business moving forward.</p></div>
+              <ul class="m-checks">
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check-white.svg" width="24" height="24" alt=""></span>Keep driver qualification files organized and up to date</li>
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check-white.svg" width="24" height="24" alt=""></span>Simplify drug and alcohol testing with automated workflows</li>
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check-white.svg" width="24" height="24" alt=""></span>Stay ahead of compliance deadlines and reduce risks</li>
+              </ul>
+            </div>
+            <a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
+          </div>
+        </article>
+
+        <p class="mod-label">All-in block · view=dark image right</p>
+        <article class="m-split m-allin m-split--dark m-split--image-right" data-module="allin-dark-right">
+          <div class="m-split-media"><img src="assets/modules/allin-photo.webp" width="1333" height="889" alt="" loading="lazy"></div>
+          <div class="m-split-body">
+            <div class="m-split-top">
+              <h3 class="m-split-title">Stay compliant without slowing down</h3>
+              <div class="m-split-text"><p>Simplify DOT compliance with Foley's all-in-one platform. Manage driver records, testing programs, and compliance requirements while keeping your business moving forward.</p></div>
+              <ul class="m-checks">
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check-white.svg" width="24" height="24" alt=""></span>Keep driver qualification files organized and up to date</li>
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check-white.svg" width="24" height="24" alt=""></span>Simplify drug and alcohol testing with automated workflows</li>
+                <li><span class="m-check" aria-hidden="true"><img src="assets/v2/ico/check-white.svg" width="24" height="24" alt=""></span>Stay ahead of compliance deadlines and reduce risks</li>
+              </ul>
+            </div>
+            <a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================================================================ carousel -->
+    <section class="mod-sec" id="carousel" aria-label="Carousel">
+      <div class="wrap mod-stack">
+        <p class="mod-label">Carousel · layout=vertical, view=image left</p>
+        <div class="m-split m-vcar" data-module="carousel-vertical-left" data-vcar>
+          <span class="mark" aria-hidden="true"></span>
+          <div class="m-split-media"><img src="assets/modules/carousel-photo.webp" width="1333" height="884" alt="" loading="lazy"></div>
+          <div class="m-vcar-list">
+            <div class="m-vcar-item"><h3 class="m-vcar-h"><button type="button" class="m-vcar-tab" aria-expanded="false">Driver Qualification Files</button></h3><div class="m-vcar-panel"><div class="m-vcar-inner"><div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div><a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a></div></div></div>
+            <div class="m-vcar-item"><h3 class="m-vcar-h"><button type="button" class="m-vcar-tab" aria-expanded="false">Drug &amp; Alcohol Testing</button></h3><div class="m-vcar-panel"><div class="m-vcar-inner"><div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div><a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a></div></div></div>
+            <div class="m-vcar-item"><h3 class="m-vcar-h"><button type="button" class="m-vcar-tab" aria-expanded="false">MVR Monitoring</button></h3><div class="m-vcar-panel"><div class="m-vcar-inner"><div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div><a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a></div></div></div>
+            <div class="m-vcar-item is-open"><h3 class="m-vcar-h"><button type="button" class="m-vcar-tab" aria-expanded="true">Background Checks</button></h3><div class="m-vcar-panel"><div class="m-vcar-inner"><div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div><a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a></div></div></div>
+            <div class="m-vcar-item"><h3 class="m-vcar-h"><button type="button" class="m-vcar-tab" aria-expanded="false">DOT Compliance</button></h3><div class="m-vcar-panel"><div class="m-vcar-inner"><div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div><a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a></div></div></div>
+          </div>
+        </div>
+
+        <p class="mod-label">Carousel · layout=vertical, view=image right</p>
+        <div class="m-split m-vcar m-split--image-right" data-module="carousel-vertical-right" data-vcar>
+          <span class="mark" aria-hidden="true"></span>
+          <div class="m-split-media"><img src="assets/modules/carousel-photo.webp" width="1333" height="884" alt="" loading="lazy"></div>
+          <div class="m-vcar-list">
+            <div class="m-vcar-item"><h3 class="m-vcar-h"><button type="button" class="m-vcar-tab" aria-expanded="false">Driver Qualification Files</button></h3><div class="m-vcar-panel"><div class="m-vcar-inner"><div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div><a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a></div></div></div>
+            <div class="m-vcar-item"><h3 class="m-vcar-h"><button type="button" class="m-vcar-tab" aria-expanded="false">Drug &amp; Alcohol Testing</button></h3><div class="m-vcar-panel"><div class="m-vcar-inner"><div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div><a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a></div></div></div>
+            <div class="m-vcar-item"><h3 class="m-vcar-h"><button type="button" class="m-vcar-tab" aria-expanded="false">MVR Monitoring</button></h3><div class="m-vcar-panel"><div class="m-vcar-inner"><div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div><a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a></div></div></div>
+            <div class="m-vcar-item is-open"><h3 class="m-vcar-h"><button type="button" class="m-vcar-tab" aria-expanded="true">Background Checks</button></h3><div class="m-vcar-panel"><div class="m-vcar-inner"><div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div><a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a></div></div></div>
+            <div class="m-vcar-item"><h3 class="m-vcar-h"><button type="button" class="m-vcar-tab" aria-expanded="false">DOT Compliance</button></h3><div class="m-vcar-panel"><div class="m-vcar-inner"><div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div><a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a></div></div></div>
+          </div>
+        </div>
+
+        <p class="mod-label">Carousel · layout=horizontal, view=image left</p>
+        <div class="m-hcar" data-module="carousel-horizontal-left" data-hcar>
+          <div class="m-hcar-tabs" role="tablist" aria-label="Services">
+            <button type="button" class="m-hcar-tab" role="tab" aria-selected="false">Driver Qualification Files</button>
+            <button type="button" class="m-hcar-tab" role="tab" aria-selected="false">Drug &amp; Alcohol Testing</button>
+            <button type="button" class="m-hcar-tab" role="tab" aria-selected="false">MVR Monitoring</button>
+            <button type="button" class="m-hcar-tab" role="tab" aria-selected="true">Background Checks</button>
+            <button type="button" class="m-hcar-tab" role="tab" aria-selected="false">DOT Compliance</button>
+          </div>
+          <div class="m-hcar-body" role="tabpanel">
+            <div class="m-hcar-media"><img src="assets/modules/carousel-photo.webp" width="1333" height="884" alt="" loading="lazy"></div>
+            <div class="m-hcar-text">
+              <h3 class="m-split-title" data-hcar-title>Background Checks</h3>
+              <div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div>
+              <a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
+            </div>
+            <div class="m-hcar-nav">
+              <button type="button" class="m-hcar-arrow" data-hcar-prev aria-label="Previous"><img src="assets/v2/ico/arrow-left-ink.svg" width="24" height="24" alt=""></button>
+              <button type="button" class="m-hcar-arrow" data-hcar-next aria-label="Next"><img src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></button>
+            </div>
+          </div>
+        </div>
+
+        <p class="mod-label">Carousel · layout=horizontal, view=image right</p>
+        <div class="m-hcar m-hcar--image-right" data-module="carousel-horizontal-right" data-hcar>
+          <div class="m-hcar-tabs" role="tablist" aria-label="Services">
+            <button type="button" class="m-hcar-tab" role="tab" aria-selected="false">Driver Qualification Files</button>
+            <button type="button" class="m-hcar-tab" role="tab" aria-selected="false">Drug &amp; Alcohol Testing</button>
+            <button type="button" class="m-hcar-tab" role="tab" aria-selected="false">MVR Monitoring</button>
+            <button type="button" class="m-hcar-tab" role="tab" aria-selected="true">Background Checks</button>
+            <button type="button" class="m-hcar-tab" role="tab" aria-selected="false">DOT Compliance</button>
+          </div>
+          <div class="m-hcar-body" role="tabpanel">
+            <div class="m-hcar-media"><img src="assets/modules/carousel-photo.webp" width="1333" height="884" alt="" loading="lazy"></div>
+            <div class="m-hcar-text">
+              <h3 class="m-split-title" data-hcar-title>Background Checks</h3>
+              <div class="m-split-text"><p>Background checks may seem like a small part of your hiring process, but with the wrong vendor, they can cause headaches for your team.</p><p>And if your team includes DOT-regulated employees, then your background check partner must have the industry expertise to ensure your records are compliant.</p></div>
+              <a class="btn btn-teal" href="#contact">Learn more <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></a>
+            </div>
+            <div class="m-hcar-nav">
+              <button type="button" class="m-hcar-arrow" data-hcar-prev aria-label="Previous"><img src="assets/v2/ico/arrow-left-ink.svg" width="24" height="24" alt=""></button>
+              <button type="button" class="m-hcar-arrow" data-hcar-next aria-label="Next"><img src="assets/v2/ico/arrow-ink.svg" width="24" height="24" alt=""></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ tiles row -->
+    <section class="mod-sec" id="tiles" aria-label="Tiles row">
+      <div class="wrap mod-stack">
+        <p class="mod-label">Tiles row</p>
+        <div class="m-tiles" data-module="tiles-row">
+          <article class="m-tile"><span class="mark" aria-hidden="true"></span><div class="m-tile-top"><h3 class="m-tile-title">Become an Owner-Operator Truck Driver</h3><p class="m-tile-text">Learn how to become an owner-operator truck driver in 2025 with this Foley guide. Get tips on a trucking business plan, staying DOT-compliant, and more.</p></div><a class="link-arrow" href="#tiles">Learn more <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></article>
+          <article class="m-tile"><span class="mark" aria-hidden="true"></span><div class="m-tile-top"><h3 class="m-tile-title">Unmatched Industry Expertise</h3><p class="m-tile-text">We've worked in the transportation industry for over thirty years. No one knows DOT compliance better than us. In fact, one of our customers called the FMCSA safety inspector who performed their audit.</p></div><a class="link-arrow" href="#tiles">Learn more <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></article>
+          <article class="m-tile"><span class="mark" aria-hidden="true"></span><div class="m-tile-top"><h3 class="m-tile-title">Dedicated <br>Support Team</h3><p class="m-tile-text">Our goal isn't for you to simply buy products from us and call it a day. We're relationship-driven, not transaction-driven. Why? Because successful businesses are built on successful relationships.</p></div><a class="link-arrow" href="#tiles">Learn more <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></article>
+          <article class="m-tile"><span class="mark" aria-hidden="true"></span><div class="m-tile-top"><h3 class="m-tile-title">One DOT Compliance Partner</h3><p class="m-tile-text">No more working with one vendor for driver files, another for drug testing, and still another for MVRs. We handle it all and counsel you along the way, ensuring that your filings are done correctly.</p></div><a class="link-arrow" href="#tiles">Learn more <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></article>
+        </div>
+
+        <p class="mod-label">Tiles row with image</p>
+        <div class="m-tiles" data-module="tiles-row-image">
+          <article class="m-tile m-tile--image"><img class="m-tile-img" src="assets/modules/tiles-photo.webp" width="684" height="456" alt="" loading="lazy"><div class="m-tile-top"><h3 class="m-tile-title">Become an Owner-Operator Truck Driver</h3><p class="m-tile-text">Learn how to become an owner-operator truck driver in 2025 with this Foley guide. Get tips on a trucking business plan, staying DOT-compliant, and more.</p></div><a class="link-arrow" href="#tiles">Learn more <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></article>
+          <article class="m-tile m-tile--image"><img class="m-tile-img" src="assets/modules/tiles-photo.webp" width="684" height="456" alt="" loading="lazy"><div class="m-tile-top"><h3 class="m-tile-title">Unmatched Industry Expertise</h3><p class="m-tile-text">We've worked in the transportation industry for over thirty years. No one knows DOT compliance better than us. In fact, one of our customers called the FMCSA safety inspector who performed their audit.</p></div><a class="link-arrow" href="#tiles">Learn more <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></article>
+          <article class="m-tile m-tile--image"><img class="m-tile-img" src="assets/modules/tiles-photo.webp" width="684" height="456" alt="" loading="lazy"><div class="m-tile-top"><h3 class="m-tile-title">Dedicated <br>Support Team</h3><p class="m-tile-text">Our goal isn't for you to simply buy products from us and call it a day. We're relationship-driven, not transaction-driven. Why? Because successful businesses are built on successful relationships.</p></div><a class="link-arrow" href="#tiles">Learn more <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></article>
+          <article class="m-tile m-tile--image"><img class="m-tile-img" src="assets/modules/tiles-photo.webp" width="684" height="456" alt="" loading="lazy"><div class="m-tile-top"><h3 class="m-tile-title">One DOT Compliance Partner</h3><p class="m-tile-text">No more working with one vendor for driver files, another for drug testing, and still another for MVRs. We handle it all and counsel you along the way, ensuring that your filings are done correctly.</p></div><a class="link-arrow" href="#tiles">Learn more <img src="assets/v2/ico/arrow-link.svg" width="24" height="24" alt=""></a></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ accordion -->
+    <section class="mod-sec" id="accordion" aria-label="Accordion">
+      <div class="wrap mod-stack">
+        <p class="mod-label">Accordion</p>
+        <div class="m-accordion" data-module="accordion">
+          <div class="title-text">
+            <h2>Advanced Software for Reliable, Continuous DOT Compliance</h2>
+            <p>Foley’s background checks also help your company hire better, avoid fines, keep vendor relationships strong</p>
+          </div>
+          <div class="m-accordion-row">
+            <div class="m-acc" data-acc>
+              <div class="m-acc-item"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">DOT Drug &amp; Alcohol Testing<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Simply creating DOT driver files for your employees who drive isn’t enough; you have to maintain them for their duration of employment and three years after. Keeping digital driver files organized and up to date is much easier than shuffling through filing cabinets full of paper files.</p></div></div></div>
+              <div class="m-acc-item is-open"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="true">FMCSA Drug &amp; Alcohol Clearinghouse<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Simply creating DOT driver files for your employees who drive isn’t enough; you have to maintain them for their duration of employment and three years after. Keeping digital driver files organized and up to date is much easier than shuffling through filing cabinets full of paper files.</p></div></div></div>
+              <div class="m-acc-item"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">DOT Physical Exams &amp; Medical Cards<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Simply creating DOT driver files for your employees who drive isn’t enough; you have to maintain them for their duration of employment and three years after. Keeping digital driver files organized and up to date is much easier than shuffling through filing cabinets full of paper files.</p></div></div></div>
+              <div class="m-acc-item"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">Driver Qualification File Maintenance<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Simply creating DOT driver files for your employees who drive isn’t enough; you have to maintain them for their duration of employment and three years after. Keeping digital driver files organized and up to date is much easier than shuffling through filing cabinets full of paper files.</p></div></div></div>
+              <div class="m-acc-item"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">MVR Monitoring Guide<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Simply creating DOT driver files for your employees who drive isn’t enough; you have to maintain them for their duration of employment and three years after. Keeping digital driver files organized and up to date is much easier than shuffling through filing cabinets full of paper files.</p></div></div></div>
+            </div>
+            <div class="m-accordion-media"><img src="assets/modules/accordion-photo.webp" width="808" height="1212" alt="" loading="lazy"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ faq -->
+    <section class="mod-sec" id="faq" aria-label="FAQ">
+      <div class="wrap mod-stack">
+        <p class="mod-label">FAQ · horizontal (with optional topic menu)</p>
+        <div class="m-faq m-faq--horizontal" data-module="faq-horizontal" data-faq>
+          <div class="m-faq-side">
+            <div class="title-text">
+              <h2>Your questions, answered</h2>
+              <p>Find answers to common questions about our services, compliance solutions, and getting started.</p>
+            </div>
+            <ul class="m-faq-menu" aria-label="Topics">
+              <li><button type="button" class="m-faq-topic" data-topic="all" aria-pressed="true">All Questions</button></li>
+              <li><button type="button" class="m-faq-topic" data-topic="registration" aria-pressed="false">Registration</button></li>
+              <li><button type="button" class="m-faq-topic" data-topic="audits" aria-pressed="false">Safety Audits</button></li>
+              <li><button type="button" class="m-faq-topic" data-topic="fuel" aria-pressed="false">Fuel Tax</button></li>
+              <li><button type="button" class="m-faq-topic" data-topic="hos" aria-pressed="false">Hours of Service</button></li>
+              <li><button type="button" class="m-faq-topic" data-topic="drug" aria-pressed="false">Drug Testing</button></li>
+              <li><button type="button" class="m-faq-topic" data-topic="files" aria-pressed="false">Driver Files</button></li>
+            </ul>
+          </div>
+          <div class="m-acc" data-acc>
+            <div class="m-acc-item" data-topics="registration"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">What services does Foley provide?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item is-open" data-topics="files"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="true">Can Foley help with employee background checks?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item" data-topics="audits"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">How does Foley simplify DOT compliance?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item" data-topics="registration"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">Who can benefit from Foley's solutions?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item" data-topics="drug"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">Does Foley support drug and alcohol testing?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item" data-topics="files hos"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">Can Foley help speed up the hiring process?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item" data-topics="audits fuel hos"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">How does Foley help reduce compliance risks?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item" data-topics="registration fuel"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">How do I get started with Foley?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+          </div>
+        </div>
+
+        <p class="mod-label">FAQ · vertical</p>
+        <div class="m-faq m-faq--vertical" data-module="faq-vertical">
+          <div class="title-text">
+            <h2>Your questions, answered</h2>
+            <p>Find answers to common questions about our services, compliance solutions, and getting started.</p>
+          </div>
+          <div class="m-acc m-acc--lined" data-acc>
+            <div class="m-acc-item"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">What services does Foley provide?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item is-open"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="true">Can Foley help with employee background checks?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>In most jurisdictions, motor carriers are required to file fuel tax returns with their IFTA jurisdiction office each quarter. To avoid penalties, IFTA returns, along with any payment for taxes due, must be postmarked on or before the deadlines listed below:</p><ul><li>Quarter 1: April 30</li><li>Quarter 2: July 31</li><li>Quarter 3: October 31</li><li>Quarter 4: January 31</li></ul><p>You must file a return even when no miles were traveled, or no taxable fuel was used during the quarter.</p></div></div></div>
+            <div class="m-acc-item"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">How does Foley simplify DOT compliance?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">Who can benefit from Foley's solutions?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">Does Foley support drug and alcohol testing?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">Can Foley help speed up the hiring process?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">How does Foley help reduce compliance risks?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+            <div class="m-acc-item"><h3 class="m-acc-h"><button type="button" class="m-acc-btn" aria-expanded="false">How do I get started with Foley?<span class="m-acc-ico" aria-hidden="true"></span></button></h3><div class="m-acc-panel" role="region"><div class="m-acc-inner"><p>Yes. Foley provides background screening services, including criminal history checks, employment verification, motor vehicle records, and other screenings to help you make informed hiring decisions.</p></div></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ contact form -->
+    <section class="mod-sec" id="contact" aria-label="Contact form">
+      <div class="wrap mod-stack">
+        <p class="mod-label">Contact form · A (form + photo)</p>
+        <form class="m-form m-form--a" data-module="contact-a" data-form novalidate>
+          <span class="mark" aria-hidden="true"></span>
+          <div class="m-form-main">
+            <div class="m-form-intro"><h2>Put 30 years of compliance expertise to work</h2><p>Fill out the form and a Foley expert will be in touch to learn more about your goals and how we can help.</p></div>
+            <div class="m-fields">
+              <label class="m-field"><span class="sr-only">Company name</span><input class="m-input" name="company" placeholder="Company name" autocomplete="organization" required></label>
+              <div class="m-fields-row">
+                <label class="m-field"><span class="sr-only">First name</span><input class="m-input" name="first" placeholder="First name" autocomplete="given-name" required></label>
+                <label class="m-field"><span class="sr-only">Last name</span><input class="m-input" name="last" placeholder="Last name" autocomplete="family-name" required></label>
+              </div>
+              <label class="m-field"><span class="sr-only">Email</span><input class="m-input" name="email" type="email" placeholder="Email" autocomplete="email" required></label>
+              <label class="m-field"><span class="sr-only">Phone Number</span><input class="m-input" name="phone" type="tel" placeholder="Phone Number" autocomplete="tel"></label>
+              <label class="m-field"><span class="sr-only">Number of Drivers</span><input class="m-input" name="drivers" inputmode="numeric" placeholder="Number of Drivers"></label>
+              <label class="m-field"><span class="sr-only">DOT Number</span><input class="m-input" name="dot" placeholder="DOT Number"></label>
+            </div>
+            <div class="m-form-foot"><button class="btn btn-teal" type="submit">Submit <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></button><p class="m-form-note" role="status"></p></div>
+          </div>
+          <div class="m-form-media"><img src="assets/modules/contact-a-photo.webp" width="744" height="1030" alt="" loading="lazy"></div>
+        </form>
+
+        <p class="mod-label">Contact form · B (dark frame, photo + form, filled)</p>
+        <form class="m-form m-form--b" data-module="contact-b" data-form novalidate>
+          <div class="m-form-media"><img src="assets/modules/contact-b-photo.webp" width="1104" height="1766" alt="" loading="lazy"></div>
+          <div class="m-form-main">
+            <div class="m-form-intro"><h2>Put 30 years of compliance expertise to work</h2><p>Fill out the form and a Foley expert will be in touch to learn more about your goals and how we can help.</p></div>
+            <div class="m-fields">
+              <label class="m-field"><span class="sr-only">Company name</span><input class="m-input" name="company" placeholder="Company name" autocomplete="organization" value="GOWAT Logistics" required></label>
+              <div class="m-fields-row">
+                <label class="m-field"><span class="sr-only">First name</span><input class="m-input" name="first" placeholder="First name" autocomplete="given-name" value="Jordan" required></label>
+                <label class="m-field"><span class="sr-only">Last name</span><input class="m-input" name="last" placeholder="Last name" autocomplete="family-name" value="Morris" required></label>
+              </div>
+              <label class="m-field"><span class="sr-only">Email</span><input class="m-input" name="email" type="email" placeholder="Email" autocomplete="email" value="contact@foleylogistics.com" required></label>
+              <label class="m-field"><span class="sr-only">Phone Number</span><input class="m-input" name="phone" type="tel" placeholder="Phone Number" autocomplete="tel" value="(555) 123-7890"></label>
+              <label class="m-field"><span class="sr-only">Number of Drivers</span><input class="m-input" name="drivers" inputmode="numeric" placeholder="Number of Drivers" value="92"></label>
+              <label class="m-field"><span class="sr-only">DOT Number</span><input class="m-input" name="dot" placeholder="DOT Number" value="USDOT 987654"></label>
+            </div>
+            <div class="m-form-foot"><button class="btn btn-teal" type="submit">Submit <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></button><p class="m-form-note" role="status"></p></div>
+          </div>
+        </form>
+
+        <p class="mod-label">Contact form · C (intro + form in a card)</p>
+        <form class="m-form m-form--c" data-module="contact-c" data-form novalidate>
+          <span class="mark" aria-hidden="true"></span>
+          <div class="m-form-intro"><h2>Put 30 years of compliance expertise to work</h2><p>Fill out the form and a Foley expert will be in touch to learn more about your goals and how we can help.</p></div>
+          <div class="m-form-main">
+            <div class="m-fields">
+              <label class="m-field"><span class="sr-only">Company name</span><input class="m-input" name="company" placeholder="Company name" autocomplete="organization" required></label>
+              <div class="m-fields-row">
+                <label class="m-field"><span class="sr-only">First name</span><input class="m-input" name="first" placeholder="First name" autocomplete="given-name" required></label>
+                <label class="m-field"><span class="sr-only">Last name</span><input class="m-input" name="last" placeholder="Last name" autocomplete="family-name" required></label>
+              </div>
+              <label class="m-field"><span class="sr-only">Email</span><input class="m-input" name="email" type="email" placeholder="Email" autocomplete="email" required></label>
+              <label class="m-field"><span class="sr-only">Phone Number</span><input class="m-input" name="phone" type="tel" placeholder="Phone Number" autocomplete="tel"></label>
+              <label class="m-field"><span class="sr-only">Number of Drivers</span><input class="m-input" name="drivers" inputmode="numeric" placeholder="Number of Drivers"></label>
+              <label class="m-field"><span class="sr-only">DOT Number</span><input class="m-input" name="dot" placeholder="DOT Number"></label>
+            </div>
+            <div class="m-form-foot"><button class="btn btn-teal" type="submit">Submit <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></button><p class="m-form-note" role="status"></p></div>
+          </div>
+        </form>
+
+        <p class="mod-label">Contact form · D (C in a dark frame)</p>
+        <div class="m-form-frame" data-module="contact-d">
+          <form class="m-form m-form--c" data-form novalidate>
+            <div class="m-form-intro"><h2>Put 30 years of compliance expertise to work</h2><p>Fill out the form and a Foley expert will be in touch to learn more about your goals and how we can help.</p></div>
+            <div class="m-form-main">
+              <div class="m-fields">
+                <label class="m-field"><span class="sr-only">Company name</span><input class="m-input" name="company" placeholder="Company name" autocomplete="organization" required></label>
+                <div class="m-fields-row">
+                  <label class="m-field"><span class="sr-only">First name</span><input class="m-input" name="first" placeholder="First name" autocomplete="given-name" required></label>
+                  <label class="m-field"><span class="sr-only">Last name</span><input class="m-input" name="last" placeholder="Last name" autocomplete="family-name" required></label>
+                </div>
+                <label class="m-field"><span class="sr-only">Email</span><input class="m-input" name="email" type="email" placeholder="Email" autocomplete="email" required></label>
+                <label class="m-field"><span class="sr-only">Phone Number</span><input class="m-input" name="phone" type="tel" placeholder="Phone Number" autocomplete="tel"></label>
+                <label class="m-field"><span class="sr-only">Number of Drivers</span><input class="m-input" name="drivers" inputmode="numeric" placeholder="Number of Drivers"></label>
+                <label class="m-field"><span class="sr-only">DOT Number</span><input class="m-input" name="dot" placeholder="DOT Number"></label>
+              </div>
+              <div class="m-form-foot"><button class="btn btn-teal" type="submit">Submit <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></button><p class="m-form-note" role="status"></p></div>
+            </div>
+          </form>
+        </div>
+
+        <p class="mod-label">Contact form · E (intro + narrow card with title)</p>
+        <form class="m-form m-form--e" data-module="contact-e" data-form novalidate>
+          <div class="m-form-intro"><h2>Put 30 years of compliance expertise to work</h2><p>Fill out the form and a Foley expert will be in touch to learn more about your goals and how we can help.</p></div>
+          <div class="m-form-card">
+            <h3 class="m-form-card-title">Download your Free guide now</h3>
+            <div class="m-form-main">
+              <div class="m-fields">
+                <label class="m-field"><span class="sr-only">Company name</span><input class="m-input" name="company" placeholder="Company name" autocomplete="organization" required></label>
+                <label class="m-field"><span class="sr-only">First name</span><input class="m-input" name="first" placeholder="First name" autocomplete="given-name" required></label>
+                <label class="m-field"><span class="sr-only">Last name</span><input class="m-input" name="last" placeholder="Last name" autocomplete="family-name" required></label>
+                <label class="m-field"><span class="sr-only">Email</span><input class="m-input" name="email" type="email" placeholder="Email" autocomplete="email" required></label>
+                <label class="m-field"><span class="sr-only">Phone Number</span><input class="m-input" name="phone" type="tel" placeholder="Phone Number" autocomplete="tel"></label>
+                <label class="m-field"><span class="sr-only">Number of Drivers</span><input class="m-input" name="drivers" inputmode="numeric" placeholder="Number of Drivers"></label>
+                <label class="m-field"><span class="sr-only">DOT Number</span><input class="m-input" name="dot" placeholder="DOT Number"></label>
+              </div>
+              <div class="m-form-foot"><button class="btn btn-teal" type="submit">Submit <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></button><p class="m-form-note" role="status"></p></div>
+            </div>
+          </div>
+        </form>
+
+        <p class="mod-label">Contact form · E (intro + narrow card, no title)</p>
+        <form class="m-form m-form--e" data-module="contact-e-plain" data-form novalidate>
+          <div class="m-form-intro"><h2>Put 30 years of compliance expertise to work</h2><p>Fill out the form and a Foley expert will be in touch to learn more about your goals and how we can help.</p></div>
+          <div class="m-form-card">
+            <div class="m-form-main">
+              <div class="m-fields">
+                <label class="m-field"><span class="sr-only">Company name</span><input class="m-input" name="company" placeholder="Company name" autocomplete="organization" required></label>
+                <label class="m-field"><span class="sr-only">First name</span><input class="m-input" name="first" placeholder="First name" autocomplete="given-name" required></label>
+                <label class="m-field"><span class="sr-only">Last name</span><input class="m-input" name="last" placeholder="Last name" autocomplete="family-name" required></label>
+                <label class="m-field"><span class="sr-only">Email</span><input class="m-input" name="email" type="email" placeholder="Email" autocomplete="email" required></label>
+                <label class="m-field"><span class="sr-only">Phone Number</span><input class="m-input" name="phone" type="tel" placeholder="Phone Number" autocomplete="tel"></label>
+                <label class="m-field"><span class="sr-only">Number of Drivers</span><input class="m-input" name="drivers" inputmode="numeric" placeholder="Number of Drivers"></label>
+                <label class="m-field"><span class="sr-only">DOT Number</span><input class="m-input" name="dot" placeholder="DOT Number"></label>
+              </div>
+              <div class="m-form-foot"><button class="btn btn-teal" type="submit">Submit <img class="btn-ico" src="assets/v2/ico/arrow-white.svg" width="24" height="24" alt=""></button><p class="m-form-note" role="status"></p></div>
+            </div>
+          </div>
+        </form>
+
+        <p class="mod-label">Input · states (site addition: hover, focus, error, disabled)</p>
+        <div class="m-input-states" data-module="input-states">
+          <label class="m-field"><span class="m-state">Placeholder</span><span class="sr-only">Company name</span><input class="m-input" placeholder="Company name"></label>
+          <label class="m-field"><span class="m-state">Filled</span><span class="sr-only">Company name</span><input class="m-input" placeholder="Company name" value="GOWAT Logistics"></label>
+          <label class="m-field" data-state="hover"><span class="m-state">Hover</span><span class="sr-only">Company name</span><input class="m-input" placeholder="Company name"></label>
+          <label class="m-field" data-state="focus"><span class="m-state">Focus</span><span class="sr-only">Email</span><input class="m-input" placeholder="Email" value="contact@foley"></label>
+          <label class="m-field is-error"><span class="m-state">Error</span><span class="sr-only">Email</span><input class="m-input" placeholder="Email" value="contact@foley" aria-invalid="true" aria-describedby="m-err-demo"><span class="m-field-err" id="m-err-demo">Enter a valid email</span></label>
+          <label class="m-field"><span class="m-state">Disabled</span><span class="sr-only">DOT Number</span><input class="m-input" placeholder="DOT Number" disabled></label>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="ds-switch" aria-label="Site or design system">
+    <a href="./" aria-current="page" data-ds-hosted="./">Site</a>
+    <a href="http://127.0.0.1:4967/" data-ds-link data-ds-hosted="storybook/">DS</a>
+  </nav>
+
+  <script src="modules.js"></script>
+  <script src="ds-switch.js"></script>
+</body>
+</html>

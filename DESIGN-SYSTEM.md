@@ -17,8 +17,9 @@ The tokens, components and rules behind the Foley landing page. This document is
 | Tokens | `tokens/foley.tokens.json` | W3C DTCG. Edit here only |
 | Generated CSS | `tokens.css` | `npm run tokens`. Custom properties + `.type-*` helpers. Do not edit |
 | Components | `styles.css`, `stages.css` | Site styles, written against the tokens |
+| Page modules | `modules.html`, `modules.css`, `modules.js` | Blocks for inner pages (section 4). `modules.html` is their reference markup and a live gallery |
 | Behaviour | `app.js`, `stages.js` | Vanilla JS. Every module boots only if its markup exists |
-| Markup | `index.html` | The reference markup. Stories clone from it |
+| Markup | `index.html`, `modules.html` | The reference markup. Stories clone from it |
 | Storybook | `.storybook/`, `ds/` | Stories and docs. No copied markup or styles |
 
 ```bash
@@ -340,7 +341,64 @@ Top row (3 short columns + CTAs), four stacks of link groups (197px, `type/footn
 
 ---
 
-## 4. Accessibility
+### Input · `input`
+48px, padding 12/16, **radius 4**, `bg/secondary`, `type/body-s-medium`. Placeholder `text/tertiary`, value `text/primary`. States (site additions): hover 1px inset `stroke/primary` · focus white fill + 1px inset `bg/primary` · error 1px inset `status/error` + 14px message 6 below · disabled 50%. Every field has a visually hidden `<label>` (Figma uses the placeholder as the label); errors use `aria-invalid` + `aria-describedby`.
+
+---
+
+## 4. Modules
+
+Blocks for inner pages, from the Figma section **modules** (1243:21982). Copy is the Figma placeholder copy. Markup in `modules.html` (also a live gallery at `/modules.html`), styles in `modules.css`, behaviour in `modules.js` (`FoleyModules.init(root)`, safe to call again). Storybook: **Modules / …**.
+
+### Hero screen · `hero` (1243:14730)
+1440 × 627, capped at 1440. Copy column 692 with padding 80: `type/h1` + `type/body-l` (496), 24 apart, button 32 below. Light views use `bg/tertiary`, dark text and the Primary button; dark views use `linear/primary`, white text and the White button.
+
+| view | Right side |
+|---|---|
+| main | the homepage hero (Components / Hero) |
+| light bg | `linear/primary` panel (x 692 → 1444) with the box pattern and the product shot in a frosted frame (532×432, white 48%, blur 14.7, radius 14.7, shadow 3.7/14.7/110 rgba(10,21,59,.26)) |
+| light image / dark image | photo, cover |
+| dark boxed | box pattern on its side across the frame, densest bottom-right |
+| dark pattern | facet image over the whole frame |
+
+### Callout card · `callout_card` (1243:14783)
+1280 card, padding 40, gap 40: photo (rest of the width, min 468, cover) + 392 copy column: `type/h3`, `type/body-m` (paragraphs 8 apart) 24 below, button 48 below. Light: `bg/tertiary`, brand mark, Primary button. Dark: `linear/primary`, white text, White button. *image right* mirrors it.
+
+### All-in block · `all_in_block` (1243:14828)
+Callout layout + check list (16 above, rows 16 apart): 24px `ico/check` tile (`bg/secondary` on light, `bg/primary` on dark) and `type/body-s` text 16 to the right. Primary button on both light and dark.
+
+### Carousel · `carousel` (1243:14902)
+Topic titles are `title_w_line`: 1px `stroke/primary` rule, title 4 below; the selected one adds a 108px `text/primary` segment (draws in from the left).
+- **vertical**: callout card with a 392 list of topics (`type/body-l`, `text/tertiary`, 24 apart). The open one gets 16 above and below, its title becomes `type/h3`, and body + Primary button open under it. Always one open.
+- **horizontal**: five equal tabs (`type/body-m`), 40 above photo + 392 copy column (40 bottom padding); prev / next arrows (24 in a 32 tap zone, 8 apart) at the bottom of the copy column, wrapping. ARIA tabs with ←/→, Home, End; the copy fades and slides 12px on change.
+
+### Tiles row · `tiles_row` (1243:14816)
+Four 314 cards, 8 apart. `bg/tertiary`, padding 32/32/16, brand mark; `type/h4` + `type/body-m` (`text/secondary`) 24 apart; **Learn more** text link at the bottom. Height 392; with image: 208px photo on top, copy from 232, no mark, height 580. No card hover (link arrow only). 2 columns below 1140, 1 below 600.
+
+### Accordion · `accordion` (1243:14965)
+`title_text`, 48 below: 522 list + photo filling the rest (40 gap, stretches to the list). Item: `bg/tertiary`, padding 20/24, 8 apart; header `type/h4` + 24px plus, 24 apart; open: `bg/secondary`, plus → minus, answer `type/body-l` `text/secondary` (48 right padding) 16 below. One open at a time, 450ms ease-out. `h3 > button[aria-expanded]` + region; closed panels are `inert`.
+
+### FAQ · `faq` (1243:14977)
+- **horizontal**: `title_text` (628) + filled accordion list, 80 apart; optional topic menu (305) at the bottom of the left column: `type/h4` topics 24 apart, `text/tertiary`, selected `text/primary` with the brand mark; filters the list.
+- **vertical**: `title_text`, 80 below an 847 list of lined items (1px `stroke/primary` on top, padding 16, no fill). Answers may hold paragraphs and a bulleted list.
+
+### Contact form · `contact form` (1243:14624)
+Fields (Input): Company · First / Last (one row, 24 apart) · Email · Phone Number · Number of Drivers · DOT Number, 32 apart; Submit (Primary) 40 below; heading `type/h2` + `type/subtitle` (424), 24 apart.
+
+| Layout | Container | Content |
+|---|---|---|
+| A | `bg/tertiary` card, padding 40, mark | form column 590 + photo |
+| B | `linear/primary` frame, padding 40 | photo 552 + `bg/tertiary` panel, padding 48 |
+| C | `bg/tertiary` card, padding 40, mark | heading 590 + form |
+| D | `linear/primary` frame, padding 40 | C inside, no mark |
+| E | page | heading (630) + 372 card (padding 40) with `type/h3` card title and single-column fields, 80 apart |
+| E, no title | page | E without the card title |
+
+Behaviour (site addition): required company, names and email; email format check; errors on submit with focus on the first invalid field; a status line confirms a valid submit. Nothing is sent.
+
+---
+
+## 5. Accessibility
 
 - Focus ring on every interactive element (2px, `focus/ring`; white on dark).
 - Keyboard: see each component. Menus are disclosure panels with `aria-expanded` and `inert` when closed; search is a dialog + combobox; snapshot is a vertical tablist.
@@ -350,7 +408,7 @@ Top row (3 short columns + CTAs), four stacks of link groups (197px, `type/footn
 
 ---
 
-## 5. Figma ↔ code
+## 6. Figma ↔ code
 
 | Figma | Code |
 |---|---|
@@ -370,10 +428,18 @@ Top row (3 short columns + CTAs), four stacks of link groups (197px, `type/footn
 | `button` | `.btn` (+ variant) |
 | `rect_badge` | `.mark` |
 | `ico/*` | `assets/v2/ico/*.svg` |
+| `input` | `.m-field` + `.m-input` |
+| `hero` (modules) | `.m-hero` + `--light-bg` / `--light-image` / `--dark-image` / `--dark-boxed` / `--dark-pattern` |
+| `callout_card` / `all_in_block` | `.m-split.m-callout` / `.m-split.m-allin` (+ `--dark`, `--image-right`), `.m-checks` |
+| `carousel` | `.m-vcar` (vertical) / `.m-hcar` (horizontal), `title_w_line` = `.m-vcar-tab` / `.m-hcar-tab` |
+| `tiles_row` / `tiles_card` | `.m-tiles` / `.m-tile` (`--image`) |
+| `accordion` | `.m-acc` (`--lined`), `.m-acc-item`, `.m-accordion` |
+| `horizontal_faq` / `vertical_faq` | `.m-faq--horizontal` / `.m-faq--vertical`, `.m-faq-menu` |
+| contact form A–E | `.m-form--a` / `--b` / `--c` (+ `.m-form-frame` for D) / `--e` |
 
 ---
 
-## 6. Working with the system
+## 7. Working with the system
 
 - **Change a value:** edit `tokens/foley.tokens.json` → `npm run tokens` → check the site and Storybook. Keep Figma variable names in sync.
 - **Add a component:** markup in `index.html`, styles in `styles.css` using tokens only, behaviour in `app.js` as a module that does nothing when its markup is absent. Add a story that clones the markup with `pick()` and, if it has behaviour, a **Live** story.
@@ -382,14 +448,18 @@ Top row (3 short columns + CTAs), four stacks of link groups (197px, `type/footn
 
 ---
 
-## 7. Known gaps
+## 8. Known gaps
 
 - Figma has no drawings for hover / focus states, search, mobile drawer or motion; those come from the site and are part of v1 of this system.
 - `linear/light` (promo card) is approximated from the Figma render: the variable value was not exposed.
 - Testimonials 3–6 and their numbers are demo content.
 - Snapshot uses one screenshot with three focus points; replace with three screenshots when available.
 - Product illustrations inside the how-it-works columns use their own small palette (`--pc-*`), not the system tokens.
+- Modules: all copy is Figma placeholder copy. Carousel bodies and FAQ answers repeat the one placeholder text from Figma; the FAQ topic → question mapping is placeholder too.
+- Modules, Figma fixes: the vertical carousel shows “Drug & Alcohol Testing” as both a closed and the open topic (the module uses the horizontal set, “Background Checks” open); contact form D sits off the 80 grid in its frame (here it uses the 1280 column).
+- Contact forms post nowhere; the error colour (`status/error`) and all input states except placeholder / filled are site additions.
 
 ## Changelog
 
+- **1.1** (2026-10): page modules from Figma “modules” (hero screen ×5, callout card ×4, all-in block ×4, carousel ×4, tiles row ×2, accordion, FAQ ×2, contact form ×6), Input component, `status/error` token, `modules.html` gallery.
 - **1.0** (2026-10): tokens extracted from Figma + site into DTCG JSON; Storybook with foundations, 17 component pages, live stories and the homepage; mega-menu column heads became links.

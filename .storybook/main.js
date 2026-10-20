@@ -16,9 +16,11 @@ const foleySite = () => ({
   load(id) {
     if (id !== '\0' + VIRTUAL) return null;
     const file = root + 'index.html';
+    const modules = root + 'modules.html';
     this.addWatchFile(file);
+    this.addWatchFile(modules);
     const icons = ['ico', 'social'].flatMap((d) => readdirSync(root + 'assets/v2/' + d).filter((f) => f.endsWith('.svg')).map((f) => `assets/v2/${d}/${f}`));
-    return `export const html = ${JSON.stringify(readFileSync(file, 'utf8'))};\nexport const icons = ${JSON.stringify(icons)};`;
+    return `export const html = ${JSON.stringify(readFileSync(file, 'utf8'))};\nexport const modulesHtml = ${JSON.stringify(readFileSync(modules, 'utf8'))};\nexport const icons = ${JSON.stringify(icons)};`;
   },
 });
 

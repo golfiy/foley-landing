@@ -2,9 +2,10 @@
  * Stories never copy markup: they clone it from the landing's index.html at build time,
  * so the design system and the site cannot drift apart.
  */
-import { html as indexHtml } from 'virtual:foley-site';
+import { html as indexHtml, modulesHtml } from 'virtual:foley-site';
 
 const doc = new DOMParser().parseFromString(indexHtml, 'text/html');
+const modDoc = new DOMParser().parseFromString(modulesHtml, 'text/html');
 
 /** Clone the first element matching `selector` from index.html. */
 export function pick(selector) {
@@ -59,4 +60,17 @@ export function type(doc, sel, value) {
   if (!el) return;
   el.value = value;
   el.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+/** Clone a page module from modules.html by its data-module key (eager images). */
+export function mod(key) {
+  const el = modDoc.querySelector(`[data-module="${key}"]`);
+  if (!el) throw new Error(`[ds] module "${key}" not found in modules.html`);
+  return eager(el.cloneNode(true));
+}
+
+/** Every module of modules.html in page order, for the gallery page story. */
+export function modulesBody() {
+  const main = modDoc.querySelector('main').cloneNode(true);
+  return eager(main);
 }

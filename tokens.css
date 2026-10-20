@@ -23,6 +23,7 @@
   --color-overlay-tile: rgba(255, 255, 255, 0.04);
   --color-focus-ring: #111117;
   --color-focus-highlight: rgba(74, 135, 162, 0.55);
+  --color-status-error: #B42318;
   --gradient-primary: linear-gradient(180deg, #1B3B48 0%, #163039 50%, #0A171C 100%);
   --gradient-secondary: linear-gradient(90deg, #285A6B 0%, #4A87A2 49.721%, #4A87A2 100%);
   --gradient-tertiary: linear-gradient(180deg, #FFFFFF 0%, #CCD6EC 100%);

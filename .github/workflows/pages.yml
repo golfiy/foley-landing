@@ -29,7 +29,7 @@ jobs:
       - run: npx storybook build -o _site/storybook --disable-telemetry --quiet
       - name: Copy the site
         run: |
-          cp index.html tokens.css styles.css stages.css app.js stages.js ds-switch.js _site/
+          cp index.html modules.html tokens.css styles.css stages.css modules.css app.js stages.js modules.js ds-switch.js _site/
           cp -R assets _site/
           touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3
