@@ -112,6 +112,8 @@ let contactDone = false;
 const sections = parsed.map(({ key, title: withTitle }, i) => {
   let html = outer(modules, `data-module="${key}"`);
   if (i === 0) html = html.replace(/ loading="lazy"/g, '');                     // first block is above the fold
+  html = html.replace(/(<input class="m-input"[^>]*?) value="[^"]*"/g, '$1');    // forms: never ship the DS demo values
+  if (html.includes('allin-photo.webp')) hints.push(`${key}: its photo (allin-photo.webp) has Unsplash+ watermarks; replace it`);
   // outline: one <h1> (the hero title), module titles that head a section become <h2>
   if (!h1Done && key.startsWith('hero-')) { html = html.replace(/<h2 class="m-hero-title">([\s\S]*?)<\/h2>/, '<h1 class="m-hero-title">$1</h1>'); h1Done = true; }
   else if (key.startsWith('hero-')) hints.push(`${key}: a second hero on one page; keep one hero, first`);
@@ -154,4 +156,5 @@ ${main}
 writeFileSync(root + outFile, page);
 console.log(`${outFile}: ${keys.length} module(s)${keys.length ? ' – ' + keys.join(', ') : ''}`);
 hints.forEach((h) => console.log('  note: ' + h));
+if (keys.length) console.log('  note: every text in the modules is Figma placeholder, even sentences that read like facts ("30 years…", "Yes. Foley provides…"); replace or mark [TODO: …]');
 console.log(`open http://127.0.0.1:4965/${outFile}  ·  check: npm run check:page -- ${outFile}`);

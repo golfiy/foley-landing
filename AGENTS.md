@@ -15,8 +15,8 @@ keep the design system in sync, and verify the result visually.
 ```bash
 npm install                 # once (Storybook + Vite only; the site itself has no dependencies)
 npm run serve               # the site on http://127.0.0.1:4965  (keep it running)
-npm run storybook           # the design system on http://127.0.0.1:4967 (keep it running;
-                            # it regenerates tokens.css from the JSON first, that is expected)
+npm run storybook           # the design system on http://127.0.0.1:4967. Optional for page building,
+                            # needed when you change the DS. It regenerates tokens.css first (expected)
 ```
 
 Requirements: Node 22+, Python 3 (static server), Chrome or Chromium for the check tools
@@ -39,7 +39,7 @@ bottom-left on both servers.
 | Components (homepage + shared UI) | markup `index.html`, styles `styles.css`, scripts `app.js` | How it works also needs `stages.css` + `stages.js` |
 | Page modules (inner pages) | markup `modules.html`, styles `modules.css`, scripts `modules.js` | each module root has `data-module="<key>"` |
 | Fonts | `assets/fonts/` (Inter Display, OFL) | declared at the top of `styles.css` |
-| Images | `assets/` (`assets/modules/` for modules) | WebP, always with width/height |
+| Images | `assets/` (`assets/modules/` for modules) | WebP, always with width/height; sources and licences in `assets/CREDITS.md` |
 | Storybook | `.storybook/`, stories in `ds/` | stories **clone markup** from `index.html` / `modules.html`, they never copy it |
 | Scripts | `scripts/` | tokens, catalogue, page composer, build |
 | Check tools | `tools/` | page check, Storybook check, CDP client |
@@ -68,9 +68,19 @@ bottom-left on both servers.
      when a group needs one heading);
    - prints notes (second hero, missing heading, no contact form).
 3. Replace the placeholder copy in the new file (headings, text, button labels, links, alt text,
-   images). Change **content only** in the page: text, item count within `slots`, which item is
-   open / active (`is-open` / `is-active` + the matching photo `is-active` in carousels),
-   aria labels. Do not restyle a module inside a page.
+   images). **All** module text is Figma placeholder, including sentences that read like facts
+   (“Put 30 years of compliance expertise to work”, “Yes. Foley provides …”, the industries
+   named in heroes): treat every sentence as unverified. The composer already strips the demo
+   values from form fields. Change **content only** in the page: text, number of items, which item is open / active,
+   aria labels, images. Do not restyle a module inside a page.
+   - `slots` in the catalogue is how many items the reference markup has; `useFor` gives the
+     allowed range (e.g. carousel 3–5 topics, tiles exactly 4).
+   - Removing carousel topics: delete the topic (vertical: `.m-vcar-item`; horizontal: the
+     `.m-hcar-tab` and its `.m-hcar-panel`) **and** the photo `<figure class="m-car-ph">` at the
+     same position; then exactly one topic has `is-open` (vertical, with `aria-expanded="true"`)
+     or `is-active` + `aria-selected="true"` (horizontal, tab and panel), and the photo at that
+     position has `is-active`. Accordion / FAQ: one item `is-open` with `aria-expanded="true"`,
+     or none.
 4. Check (section 6) and look at the screenshots in `tools/out/`.
 
 Page anatomy (the composer does this; follow it when editing by hand):
@@ -88,8 +98,13 @@ Page anatomy (the composer does this; follow it when editing by hand):
 </main>
 ```
 
-- One hero per page, first. Then alternate light and dark / photo-heavy blocks (`tone` in the
-  catalogue); avoid two carousels or two forms in a row; end with a contact form.
+- One hero per page, first. Its `<h1>` names the page topic in the words of the navigation
+  (product / industry / role as written in the mega menu and footer, e.g. “Utilities &
+  Construction”); the promise goes in the subtitle.
+- Choose a module for its **purpose** first (`useFor`), then fix the rhythm with its **variant**:
+  when two neighbours share a tone, switch one to its light / dark or image left / right
+  version rather than picking a block meant for other content. Avoid two carousels or two
+  forms in a row; end with a contact form.
 - Heading outline: one `<h1>` (hero), section titles `<h2>`, items inside a section `<h3>`.
 - Homepage components (logos, How it works, snapshot, teams, testimonials, banner…) can be used
   on inner pages too: copy the section from `index.html`. How it works needs
@@ -176,10 +191,10 @@ npm run check:ds                      # if you touched the DS: every Storybook e
 npm run build                         # optional: static dist/ (site at /, Storybook at /storybook/)
 ```
 
-Screenshots are taken with `?shot` (animations and carousel autoplay frozen, scroll reveals
+The output line `checked: … · <h1>: 1 · TODO markers: n` says what was verified. Screenshots are taken with `?shot` (animations and carousel autoplay frozen, scroll reveals
 shown) and saved in `tools/out/` as one PNG per viewport (`hiring-390-01.png`, `-02.png` …,
-readable at full size) plus `hiring-390-full.png` for the whole page. **Look at the bands**,
-not only the full image. Things the check cannot see and you must: text wrapping badly (a tab
+readable at full size; the sticky header is kept in the flow so it covers nothing) plus
+`hiring-390-full.png`, a whole-page overview when Chrome manages it. **Look at the bands**. Things the check cannot see and you must: text wrapping badly (a tab
 label on two lines), fields narrower than their card, a block cut at a scroll edge, wrong
 contrast.
 
@@ -197,4 +212,5 @@ marked `[TODO: …]`, and any DS change is reflected in `modules.html` / stories
 - Contact forms validate on the client and post nowhere; there is no backend.
 - Links in the header, footer and modules are `#…` placeholders.
 - Mega-menu promo images are Figma exports; the How it works product illustrations are drawn in HTML/CSS with their own small palette (`--pc-*`), not system tokens.
-- The full list lives in `DESIGN-SYSTEM.md` → *Known gaps*.
+- The full list lives in `DESIGN-SYSTEM.md` → *Known gaps*. Image sources and licences:
+  `assets/CREDITS.md`. `README.md` is the designer's changelog in Russian; you do not need it.

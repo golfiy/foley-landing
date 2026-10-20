@@ -74,7 +74,7 @@ export async function launch({ width = 1440, height = 900, dpr = 1, mobile = fal
     /** Screenshot of the viewport (or a clip in page coordinates). Use viewport bands for tall pages:
         captureBeyondViewport restarts CSS animations and drops layers. */
     async shot(file, clip) {
-      const r = await send('Page.captureScreenshot', { format: 'png', ...(clip ? { clip: { ...clip, scale: 1 } } : {}) });
+      const r = await send('Page.captureScreenshot', { format: 'png', ...(clip ? { clip: { ...clip, scale: 1 } } : {}) }, 90000);
       writeFileSync(file, Buffer.from(r.data, 'base64'));
     },
     async mouse(x, y, type = 'mouseMoved') { await send('Input.dispatchMouseEvent', { type, x, y, button: 'none', pointerType: 'mouse' }); },

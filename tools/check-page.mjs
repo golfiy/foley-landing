@@ -53,7 +53,8 @@ async function checkWidth(width) {
       const unsized = [...document.images].filter((i) => !i.getAttribute('width') || !i.getAttribute('height')).slice(0, 5).map((i) => i.getAttribute('src'));
       const broken = [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.getAttribute('src'));
       const h1 = document.querySelectorAll('h1').length;
-      return { scrollW: document.documentElement.scrollWidth, W, wide, unsized, broken, h1 };
+      const todo = (document.body.innerText.match(/\\[TODO/g) || []).length + (document.documentElement.outerHTML.match(/<!--\\s*TODO/g) || []).length;
+      return { scrollW: document.documentElement.scrollWidth, W, wide, unsized, broken, h1, todo, imgs: document.images.length };
     })()`);
     if (info.scrollW > info.W) problems.push(`horizontal overflow: page is ${info.scrollW}px wide at ${info.W}px` + (info.wide.length ? ' (' + info.wide.join(', ') + ')' : ''));
     info.broken.forEach((s) => problems.push('broken image: ' + s));
@@ -63,6 +64,8 @@ async function checkWidth(width) {
     /* 2. ?shot page: screenshots */
     await b.goto(shotUrl, 1200);
     await b.eval(`(() => { document.documentElement.style.scrollBehavior = 'auto'; document.querySelectorAll('img[loading=lazy]').forEach((i) => { i.loading = 'eager'; }); document.querySelectorAll('[data-reveal], [data-split]').forEach((e) => e.classList.add('is-in')); return Promise.race([Promise.all([...document.images].map((i) => i.decode().catch(() => {}))), new Promise((r) => setTimeout(r, 8000))]).then(() => 1); })()`);
+    // the sticky header would cover the top of every band after the first: keep it in the flow
+    await b.eval(`(() => { const s = document.createElement('style'); s.textContent = '.topnav { position: relative !important; top: 0 !important; }'; document.head.append(s); return 1; })()`);
     const H = await b.eval('document.documentElement.scrollHeight');
     readdirSync(OUT).filter((f) => f.startsWith(`${name}-${width}-`)).forEach((f) => rmSync(OUT + f));
     const files = [];
@@ -74,15 +77,20 @@ async function checkWidth(width) {
       await b.shot(f, { x: 0, y: sy, width, height: Math.min(VIEW_H, H - sy) });
       files.push(f);
     }
+    // overview image, best effort: grow the viewport to the page (no captureBeyondViewport);
+    // some pages make Chrome stall on very tall viewports, then the bands are the result
     let full = '';
-    if (H <= 16000) {                                   // overview: grow the viewport to the page (no captureBeyondViewport)
-      await b.setViewport(width, H);
-      await b.eval('window.scrollTo(0, 0)');
-      await b.sleep(500);
-      full = `${OUT}${name}-${width}-full.png`;
-      await b.shot(full);
+    if (H <= 16000) {
+      try {
+        await b.setViewport(width, H);
+        await b.eval('window.scrollTo(0, 0)');
+        await b.sleep(500);
+        const r = await b.send('Page.captureScreenshot', { format: 'png' }, 20000);
+        full = `${OUT}${name}-${width}-full.png`;
+        writeFileSync(full, Buffer.from(r.data, 'base64'));
+      } catch { full = ''; }
     }
-    return { problems: [...new Set(problems)], W: info.W, H, bands: files.length, full };
+    return { problems: [...new Set(problems)], W: info.W, H, bands: files.length, full, h1: info.h1, todo: info.todo, imgs: info.imgs };
   } finally {
     await b.close();
   }
@@ -98,7 +106,8 @@ for (const width of widths) {
     failed = true;
     continue;
   }
-  console.log(`${res.problems.length ? 'FAIL' : 'ok  '} ${width}px  ${res.W}×${res.H}  → tools/out/${name}-${width}-01…${String(res.bands).padStart(2, '0')}.png${res.full ? ' + -full.png' : ' (no -full.png: page taller than 16000px)'}`);
+  console.log(`${res.problems.length ? 'FAIL' : 'ok  '} ${width}px  ${res.W}×${res.H}  → tools/out/${name}-${width}-01…${String(res.bands).padStart(2, '0')}.png${res.full ? ' + -full.png' : ' (no -full.png overview, use the bands)'}`);
+  console.log(`     checked: JS + console errors, requests, ${res.imgs} images, overflow · <h1>: ${res.h1} · TODO markers: ${res.todo}`);
   res.problems.forEach((p) => console.log('     ' + p));
   if (res.problems.length) failed = true;
 }
