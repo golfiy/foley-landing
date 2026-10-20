@@ -260,6 +260,10 @@
       "variant": "view=light bg",
       "classes": "m-hero m-hero--light-bg",
       "figma": "hero (1243:14730)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {},
+      "useFor": "Top of an inner page: page title (becomes the h1, ≤ 4 lines at 60px), one-sentence promise, one CTA. light bg = product UI shot; light / dark image = photo-led pages (industries); dark boxed / dark pattern = no photo available.",
       "behaviour": "static",
       "placement": "full-bleed, first on the page: <section class=\"pg-sec pg-sec--flush\">",
       "story": {
@@ -273,6 +277,10 @@
       "variant": "view=light image",
       "classes": "m-hero m-hero--light-image",
       "figma": "hero (1243:14730)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {},
+      "useFor": "Top of an inner page: page title (becomes the h1, ≤ 4 lines at 60px), one-sentence promise, one CTA. light bg = product UI shot; light / dark image = photo-led pages (industries); dark boxed / dark pattern = no photo available.",
       "behaviour": "static",
       "placement": "full-bleed, first on the page: <section class=\"pg-sec pg-sec--flush\">",
       "story": {
@@ -286,6 +294,10 @@
       "variant": "view=dark image",
       "classes": "m-hero m-hero--dark m-hero--dark-image",
       "figma": "hero (1243:14730)",
+      "tone": "dark",
+      "hasTitle": true,
+      "slots": {},
+      "useFor": "Top of an inner page: page title (becomes the h1, ≤ 4 lines at 60px), one-sentence promise, one CTA. light bg = product UI shot; light / dark image = photo-led pages (industries); dark boxed / dark pattern = no photo available.",
       "behaviour": "static",
       "placement": "full-bleed, first on the page: <section class=\"pg-sec pg-sec--flush\">",
       "story": {
@@ -299,6 +311,10 @@
       "variant": "view=dark boxed",
       "classes": "m-hero m-hero--dark m-hero--dark-boxed",
       "figma": "hero (1243:14730)",
+      "tone": "dark",
+      "hasTitle": true,
+      "slots": {},
+      "useFor": "Top of an inner page: page title (becomes the h1, ≤ 4 lines at 60px), one-sentence promise, one CTA. light bg = product UI shot; light / dark image = photo-led pages (industries); dark boxed / dark pattern = no photo available.",
       "behaviour": "static",
       "placement": "full-bleed, first on the page: <section class=\"pg-sec pg-sec--flush\">",
       "story": {
@@ -312,6 +328,10 @@
       "variant": "view=dark pattern",
       "classes": "m-hero m-hero--dark m-hero--dark-pattern",
       "figma": "hero (1243:14730)",
+      "tone": "dark",
+      "hasTitle": true,
+      "slots": {},
+      "useFor": "Top of an inner page: page title (becomes the h1, ≤ 4 lines at 60px), one-sentence promise, one CTA. light bg = product UI shot; light / dark image = photo-led pages (industries); dark boxed / dark pattern = no photo available.",
       "behaviour": "static",
       "placement": "full-bleed, first on the page: <section class=\"pg-sec pg-sec--flush\">",
       "story": {
@@ -325,6 +345,10 @@
       "variant": "view=light image left",
       "classes": "m-split m-callout",
       "figma": "callout_card (1243:14783)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {},
+      "useFor": "One idea with a photo: a feature, an industry, a story. Title (≤ 4 lines) + 1–2 short paragraphs + one CTA. Alternate image left / right when two follow each other.",
       "behaviour": "static",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -338,6 +362,10 @@
       "variant": "view=light image right",
       "classes": "m-split m-callout m-split--image-right",
       "figma": "callout_card (1243:14783)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {},
+      "useFor": "One idea with a photo: a feature, an industry, a story. Title (≤ 4 lines) + 1–2 short paragraphs + one CTA. Alternate image left / right when two follow each other.",
       "behaviour": "static",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -351,6 +379,10 @@
       "variant": "view=dark image left",
       "classes": "m-split m-callout m-split--dark",
       "figma": "callout_card (1243:14783)",
+      "tone": "dark",
+      "hasTitle": true,
+      "slots": {},
+      "useFor": "One idea with a photo: a feature, an industry, a story. Title (≤ 4 lines) + 1–2 short paragraphs + one CTA. Alternate image left / right when two follow each other.",
       "behaviour": "static",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -364,6 +396,10 @@
       "variant": "view=dark image right",
       "classes": "m-split m-callout m-split--dark m-split--image-right",
       "figma": "callout_card (1243:14783)",
+      "tone": "dark",
+      "hasTitle": true,
+      "slots": {},
+      "useFor": "One idea with a photo: a feature, an industry, a story. Title (≤ 4 lines) + 1–2 short paragraphs + one CTA. Alternate image left / right when two follow each other.",
       "behaviour": "static",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -377,6 +413,12 @@
       "variant": "view=light image left",
       "classes": "m-split m-allin",
       "figma": "all_in_block (1243:14828)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {
+        "checks": 3
+      },
+      "useFor": "What is included / key benefits: title, one paragraph, 3–4 check items (each ≤ 2 lines), one CTA.",
       "behaviour": "static",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -390,6 +432,12 @@
       "variant": "view=light image right",
       "classes": "m-split m-allin m-split--image-right",
       "figma": "all_in_block (1243:14828)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {
+        "checks": 3
+      },
+      "useFor": "What is included / key benefits: title, one paragraph, 3–4 check items (each ≤ 2 lines), one CTA.",
       "behaviour": "static",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -403,6 +451,12 @@
       "variant": "view=dark image left",
       "classes": "m-split m-allin m-split--dark",
       "figma": "all_in_block (1243:14828)",
+      "tone": "dark",
+      "hasTitle": true,
+      "slots": {
+        "checks": 3
+      },
+      "useFor": "What is included / key benefits: title, one paragraph, 3–4 check items (each ≤ 2 lines), one CTA.",
       "behaviour": "static",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -416,6 +470,12 @@
       "variant": "view=dark image right",
       "classes": "m-split m-allin m-split--dark m-split--image-right",
       "figma": "all_in_block (1243:14828)",
+      "tone": "dark",
+      "hasTitle": true,
+      "slots": {
+        "checks": 3
+      },
+      "useFor": "What is included / key benefits: title, one paragraph, 3–4 check items (each ≤ 2 lines), one CTA.",
       "behaviour": "static",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -429,6 +489,12 @@
       "variant": "layout=vertical, view=image left",
       "classes": "m-split m-car m-vcar",
       "figma": "carousel (1243:14902)",
+      "tone": "light",
+      "hasTitle": false,
+      "slots": {
+        "topics": 5
+      },
+      "useFor": "3–5 parallel options or steps sharing one layout (services, test types, program steps). Each topic: title (horizontal tabs: ≤ 22 characters so it stays on one line at 1024), 1–2 paragraphs, CTA, its own photo. Add +title for a section heading.",
       "behaviour": "autoplay with progress line, photo per topic, pause on hover / focus / off-screen",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -442,6 +508,12 @@
       "variant": "layout=vertical, view=image right",
       "classes": "m-split m-car m-vcar m-split--image-right",
       "figma": "carousel (1243:14902)",
+      "tone": "light",
+      "hasTitle": false,
+      "slots": {
+        "topics": 5
+      },
+      "useFor": "3–5 parallel options or steps sharing one layout (services, test types, program steps). Each topic: title (horizontal tabs: ≤ 22 characters so it stays on one line at 1024), 1–2 paragraphs, CTA, its own photo. Add +title for a section heading.",
       "behaviour": "autoplay with progress line, photo per topic, pause on hover / focus / off-screen",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -455,6 +527,12 @@
       "variant": "layout=horizontal, view=image left",
       "classes": "m-car m-hcar",
       "figma": "carousel (1243:14902)",
+      "tone": "light",
+      "hasTitle": false,
+      "slots": {
+        "topics": 5
+      },
+      "useFor": "3–5 parallel options or steps sharing one layout (services, test types, program steps). Each topic: title (horizontal tabs: ≤ 22 characters so it stays on one line at 1024), 1–2 paragraphs, CTA, its own photo. Add +title for a section heading.",
       "behaviour": "autoplay with progress line, photo per topic, pause on hover / focus / off-screen",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -468,6 +546,12 @@
       "variant": "layout=horizontal, view=image right",
       "classes": "m-car m-hcar m-hcar--image-right",
       "figma": "carousel (1243:14902)",
+      "tone": "light",
+      "hasTitle": false,
+      "slots": {
+        "topics": 5
+      },
+      "useFor": "3–5 parallel options or steps sharing one layout (services, test types, program steps). Each topic: title (horizontal tabs: ≤ 22 characters so it stays on one line at 1024), 1–2 paragraphs, CTA, its own photo. Add +title for a section heading.",
       "behaviour": "autoplay with progress line, photo per topic, pause on hover / focus / off-screen",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -481,6 +565,12 @@
       "variant": "Tiles row",
       "classes": "m-tiles",
       "figma": "tiles_row (1243:14816)",
+      "tone": "light",
+      "hasTitle": false,
+      "slots": {
+        "tiles": 4
+      },
+      "useFor": "Exactly four short parallel points or resources (reasons to choose, guides, articles). Title ≤ 2 lines, text ≤ 7 lines, a text link. Add +title for a section heading.",
       "behaviour": "static",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -494,6 +584,12 @@
       "variant": "Tiles row with image",
       "classes": "m-tiles",
       "figma": "tiles_row (1243:14816)",
+      "tone": "light",
+      "hasTitle": false,
+      "slots": {
+        "tiles": 4
+      },
+      "useFor": "Exactly four short parallel points or resources (reasons to choose, guides, articles). Title ≤ 2 lines, text ≤ 7 lines, a text link. Add +title for a section heading.",
       "behaviour": "static",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -507,6 +603,12 @@
       "variant": "Accordion",
       "classes": "m-accordion",
       "figma": "accordion (1243:14965)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {
+        "items": 5
+      },
+      "useFor": "One topic split into 4–6 sub-topics next to one photo; short answers (≤ 6 lines).",
       "behaviour": "one item open",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -520,6 +622,13 @@
       "variant": "horizontal (with optional topic menu)",
       "classes": "m-faq m-faq--horizontal",
       "figma": "faq (1243:14977)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {
+        "items": 8,
+        "topicMenu": 7
+      },
+      "useFor": "Questions and answers near the end of a page. horizontal: 6–8 questions, optional topic menu (needs data-topics on items); horizontal-plain: no menu; vertical: long or rich answers (lists).",
       "behaviour": "one item open; topic menu filters (horizontal)",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -533,6 +642,12 @@
       "variant": "horizontal, no menu",
       "classes": "m-faq m-faq--horizontal",
       "figma": "faq (1243:14977)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {
+        "items": 8
+      },
+      "useFor": "Questions and answers near the end of a page. horizontal: 6–8 questions, optional topic menu (needs data-topics on items); horizontal-plain: no menu; vertical: long or rich answers (lists).",
       "behaviour": "one item open; topic menu filters (horizontal)",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -546,6 +661,12 @@
       "variant": "vertical",
       "classes": "m-faq m-faq--vertical",
       "figma": "faq (1243:14977)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {
+        "items": 8
+      },
+      "useFor": "Questions and answers near the end of a page. horizontal: 6–8 questions, optional topic menu (needs data-topics on items); horizontal-plain: no menu; vertical: long or rich answers (lists).",
       "behaviour": "one item open; topic menu filters (horizontal)",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -559,6 +680,12 @@
       "variant": "A (form + photo)",
       "classes": "m-form m-form--a",
       "figma": "contact form (1243:14624)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {
+        "fields": 7
+      },
+      "useFor": "End-of-page conversion (demo request): A with photo, B dark frame + photo, C compact card, D C in a dark frame. E with card title = gated download (guide). The composer gives the first one id=\"contact\".",
       "behaviour": "client-side validation, posts nowhere",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -572,6 +699,12 @@
       "variant": "B (dark frame, photo + form, filled)",
       "classes": "m-form m-form--b",
       "figma": "contact form (1243:14624)",
+      "tone": "dark",
+      "hasTitle": true,
+      "slots": {
+        "fields": 7
+      },
+      "useFor": "End-of-page conversion (demo request): A with photo, B dark frame + photo, C compact card, D C in a dark frame. E with card title = gated download (guide). The composer gives the first one id=\"contact\".",
       "behaviour": "client-side validation, posts nowhere",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -585,6 +718,12 @@
       "variant": "C (intro + form in a card)",
       "classes": "m-form m-form--c",
       "figma": "contact form (1243:14624)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {
+        "fields": 7
+      },
+      "useFor": "End-of-page conversion (demo request): A with photo, B dark frame + photo, C compact card, D C in a dark frame. E with card title = gated download (guide). The composer gives the first one id=\"contact\".",
       "behaviour": "client-side validation, posts nowhere",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -598,6 +737,12 @@
       "variant": "D (C in a dark frame)",
       "classes": "m-form-frame",
       "figma": "contact form (1243:14624)",
+      "tone": "dark",
+      "hasTitle": true,
+      "slots": {
+        "fields": 7
+      },
+      "useFor": "End-of-page conversion (demo request): A with photo, B dark frame + photo, C compact card, D C in a dark frame. E with card title = gated download (guide). The composer gives the first one id=\"contact\".",
       "behaviour": "client-side validation, posts nowhere",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -611,6 +756,12 @@
       "variant": "E (intro + narrow card with title)",
       "classes": "m-form m-form--e",
       "figma": "contact form (1243:14624)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {
+        "fields": 7
+      },
+      "useFor": "End-of-page conversion (demo request): A with photo, B dark frame + photo, C compact card, D C in a dark frame. E with card title = gated download (guide). The composer gives the first one id=\"contact\".",
       "behaviour": "client-side validation, posts nowhere",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -624,6 +775,12 @@
       "variant": "E (intro + narrow card, no title)",
       "classes": "m-form m-form--e",
       "figma": "contact form (1243:14624)",
+      "tone": "light",
+      "hasTitle": true,
+      "slots": {
+        "fields": 7
+      },
+      "useFor": "End-of-page conversion (demo request): A with photo, B dark frame + photo, C compact card, D C in a dark frame. E with card title = gated download (guide). The composer gives the first one id=\"contact\".",
       "behaviour": "client-side validation, posts nowhere",
       "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
       "story": {
@@ -637,6 +794,12 @@
       "variant": "states (site addition: hover, focus, error, disabled)",
       "classes": "m-input-states",
       "figma": "input",
+      "tone": "light",
+      "hasTitle": false,
+      "slots": {
+        "fields": 6
+      },
+      "useFor": "Design-system demo of input states. Not for pages.",
       "behaviour": "static",
       "placement": "design-system demo only, not for pages",
       "story": {

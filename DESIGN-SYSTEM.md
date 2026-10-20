@@ -442,6 +442,10 @@ Behaviour (site addition): required company, names and email; email format check
 
 ## 7. Working with the system
 
+- **Build an inner page:** `npm run page -- <file>.html <module-key>[+title] …` composes it from the real header / footer (`index.html`) and modules (`modules.html`); see `AGENTS.md` §3. Page rhythm (site addition): `.pg-sec` = 80px above and below (64 on mobile), neighbours share one gap; hero screens sit in `.pg-sec--flush`; an optional section heading is `.title-text.pg-head` (48 to the content, 32 on mobile). One `<h1>` (hero title), section titles `<h2>`. The first contact form has `id="contact"`.
+- **Catalogue:** `ds/catalog.json` (`npm run catalog`) lists components and modules with use, tone, slots and stories, for people and agents.
+- **Checks:** `npm run check:page -- <file>.html` (errors, 404s, overflow, one h1, screenshots at 1440 / 1024 / 390 in `tools/out/`), `npm run check:ds` (every Storybook entry).
+
 - **Change a value:** edit `tokens/foley.tokens.json` → `npm run tokens` → check the site and Storybook. Keep Figma variable names in sync.
 - **Add a component:** markup in `index.html`, styles in `styles.css` using tokens only, behaviour in `app.js` as a module that does nothing when its markup is absent. Add a story that clones the markup with `pick()` and, if it has behaviour, a **Live** story.
 - **Never** hard-code a colour, size or duration that already has a token.
@@ -458,10 +462,12 @@ Behaviour (site addition): required company, names and email; email format check
 - Product illustrations inside the how-it-works columns use their own small palette (`--pc-*`), not the system tokens.
 - Modules: all copy is Figma placeholder copy. Carousel bodies and FAQ answers repeat the one placeholder text from Figma; carousel photos for four topics come from the services section (Figma has one photo for all); the FAQ topic → question mapping is placeholder too.
 - Modules, Figma fixes: the vertical carousel shows “Drug & Alcohol Testing” as both a closed and the open topic (the module uses the horizontal set, “Background Checks” open); contact form D sits off the 80 grid in its frame (here it uses the 1280 column).
+- `assets/modules/allin-photo.webp` (all-in block photo from Figma) has tiled “Unsplash+” watermarks; needs a licensed replacement.
 - Contact forms post nowhere; the error colour (`status/error`) and all input states except placeholder / filled are site additions.
 
 ## Changelog
 
+- **1.3** (2026-10): handoff kit: `AGENTS.md` / `CLAUDE.md`, page composer, `ds/catalog.json`, page and DS checks, bundled Inter Display (OFL), `dist/` build; inner-page rhythm `.pg-sec` / `.pg-head`.
 - **1.2** (2026-10): carousels get the services motion (autoplay with a progress line, photo wipe per topic, pause / stop rules) and motion tokens `dwell`, `swap`, `wipe`, `in-out`; accordion photo keeps its ratio; FAQ topic menu pinned + FAQ without menu; search panel has the mega menu height.
 - **1.1** (2026-10): page modules from Figma “modules” (hero screen ×5, callout card ×4, all-in block ×4, carousel ×4, tiles row ×2, accordion, FAQ ×2, contact form ×6), Input component, `status/error` token, `modules.html` gallery.
 - **1.0** (2026-10): tokens extracted from Figma + site into DTCG JSON; Storybook with foundations, 17 component pages, live stories and the homepage; mega-menu column heads became links.

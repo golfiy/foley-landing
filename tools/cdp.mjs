@@ -1,7 +1,7 @@
 // Minimal Chrome DevTools Protocol client (Node 22+: global WebSocket / fetch), no dependencies.
 // Chrome: $CHROME_PATH, else the usual macOS / Linux locations.
 import { spawn, spawnSync } from 'node:child_process';
-import { existsSync, writeFileSync, mkdtempSync } from 'node:fs';
+import { existsSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -32,8 +32,10 @@ export async function launch({ width = 1440, height = 900, dpr = 1, mobile = fal
     try { list = await (await fetch(`http://127.0.0.1:${port}/json/list`)).json(); if (list.find((t) => t.type === 'page')) break; } catch {}
     await sleep(150);
   }
+  const cleanup = () => { try { proc.kill(); } catch {} try { rmSync(profile, { recursive: true, force: true }); } catch {} };
+  process.once('exit', cleanup);
   const page = list.find((t) => t.type === 'page');
-  if (!page) { proc.kill(); throw new Error('Chrome did not start'); }
+  if (!page) { cleanup(); throw new Error('Chrome did not start'); }
   const ws = new WebSocket(page.webSocketDebuggerUrl);
   await new Promise((r) => (ws.onopen = r));
   let id = 0;
@@ -44,7 +46,13 @@ export async function launch({ width = 1440, height = 900, dpr = 1, mobile = fal
     if (d.id && pending.has(d.id)) { const { res, rej } = pending.get(d.id); pending.delete(d.id); d.error ? rej(new Error(JSON.stringify(d.error))) : res(d.result); }
     else listeners.forEach((l) => l(d));
   };
-  const send = (method, params = {}) => new Promise((res, rej) => { const i = ++id; pending.set(i, { res, rej }); ws.send(JSON.stringify({ id: i, method, params })); });
+  // every call times out (default 30s) so a stuck page never hangs the tool
+  const send = (method, params = {}, timeout = 30000) => new Promise((res, rej) => {
+    const i = ++id;
+    const t = setTimeout(() => { pending.delete(i); rej(new Error(`CDP ${method} timed out after ${timeout}ms`)); }, timeout);
+    pending.set(i, { res: (v) => { clearTimeout(t); res(v); }, rej: (e) => { clearTimeout(t); rej(e); } });
+    ws.send(JSON.stringify({ id: i, method, params }));
+  });
   await send('Page.enable');
   await send('Runtime.enable');
   const setViewport = (w, h, d = dpr, m = mobile) => send('Emulation.setDeviceMetricsOverride', { width: w, height: h, deviceScaleFactor: d, mobile: m });
@@ -74,6 +82,6 @@ export async function launch({ width = 1440, height = 900, dpr = 1, mobile = fal
       await send('Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'left', clickCount: 1 });
       await send('Input.dispatchMouseEvent', { type: 'mouseReleased', x, y, button: 'left', clickCount: 1 });
     },
-    async close() { try { ws.close(); } catch {} proc.kill(); await sleep(150); },
+    async close() { try { ws.close(); } catch {} await sleep(100); cleanup(); },
   };
 }

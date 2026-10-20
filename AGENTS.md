@@ -15,7 +15,8 @@ keep the design system in sync, and verify the result visually.
 ```bash
 npm install                 # once (Storybook + Vite only; the site itself has no dependencies)
 npm run serve               # the site on http://127.0.0.1:4965  (keep it running)
-npm run storybook           # the design system on http://127.0.0.1:4967 (keep it running)
+npm run storybook           # the design system on http://127.0.0.1:4967 (keep it running;
+                            # it regenerates tokens.css from the JSON first, that is expected)
 ```
 
 Requirements: Node 22+, Python 3 (static server), Chrome or Chromium for the check tools
@@ -46,18 +47,30 @@ bottom-left on both servers.
 
 ## 3. Build a page (the main workflow)
 
-1. Pick blocks: `npm run page -- --list` (or read `ds/catalog.json`, or open `/modules.html` and
-   Storybook → Modules). Module families: hero screen (5 views), callout card (4), all-in block (4),
-   carousel (4), tiles row (2), accordion, FAQ (3), contact form (6).
+1. Pick blocks. `npm run page -- --list` shows every module key with its tone (light / dark) and
+   whether it has its own heading. **`ds/catalog.json` → `modules[]`** says what each family is
+   for (`useFor`), how many items it holds (`slots`: checks, topics, tiles, items, fields) and text
+   limits. To see them: `/modules.html` or Storybook → Modules. Families: hero screen (5 views),
+   callout card (4), all-in block (4), carousel (4), tiles row (2), accordion, FAQ (3), contact
+   form (6).
 2. Compose:
    ```bash
-   npm run page -- hiring.html hero-light-image allin-light-left tiles-row-image faq-horizontal-plain contact-a --title "Hiring and onboarding" --description "…"
+   npm run page -- hiring.html hero-light-image allin-light-left tiles-row-image+title faq-horizontal-plain contact-a --title "Hiring and onboarding" --description "…"
    ```
    This writes `hiring.html` in the project root with the real header (top nav, mega menus,
    search, mobile drawer), the chosen modules in order and the real footer. Header and footer
-   come from `index.html`, modules from `modules.html`.
+   come from `index.html`, modules from `modules.html`. The composer also:
+   - makes the hero title the page's only `<h1>` and callout / all-in titles `<h2>`;
+   - gives the first contact form section `id="contact"` (the header's *Request a demo* and the
+     module CTAs link to `#contact`);
+   - with `<key>+title`, adds a section heading (`title_text`: h2 + intro, 48px above the module)
+     for modules without their own heading (carousel, tiles row; also allowed on callout / all-in
+     when a group needs one heading);
+   - prints notes (second hero, missing heading, no contact form).
 3. Replace the placeholder copy in the new file (headings, text, button labels, links, alt text,
-   images). Change **content only** in the page. Do not restyle a module inside a page.
+   images). Change **content only** in the page: text, item count within `slots`, which item is
+   open / active (`is-open` / `is-active` + the matching photo `is-active` in carousels),
+   aria labels. Do not restyle a module inside a page.
 4. Check (section 6) and look at the screenshots in `tools/out/`.
 
 Page anatomy (the composer does this; follow it when editing by hand):
@@ -75,8 +88,9 @@ Page anatomy (the composer does this; follow it when editing by hand):
 </main>
 ```
 
-- One hero per page, first. Then alternate light and dark / photo-heavy blocks; avoid two
-  carousels or two forms in a row.
+- One hero per page, first. Then alternate light and dark / photo-heavy blocks (`tone` in the
+  catalogue); avoid two carousels or two forms in a row; end with a contact form.
+- Heading outline: one `<h1>` (hero), section titles `<h2>`, items inside a section `<h3>`.
 - Homepage components (logos, How it works, snapshot, teams, testimonials, banner…) can be used
   on inner pages too: copy the section from `index.html`. How it works needs
   `<link rel="stylesheet" href="stages.css">` and `<script src="stages.js">` before `app.js`.
@@ -130,8 +144,12 @@ accordions / tabs use the ARIA already in `modules.js`; every input has a label 
 is fine); images `alt=""` when decorative, real alt when they carry meaning; colour contrast AA.
 
 **Content.** Placeholder copy is Figma placeholder copy: replace it, do not polish it. Never
-invent facts, numbers, customer names, quotes or legal claims. If you must keep a placeholder,
-leave an HTML comment `<!-- TODO copy -->`.
+invent facts, numbers, customer names, quotes or legal claims. Placeholders must be visible and
+searchable: write the text as `[TODO: what is needed]` (it shows on the page and in screenshots)
+and, for images you could not replace, add `<!-- TODO image: what it should show -->` next to
+the `<img>`. `grep -n "TODO" <page>.html` lists what is left.
+Text limits that keep modules intact: horizontal carousel tab labels ≤ 22 characters (one line
+at 1024), check items ≤ 2 lines, tile titles ≤ 2 lines; more in `useFor` in the catalogue.
 
 **Don't**
 - edit `tokens.css`, `dist/`, `storybook-static/` or anything in `node_modules/`;
@@ -151,21 +169,31 @@ the frame; otherwise follow `DESIGN-SYSTEM.md`.
 ## 6. Verify before you say "done"
 
 ```bash
-npm run check:page -- hiring.html     # JS errors, 404s, broken / unsized images, horizontal overflow
-                                      # at 1440, 1024, 390 + full-page screenshots in tools/out/
-npm run check:ds                      # if you touched the DS: every Storybook entry renders without errors
+npm run check:page -- hiring.html     # JS errors, 404s, broken / unsized images, horizontal overflow,
+                                      # exactly one <h1>, at 1440, 1024, 390 (≈15s per width)
+npm run check:page -- hiring.html 390 # one width
+npm run check:ds                      # if you touched the DS: every Storybook entry renders (slow, ~10 min)
 npm run build                         # optional: static dist/ (site at /, Storybook at /storybook/)
 ```
 
-Then **look at the screenshots** in `tools/out/` (1440, 1024, 390). Done means: both checks
-pass, nothing overlaps or is cut off at any width, copy is real or marked TODO, and any DS
-change is reflected in `modules.html` / stories / `DESIGN-SYSTEM.md` / `ds/catalog.json`.
+Screenshots are taken with `?shot` (animations and carousel autoplay frozen, scroll reveals
+shown) and saved in `tools/out/` as one PNG per viewport (`hiring-390-01.png`, `-02.png` …,
+readable at full size) plus `hiring-390-full.png` for the whole page. **Look at the bands**,
+not only the full image. Things the check cannot see and you must: text wrapping badly (a tab
+label on two lines), fields narrower than their card, a block cut at a scroll edge, wrong
+contrast.
+
+Done means: the page check passes, nothing overlaps or is cut off at any width, copy is real or
+marked `[TODO: …]`, and any DS change is reflected in `modules.html` / stories /
+`DESIGN-SYSTEM.md` / `ds/catalog.json` (+ `npm run check:ds`).
 
 ## 7. Known placeholders and gaps
 
 - Testimonials 3–6 on the homepage (names, quotes, numbers) are invented demo content.
 - FAQ answers repeat one Figma placeholder; the FAQ topic → question mapping is placeholder.
 - Carousel photos for four topics come from Unsplash (Figma has one photo for all).
+- `assets/modules/allin-photo.webp` (all-in block, from Figma) carries tiled “Unsplash+”
+  watermarks: replace it with a licensed photo before anything goes live.
 - Contact forms validate on the client and post nowhere; there is no backend.
 - Links in the header, footer and modules are `#…` placeholders.
 - Mega-menu promo images are Figma exports; the How it works product illustrations are drawn in HTML/CSS with their own small palette (`--pc-*`), not system tokens.

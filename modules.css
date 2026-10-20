@@ -28,15 +28,19 @@ button.btn { border: 0; }
    Every module sits in a section with 80px above and below; neighbours share one 80px gap.
    Hero screens are full-bleed (capped at 1440) with no section padding. Site addition:
    Figma frames the modules with 80px but has no inner page yet. */
-.pg-sec { padding: 80px 0; }
+.pg-sec { padding: var(--space-20) 0; }
 .pg-sec + .pg-sec { padding-top: 0; }
 .pg-sec--flush { padding: 0; }
-.pg-sec--flush + .pg-sec { padding-top: 80px; }
+.pg-sec--flush + .pg-sec { padding-top: var(--space-20); }
+/* optional section heading above a module that has no title of its own (carousel, tiles row, callout…):
+   the homepage pattern, title_text then 48 to the content */
+.pg-head { margin-bottom: var(--space-12); }
 @media (max-width: 959px) {
-  .pg-sec { padding: 56px 0; }
+  .pg-sec { padding: var(--space-16) 0; }
   .pg-sec + .pg-sec { padding-top: 0; }
   .pg-sec--flush { padding: 0; }
-  .pg-sec--flush + .pg-sec { padding-top: 56px; }
+  .pg-sec--flush + .pg-sec { padding-top: var(--space-16); }
+  .pg-head { margin-bottom: var(--space-8); }
 }
 
 /* white focus ring on dark modules */
@@ -282,7 +286,9 @@ button.btn { border: 0; }
   position: relative;
   flex: 1 1 0;
   min-width: 0;
-  padding: 4px 0 0;
+  display: flex;                   /* keeps a wrapped label on the rule instead of centring it */
+  align-items: flex-start;
+  padding: 4px 16px 0 0;
   border: 0;
   background: none;
   text-align: left;
@@ -562,11 +568,12 @@ button.btn { border: 0; }
   .m-split-media, .m-hcar-media { flex: none; min-height: 0; height: 280px; }
   .m-accordion-media { flex: none; width: 100%; }
   .m-split-body, .m-vcar-list, .m-hcar-text, .m-faq-side,
-  .m-accordion-row > .m-acc, .m-form--a .m-form-main, .m-form--c > .m-form-intro, .m-form-card { width: 100%; }
+  .m-accordion-row > .m-acc, .m-form--a .m-form-main, .m-form--c > .m-form-intro, .m-form--c > .m-form-main, .m-form-card { width: 100%; }
   .m-split-body { gap: 32px; }
   .m-split-title { font-size: 28px; }
 
-  .m-hcar-tabs { overflow-x: auto; scrollbar-width: none; }
+  .m-hcar-tabs { overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); }   /* the fade says the strip scrolls */
+  .m-hcar-tabs::-webkit-scrollbar { display: none; }
   .m-hcar-tab { flex: none; width: auto; padding-right: 24px; white-space: nowrap; }
   .m-hcar-text { padding-bottom: 56px; }
   .m-vcar-title { --s: calc(20 / 28); font-size: 28px; margin-bottom: -6.8px; }   /* 30.8px line scaled to 22 + 2 */

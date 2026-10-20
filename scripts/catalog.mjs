@@ -41,20 +41,38 @@ const components = [
 
 /* ---------- modules (inner pages; markup in modules.html) ---------- */
 const families = [
-  { prefix: 'hero-', name: 'Hero screen', figma: 'hero (1243:14730)', story: 'modules-hero-screen', placement: 'full-bleed, first on the page: <section class="pg-sec pg-sec--flush">' },
-  { prefix: 'callout-', name: 'Callout card', figma: 'callout_card (1243:14783)', story: 'modules-callout-card' },
-  { prefix: 'allin-', name: 'All-in block', figma: 'all_in_block (1243:14828)', story: 'modules-all-in-block' },
-  { prefix: 'carousel-', name: 'Carousel', figma: 'carousel (1243:14902)', story: 'modules-carousel', behaviour: 'autoplay with progress line, photo per topic, pause on hover / focus / off-screen' },
-  { prefix: 'tiles-', name: 'Tiles row', figma: 'tiles_row (1243:14816)', story: 'modules-tiles-row' },
-  { prefix: 'accordion', name: 'Accordion', figma: 'accordion (1243:14965)', story: 'modules-accordion', behaviour: 'one item open' },
-  { prefix: 'faq-', name: 'FAQ', figma: 'faq (1243:14977)', story: 'modules-faq', behaviour: 'one item open; topic menu filters (horizontal)' },
-  { prefix: 'contact-', name: 'Contact form', figma: 'contact form (1243:14624)', story: 'modules-contact-form', behaviour: 'client-side validation, posts nowhere' },
-  { prefix: 'input-states', name: 'Input states (DS demo)', figma: 'input', story: 'components-input', placement: 'design-system demo only, not for pages' },
+  { prefix: 'hero-', name: 'Hero screen', figma: 'hero (1243:14730)', story: 'modules-hero-screen', hasTitle: true, placement: 'full-bleed, first on the page: <section class="pg-sec pg-sec--flush">',
+    useFor: 'Top of an inner page: page title (becomes the h1, ≤ 4 lines at 60px), one-sentence promise, one CTA. light bg = product UI shot; light / dark image = photo-led pages (industries); dark boxed / dark pattern = no photo available.' },
+  { prefix: 'callout-', name: 'Callout card', figma: 'callout_card (1243:14783)', story: 'modules-callout-card', hasTitle: true,
+    useFor: 'One idea with a photo: a feature, an industry, a story. Title (≤ 4 lines) + 1–2 short paragraphs + one CTA. Alternate image left / right when two follow each other.' },
+  { prefix: 'allin-', name: 'All-in block', figma: 'all_in_block (1243:14828)', story: 'modules-all-in-block', hasTitle: true,
+    useFor: 'What is included / key benefits: title, one paragraph, 3–4 check items (each ≤ 2 lines), one CTA.' },
+  { prefix: 'carousel-', name: 'Carousel', figma: 'carousel (1243:14902)', story: 'modules-carousel', hasTitle: false, behaviour: 'autoplay with progress line, photo per topic, pause on hover / focus / off-screen',
+    useFor: '3–5 parallel options or steps sharing one layout (services, test types, program steps). Each topic: title (horizontal tabs: ≤ 22 characters so it stays on one line at 1024), 1–2 paragraphs, CTA, its own photo. Add +title for a section heading.' },
+  { prefix: 'tiles-', name: 'Tiles row', figma: 'tiles_row (1243:14816)', story: 'modules-tiles-row', hasTitle: false,
+    useFor: 'Exactly four short parallel points or resources (reasons to choose, guides, articles). Title ≤ 2 lines, text ≤ 7 lines, a text link. Add +title for a section heading.' },
+  { prefix: 'accordion', name: 'Accordion', figma: 'accordion (1243:14965)', story: 'modules-accordion', hasTitle: true, behaviour: 'one item open',
+    useFor: 'One topic split into 4–6 sub-topics next to one photo; short answers (≤ 6 lines).' },
+  { prefix: 'faq-', name: 'FAQ', figma: 'faq (1243:14977)', story: 'modules-faq', hasTitle: true, behaviour: 'one item open; topic menu filters (horizontal)',
+    useFor: 'Questions and answers near the end of a page. horizontal: 6–8 questions, optional topic menu (needs data-topics on items); horizontal-plain: no menu; vertical: long or rich answers (lists).' },
+  { prefix: 'contact-', name: 'Contact form', figma: 'contact form (1243:14624)', story: 'modules-contact-form', hasTitle: true, behaviour: 'client-side validation, posts nowhere',
+    useFor: 'End-of-page conversion (demo request): A with photo, B dark frame + photo, C compact card, D C in a dark frame. E with card title = gated download (guide). The composer gives the first one id="contact".' },
+  { prefix: 'input-states', name: 'Input states (DS demo)', figma: 'input', story: 'components-input', hasTitle: false, placement: 'design-system demo only, not for pages', useFor: 'Design-system demo of input states. Not for pages.' },
 ];
 
 function outerStartTag(html, at) {
   const start = html.lastIndexOf('<', at);
   return html.slice(start, html.indexOf('>', at) + 1);
+}
+/** outer HTML of the element starting before index `at` (tag-depth match) */
+function outerBlock(html, at) {
+  const start = html.lastIndexOf('<', at);
+  const tag = /^<([a-z0-9-]+)/i.exec(html.slice(start))[1];
+  const re = new RegExp(`<(/?)${tag}\\b[^>]*?(/?)>`, 'gi');
+  re.lastIndex = start;
+  let depth = 0;
+  for (let m; (m = re.exec(html));) { if (m[2] === '/') continue; depth += m[1] ? -1 : 1; if (depth === 0) return html.slice(start, re.lastIndex); }
+  return '';
 }
 const modules = [];
 for (const m of modulesHtml.matchAll(/data-module="([^"]+)"/g)) {
@@ -64,12 +82,24 @@ for (const m of modulesHtml.matchAll(/data-module="([^"]+)"/g)) {
   const cls = (/class="([^"]+)"/.exec(tag) || [])[1] || '';
   const before = modulesHtml.slice(0, modulesHtml.lastIndexOf('<', m.index));
   const label = (/<p class="mod-label[^"]*">([^<]+)<\/p>\s*$/.exec(before.slice(-600)) || [])[1] || '';
+  const block = outerBlock(modulesHtml, m.index);
+  const count = (re) => (block.match(re) || []).length;
+  const slots = Object.fromEntries(Object.entries({
+    checks: count(/<li><span class="m-check"/g), topics: count(/class="m-vcar-item|class="m-hcar-tab[ "]/g),
+    tiles: count(/<article class="m-tile/g), items: count(/class="m-acc-item/g), fields: count(/class="m-input"/g),
+    topicMenu: count(/class="m-faq-topic"/g),
+  }).filter(([, v]) => v));
+  const dark = /m-hero--dark|m-split--dark/.test(cls) || /m-form--b/.test(cls) || /m-form-frame/.test(cls);
   modules.push({
     key,
     family: fam ? fam.name : '',
     variant: label.replace(/&amp;/g, '&').replace(/^[^·]*·\s*/, '').trim(),
     classes: cls,
     figma: fam ? fam.figma : '',
+    tone: dark ? 'dark' : 'light',
+    hasTitle: fam ? fam.hasTitle : false,
+    slots,
+    useFor: fam ? fam.useFor : '',
     behaviour: (fam && fam.behaviour) || 'static',
     placement: fam && fam.placement ? fam.placement : 'inside <section class="pg-sec"><div class="wrap">',
     story: fam ? sb(fam.story) : null,

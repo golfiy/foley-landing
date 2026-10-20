@@ -4,7 +4,12 @@
  * page modules from modules.html (by their data-module key).
  *
  *   npm run page -- --list
- *   npm run page -- hiring.html hero-light-image callout-light-left tiles-row faq-horizontal contact-a --title "Hiring and onboarding"
+ *   npm run page -- hiring.html hero-light-image callout-light-left tiles-row+title faq-horizontal contact-a --title "Hiring and onboarding"
+ *
+ * <key>+title adds a section heading (title_text) above a module that has none of its own.
+ * The composer also fixes the outline for a real page: the hero title becomes the page <h1>,
+ * callout / all-in titles become <h2>, and the first contact form gets id="contact" (every
+ * "Request a demo" / CTA link points there).
  *   npm run page -- page-template.html            (no modules: an empty page to fill by hand)
  *
  * Output goes to the project root next to index.html, so asset paths stay the same.
@@ -36,7 +41,12 @@ function outer(html, marker, from = 0) {
   }
   throw new Error(`unclosed <${tag}> at ${marker}`);
 }
-const indent = (s, pad) => s.split('\n').map((l) => (l.trim() ? pad + l.replace(/^ {0,8}/, '') : l)).join('\n');
+function indent(s, pad) {                          // re-indent a block cut from its source file
+  const lines = s.split('\n');
+  const last = lines.length > 1 ? lines[lines.length - 1] : '';
+  const base = last.match(/^ */)[0].length;          // the closing tag sits at the opening tag's original indent
+  return lines.map((l, i) => (!l.trim() ? '' : pad + (i === 0 ? l.trimStart() : l.slice(base)))).join('\n');
+}
 
 /* ---------- module catalogue from modules.html ---------- */
 function listModules() {
@@ -57,7 +67,14 @@ if (!args.length || args.includes('--help')) {
   process.exit(0);
 }
 if (args.includes('--list')) {
-  for (const { key, label } of listModules()) console.log(key.padEnd(28), label);
+  // with ds/catalog.json: tone and whether the module has its own heading (else use <key>+title)
+  let cat = {};
+  try { cat = Object.fromEntries(JSON.parse(readFileSync(root + 'ds/catalog.json', 'utf8')).modules.map((m) => [m.key, m])); } catch {}
+  for (const { key, label } of listModules()) {
+    const c = cat[key];
+    console.log(key.padEnd(27), (c ? `${c.tone.padEnd(5)} ${c.hasTitle ? 'title  ' : 'no title'}` : '').padEnd(15), label);
+  }
+  console.log('\nWhat each family is for, item counts, limits: ds/catalog.json (modules[].useFor, slots).');
   process.exit(0);
 }
 const opt = (name) => { const i = args.indexOf(name); if (i < 0) return null; const v = args[i + 1]; args.splice(i, 2); return v; };
@@ -69,7 +86,8 @@ if (!/^[\w.-]+\.html$/.test(outFile)) throw new Error('first argument: output fi
 if (['index.html', 'modules.html'].includes(outFile)) throw new Error(`${outFile} is a source file, pick another name`);
 if (existsSync(root + outFile) && !force) throw new Error(`${outFile} exists. Add --force to overwrite.`);
 const known = new Set(listModules().map((m) => m.key));
-const unknown = keys.filter((k) => !known.has(k));
+const parsed = keys.map((k) => ({ key: k.replace(/\+title$/, ''), title: k.endsWith('+title') }));
+const unknown = parsed.filter((k) => !known.has(k.key)).map((k) => k.key);
 if (unknown.length) throw new Error(`unknown module(s): ${unknown.join(', ')}. Run: npm run page -- --list`);
 
 /* ---------- head ---------- */
@@ -88,13 +106,26 @@ const footer = outer(index, '<footer class="footer"');
 const dsSwitch = outer(index, '<nav class="ds-switch"');
 
 /* ---------- sections ---------- */
-const sections = keys.map((key, i) => {
+const hints = [];
+let h1Done = false;
+let contactDone = false;
+const sections = parsed.map(({ key, title: withTitle }, i) => {
   let html = outer(modules, `data-module="${key}"`);
   if (i === 0) html = html.replace(/ loading="lazy"/g, '');                     // first block is above the fold
+  // outline: one <h1> (the hero title), module titles that head a section become <h2>
+  if (!h1Done && key.startsWith('hero-')) { html = html.replace(/<h2 class="m-hero-title">([\s\S]*?)<\/h2>/, '<h1 class="m-hero-title">$1</h1>'); h1Done = true; }
+  else if (key.startsWith('hero-')) hints.push(`${key}: a second hero on one page; keep one hero, first`);
+  if (/^(callout|allin)-/.test(key)) html = html.replace(/<h3 class="m-split-title">([\s\S]*?)<\/h3>/, '<h2 class="m-split-title">$1</h2>');
+  if (/^(carousel|tiles)-/.test(key) && !withTitle) hints.push(`${key}: has no heading of its own; consider ${key}+title`);
+  const id = key.startsWith('contact-') && !contactDone ? ' id="contact"' : '';
+  if (id) contactDone = true;
   const flush = key.startsWith('hero-');
-  const body = flush ? indent(html, '      ') : `      <div class="wrap">\n${indent(html, '        ')}\n      </div>`;
-  return `    <!-- module: ${key} -->\n    <section class="pg-sec${flush ? ' pg-sec--flush' : ''}">\n${body}\n    </section>`;
+  const head = withTitle ? `        <div class="title-text pg-head">\n          <h2>[TODO: section title]</h2>\n          <p>[TODO: one-line intro, or delete this line]</p>\n        </div>\n` : '';
+  const body = flush ? indent(html, '      ') : `      <div class="wrap">\n${head}${indent(html, '        ')}\n      </div>`;
+  return `    <!-- module: ${key}${withTitle ? ' (+ section title)' : ''} -->\n    <section class="pg-sec${flush ? ' pg-sec--flush' : ''}"${id}>\n${body}\n    </section>`;
 });
+if (parsed.length && !h1Done) hints.push('no hero screen: add exactly one <h1> to the page');
+if (parsed.length && !contactDone) hints.push('no contact form: CTA links point to #contact; give the right section id="contact" or change the links');
 const main = sections.length
   ? sections.join('\n\n')
   : `    <!-- Add modules here. List them: npm run page -- --list
@@ -122,4 +153,5 @@ ${main}
 `;
 writeFileSync(root + outFile, page);
 console.log(`${outFile}: ${keys.length} module(s)${keys.length ? ' – ' + keys.join(', ') : ''}`);
+hints.forEach((h) => console.log('  note: ' + h));
 console.log(`open http://127.0.0.1:4965/${outFile}  ·  check: npm run check:page -- ${outFile}`);

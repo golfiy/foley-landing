@@ -104,6 +104,12 @@
         leave = setTimeout(() => panels[prev].classList.remove('is-leaving'), 320);
       }
       panels.forEach((p, k) => { p.classList.toggle('is-active', k === next); p.inert = k !== next; });
+      // mobile: the tab strip scrolls; keep the active tab in view (the strip only, never the page)
+      const strip = triggers[next].parentElement;
+      if (strip.scrollWidth > strip.clientWidth + 1) {
+        const t = triggers[next].getBoundingClientRect(), s = strip.getBoundingClientRect();
+        strip.scrollTo({ left: strip.scrollLeft + (t.left - s.left) - (s.width - t.width) / 2, behavior: instant || REDUCED() ? 'auto' : 'smooth' });
+      }
     }
 
     function go(next, { dir, instant = false } = {}) {
