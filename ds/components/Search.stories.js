@@ -4,7 +4,7 @@ export default {
   title: 'Components/Search',
   tags: ['autodocs'],
   parameters: {
-    docs: { description: { component: `Site search. Opens from the info bar (or \`/\`, ⌘K / Ctrl+K; search icon on mobile) as a panel under the main bar, same curtain as the mega menu, page dimmed with \`--color-overlay-backdrop\`.
+    docs: { description: { component: `Site search. Opens from the info bar (or \`/\`, ⌘K / Ctrl+K; search icon on mobile) as a panel under the main bar, same curtain and **same height as the mega menu** (\`--mm-h\`, 470: it ends just above the hero buttons; results scroll inside), page dimmed with \`--color-overlay-backdrop\`.
 
 **States:** empty (popular-search chips + suggested links) · results (grouped: Products, Solutions, Resources, Company, Customer stories, On this page; match underlined in \`--color-text-secondary\`; second line = breadcrumb) · typo corrected (“Showing results for …”) · no results (hint + “Ask a compliance expert”).
 

@@ -119,50 +119,148 @@ button.btn { border: 0; }
 .m-split--dark .m-check { background: var(--color-bg-primary); }
 
 /* ==========================================================================
-   Carousel · layout=vertical: titles stacked, the open one expands in place
+   Carousel (both layouts). Motion follows the Foley services section:
+   autoplay one topic per --motion-duration-dwell (8s), a 2px line fills the
+   topic's rule and moves on when full; the photo for each topic wipes in from
+   the direction of travel with a slight zoom-out, then pushes in slowly while
+   it is on screen. Hover on the text / titles, keyboard focus, an off-screen
+   section or a hidden tab pause it. Without autoplay (reduced motion, ?shot,
+   a topic picked by the reader) the Figma marker shows instead: a 108px
+   text/primary segment on the selected rule.
    ========================================================================== */
-.m-vcar-list { flex: none; width: 392px; display: flex; flex-direction: column; gap: 24px; }
-.m-vcar-item { transition: padding .45s var(--motion-easing-out); }
-.m-vcar-item.is-open { padding: 16px 0; }
-.m-vcar-h { font: inherit; }
-.m-vcar-tab {
-  position: relative;
-  display: block;
-  width: 100%;
-  padding: 4px 0 0;
-  border: 0;
-  background: none;
-  text-align: left;
-  font: var(--type-body-l);
-  color: var(--color-text-tertiary);
-  cursor: pointer;
-  transition: color .3s var(--motion-easing-standard);
+.m-car {
+  --car-swap: var(--motion-duration-swap);
+  --car-wipe: var(--motion-duration-wipe);
+  --car-lead: 200ms;
+  --car-stagger: 70ms;
+  --car-fade: 360ms;
+  --car-rise: 620ms;
+  --dir: 1;
+  --car-play: running;
 }
-.m-vcar-tab::before, .m-hcar-tab::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--color-stroke-primary); }
-.m-vcar-tab::after, .m-hcar-tab::after {
+.m-car[data-dir="prev"] { --dir: -1; }
+/* pause goes through a variable: the animation shorthands below would reset a separate play-state */
+.m-car.is-paused { --car-play: paused; }
+
+/* photos: one per topic, stacked */
+.m-car-media { position: relative; overflow: hidden; background: var(--color-bg-secondary); }
+.m-car-ph {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  visibility: hidden;
+  clip-path: inset(0);
+  transition: clip-path var(--car-wipe) var(--motion-easing-wipe), opacity var(--car-wipe) var(--motion-easing-in-out);
+}
+.m-car-ph.is-prev { visibility: visible; z-index: 1; }
+.m-car-ph.is-active { visibility: visible; z-index: 2; }
+.m-car-zoom { position: absolute; inset: 0; }
+.m-car-ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1400ms var(--motion-easing-out); }
+/* entering start state: JS adds .is-entering, commits a frame, removes it */
+.m-car-ph.is-entering { transition: none; }
+.m-car-ph.is-entering img { transform: scale(1.12); transition: none; }
+.m-car-ph.is-entering[data-from="below"] { clip-path: inset(100% 0 0 0); }
+.m-car-ph.is-entering[data-from="above"] { clip-path: inset(0 0 100% 0); }
+.m-car-ph.is-entering[data-from="right"] { clip-path: inset(0 0 0 100%); }
+.m-car-ph.is-entering[data-from="left"] { clip-path: inset(0 100% 0 0); }
+/* slow push-in while a topic is on screen, frozen together with the line */
+.m-car.is-running .m-car-ph:is(.is-active, .is-prev) .m-car-zoom { animation: m-car-kenburns var(--motion-duration-dwell) linear forwards var(--car-play); }
+@keyframes m-car-kenburns { from { transform: scale(1); } to { transform: scale(1.05); } }
+
+/* the rule, the running line and the static Figma marker */
+.m-car-rule { position: relative; display: block; height: 1px; background: var(--color-stroke-primary); }
+.m-car-progress {
+  position: absolute;
+  left: 0;
+  top: -.5px;
+  width: 100%;
+  height: 2px;
+  background: var(--color-text-primary);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+  transition: opacity 200ms var(--motion-easing-in-out);
+}
+.m-car.is-running :is(.m-vcar-item.is-open > .m-car-rule, .m-hcar-tab.is-active) .m-car-progress { animation: m-car-progress var(--motion-duration-dwell) linear forwards var(--car-play); }
+@keyframes m-car-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+/* vertical, cursor over the titles: the running line fades out after a short hold and comes back from the same point */
+.m-vcar.is-hovering.is-running .m-vcar-item.is-open .m-car-progress { opacity: 0; transition: opacity 200ms var(--motion-easing-in-out) 150ms; }
+.m-car-rule::after, .m-hcar-tab::after {
   content: "";
   position: absolute;
   left: 0;
-  top: -1px;
+  top: 0;
   width: 108px;
   height: 1px;
   background: var(--color-text-primary);
   transform: scaleX(0);
   transform-origin: 0 50%;
-  transition: transform .5s var(--motion-easing-out);
+  transition: transform 500ms var(--motion-easing-out);
 }
-.m-vcar-tab:hover { color: var(--color-text-secondary); }
-.m-vcar-item.is-open .m-vcar-tab { font: var(--type-h3); letter-spacing: var(--type-h3-tracking); color: var(--color-text-primary); cursor: default; }
-.m-vcar-item.is-open .m-vcar-tab::after { transform: scaleX(1); }
-.m-vcar-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s var(--motion-easing-out); }
+.m-car:not(.is-running) :is(.m-vcar-item.is-open > .m-car-rule, .m-hcar-tab.is-active)::after { transform: scaleX(1); }
+
+/* ---------- layout=vertical: titles stacked, the open one expands in place ---------- */
+.m-vcar-list { flex: none; width: 392px; display: flex; flex-direction: column; gap: 24px; }
+.m-vcar-item { transition: padding var(--car-swap) var(--motion-easing-in-out); }
+.m-vcar-item.is-open { padding: 16px 0; }
+.m-vcar-h { font: inherit; }
+.m-vcar-tab {
+  display: block;
+  width: 100%;
+  padding: 4px 0 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.m-vcar-item.is-open .m-vcar-tab { cursor: default; }
+.m-vcar-tab:focus-visible { outline: none; }
+.m-vcar-tab:focus-visible .m-vcar-title { outline: 2px solid var(--color-focus-ring); outline-offset: 4px; }
+/* the title is laid out at the open size (type/h3) and scaled to type/body-l when closed,
+   so opening is a transform, not a font-size reflow */
+.m-vcar-title {
+  --s: .625;
+  display: block;
+  width: calc(100% / var(--s));
+  font: var(--type-h3);
+  font-weight: 400;
+  letter-spacing: var(--type-h3-tracking);
+  color: var(--color-text-tertiary);
+  text-wrap: pretty;
+  transform: scale(var(--s));
+  transform-origin: 0 0;
+  margin-bottom: -11.2px;            /* 35.2px line scaled to 22 + 2 = the 24px Figma line */
+  transition:
+    transform var(--car-swap) var(--motion-easing-in-out),
+    width var(--car-swap) var(--motion-easing-in-out),
+    margin-bottom var(--car-swap) var(--motion-easing-in-out),
+    color var(--car-swap) var(--motion-easing-in-out);
+}
+.m-vcar-item.is-open .m-vcar-title { --s: 1; margin-bottom: 0; font-weight: 500; color: var(--color-text-primary); }
+.m-vcar-item:not(.is-open) .m-vcar-tab:hover .m-vcar-title { color: var(--color-text-secondary); }
+.m-vcar-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--car-swap) var(--motion-easing-in-out); }
 .m-vcar-item.is-open .m-vcar-panel { grid-template-rows: 1fr; }
 .m-vcar-inner { min-height: 0; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
 .m-vcar-inner > :first-child { margin-top: 24px; }
 .m-vcar-inner .btn { flex: none; }
+/* body: leaves quickly together, enters after the height opens, staggered */
+.m-vcar-inner > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 140ms linear, transform 140ms var(--motion-easing-in-out);
+}
+.m-vcar-inner > :nth-child(2) { --i: 1; }
+.m-vcar-item.is-open .m-vcar-inner > * {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--car-fade) var(--motion-easing-in-out) calc(var(--car-lead) + var(--i, 0) * var(--car-stagger)),
+    transform var(--car-rise) var(--motion-easing-out) calc(var(--car-lead) + var(--i, 0) * var(--car-stagger));
+}
 
-/* ==========================================================================
-   Carousel · layout=horizontal: tab row, then image + copy; arrows under the copy
-   ========================================================================== */
+/* ---------- layout=horizontal: tab row, then photo + copy; arrows under the copy ---------- */
 .m-hcar { display: flex; flex-direction: column; gap: 40px; }
 .m-hcar-tabs { display: flex; }
 .m-hcar-tab {
@@ -177,24 +275,60 @@ button.btn { border: 0; }
   letter-spacing: -.09px;
   color: var(--color-text-tertiary);
   cursor: pointer;
-  transition: color .3s var(--motion-easing-standard);
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--car-swap) var(--motion-easing-in-out);
 }
+.m-hcar-tab::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--color-stroke-primary); }
+.m-hcar-tab::after { top: -1px; }
+.m-hcar-tab .m-car-progress { top: -1.5px; }
 .m-hcar-tab:hover { color: var(--color-text-secondary); }
-.m-hcar-tab[aria-selected="true"] { color: var(--color-text-primary); }
-.m-hcar-tab[aria-selected="true"]::after { transform: scaleX(1); }
-.m-hcar-body { position: relative; display: flex; gap: 40px; }
+.m-hcar-tab.is-active { color: var(--color-text-primary); cursor: default; }
+.m-hcar-body { display: flex; gap: 40px; }
 .m-hcar--image-right .m-hcar-body { flex-direction: row-reverse; }
-.m-hcar-media { position: relative; flex: 1 1 0; min-width: 0; min-height: 468px; overflow: hidden; }
-.m-hcar-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.m-hcar-text { flex: none; width: 392px; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; padding-bottom: 40px; transition: opacity .3s var(--motion-easing-standard), translate .45s var(--motion-easing-out); }
-.m-hcar-text.is-swap { opacity: 0; translate: 12px 0; transition-duration: .15s; }
-.m-hcar-nav { position: absolute; bottom: 0; left: calc(100% - 392px); display: flex; gap: 8px; }
-.m-hcar--image-right .m-hcar-nav { left: 0; }
+.m-hcar-media { flex: 1 1 0; min-width: 0; min-height: 468px; }
+.m-hcar-text { position: relative; flex: none; width: 392px; padding-bottom: 40px; }
+.m-hcar-panels { display: grid; overflow-x: clip; overflow-clip-margin: 8px; }   /* hidden panels sit 28px to the side */
+.m-hcar-panel {
+  grid-area: 1 / 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  visibility: hidden;
+  transition: visibility 0s linear 300ms;
+}
+.m-hcar-panel.is-active, .m-hcar-panel.is-leaving { visibility: visible; transition-delay: 0s; }
+.m-hcar-panel.is-active { z-index: 1; }
+/* copy travels with the tabs: comes in from the side you are heading to, leaves the other way */
+.m-hcar-panel > * {
+  opacity: 0;
+  transform: translateX(calc(var(--dir) * 28px));
+  transition: opacity 140ms linear, transform 140ms var(--motion-easing-in);
+}
+.m-hcar-panel.is-leaving > * {
+  opacity: 0;
+  transform: translateX(calc(var(--dir) * -20px));
+  transition: opacity 160ms linear, transform 240ms var(--motion-easing-in);
+}
+.m-hcar-panel > :nth-child(2) { --i: 1; }
+.m-hcar-panel > :nth-child(3) { --i: 2; }
+.m-hcar-panel.is-active > * {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--car-fade) var(--motion-easing-in-out) calc(var(--car-lead) * .6 + var(--i, 0) * var(--car-stagger)),
+    transform var(--car-rise) var(--motion-easing-out) calc(var(--car-lead) * .6 + var(--i, 0) * var(--car-stagger));
+}
+.m-hcar-nav { position: absolute; left: 0; bottom: 0; display: flex; gap: 8px; }
 .m-hcar-arrow { display: grid; place-items: center; padding: 4px; border: 0; background: none; cursor: pointer; transition: background-color .25s var(--motion-easing-standard), translate .45s var(--motion-easing-out); }
 .m-hcar-arrow img { width: 24px; height: 24px; }
 .m-hcar-arrow:hover { background: var(--color-bg-tertiary-hover); }
-.m-hcar-arrow[data-hcar-prev]:hover { translate: -2px 0; }
-.m-hcar-arrow[data-hcar-next]:hover { translate: 2px 0; }
+.m-hcar-arrow[data-car-step="-1"]:hover { translate: -2px 0; }
+.m-hcar-arrow[data-car-step="1"]:hover { translate: 2px 0; }
+
+/* static frame for pixel checks */
+.shot .m-car *, .shot .m-car *::before, .shot .m-car *::after { transition: none !important; animation: none !important; }
 
 /* ==========================================================================
    Tiles row: four 314px cards, 8px apart (with image: 208px photo on top)
@@ -271,16 +405,19 @@ button.btn { border: 0; }
 
 /* accordion module: title, then list (522) + photo */
 .m-accordion { display: flex; flex-direction: column; gap: 48px; }
-.m-accordion-row { display: flex; gap: 40px; }
+.m-accordion-row { display: flex; align-items: flex-start; gap: 40px; }
 .m-accordion-row > .m-acc { flex: none; width: 522px; }
-.m-accordion-media { position: relative; flex: 1 1 0; min-width: 0; min-height: 468px; overflow: hidden; }
+/* the photo keeps the Figma frame (718 x 522) whatever the list does */
+.m-accordion-media { position: relative; flex: 1 1 0; min-width: 0; aspect-ratio: 718 / 522; overflow: hidden; }
 .m-accordion-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
 /* ==========================================================================
    FAQ · horizontal (title + optional topic menu | list) and vertical (847)
    ========================================================================== */
 .m-faq--horizontal { display: flex; gap: 80px; }
-.m-faq-side { flex: none; width: 628px; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; }
+.m-faq-side { flex: none; width: 628px; align-self: flex-start; display: flex; flex-direction: column; gap: 24px; position: sticky; top: calc(var(--mainbar-h) + 24px); }
+/* title block reserves the Figma slot so the topic menu starts at 386 and never moves when answers open */
+.m-faq-side:has(.m-faq-menu) > .title-text { min-height: 359px; }
 .m-faq--horizontal > .m-acc { flex: 1 1 0; min-width: 0; align-self: flex-start; }
 .m-faq-menu { display: flex; flex-direction: column; gap: 24px; width: 305px; padding-top: 10px; }
 .m-faq-topic {
@@ -376,7 +513,6 @@ button.btn { border: 0; }
    ========================================================================== */
 @media (max-width: 1279px) {
   .m-split-body, .m-vcar-list, .m-hcar-text { width: 360px; }
-  .m-hcar-nav { left: calc(100% - 360px); }
   .m-faq-side { width: 44%; }
   .m-form--a .m-form-main, .m-form--c > .m-form-intro { width: 50%; }
   .m-form--b .m-form-media { width: 42%; }
@@ -408,7 +544,8 @@ button.btn { border: 0; }
   .m-accordion-row, .m-faq--horizontal, .m-form--a, .m-form--b, .m-form--c, .m-form--e { flex-direction: column; }
   .m-split { gap: 32px; padding: 24px; }
   .m-split > .mark { left: 6px; top: 6px; }
-  .m-split-media, .m-hcar-media, .m-accordion-media { flex: none; min-height: 0; height: 280px; }
+  .m-split-media, .m-hcar-media { flex: none; min-height: 0; height: 280px; }
+  .m-accordion-media { flex: none; width: 100%; }
   .m-split-body, .m-vcar-list, .m-hcar-text, .m-faq-side,
   .m-accordion-row > .m-acc, .m-form--a .m-form-main, .m-form--c > .m-form-intro, .m-form-card { width: 100%; }
   .m-split-body { gap: 32px; }
@@ -417,12 +554,14 @@ button.btn { border: 0; }
   .m-hcar-tabs { overflow-x: auto; scrollbar-width: none; }
   .m-hcar-tab { flex: none; width: auto; padding-right: 24px; white-space: nowrap; }
   .m-hcar-text { padding-bottom: 56px; }
-  .m-hcar-nav, .m-hcar--image-right .m-hcar-nav { left: 0; }
+  .m-vcar-title { --s: calc(20 / 28); font-size: 28px; margin-bottom: -6.8px; }   /* 30.8px line scaled to 22 + 2 */
 
   .m-acc-item { padding: 18px 20px; }
   .m-acc-btn::before { inset: -18px -20px -16px; }
   .m-acc-btn { font-size: 21px; }
   .m-acc-inner { padding-right: 0; font-size: 18px; }
+  .m-faq-side { position: static; }
+  .m-faq-side > .title-text { min-height: 0 !important; }
   .m-faq-menu { width: 100%; padding-top: 0; gap: 16px; }
   .m-faq-topic { font-size: 20px; }
 
@@ -443,6 +582,12 @@ button.btn { border: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .m-acc-panel, .m-vcar-panel, .m-acc-ico::before, .m-acc-ico::after, .m-vcar-item,
-  .m-vcar-tab::after, .m-hcar-tab::after, .m-hcar-text, .m-faq-topic::before { transition: none; }
+  .m-acc-panel, .m-acc-ico::before, .m-acc-ico::after, .m-faq-topic::before { transition: none; }
+  /* carousels: no autoplay (JS), photos and copy cross-fade only */
+  .m-car-ph { clip-path: none !important; transition: opacity 400ms var(--motion-easing-standard); }
+  .m-car-ph.is-entering { opacity: 0; }
+  .m-car-ph img, .m-car-ph.is-entering img { transform: none !important; }
+  .m-car-zoom { animation: none !important; }
+  .m-vcar-inner > *, .m-hcar-panel > * { transform: none !important; }
+  .m-vcar-title, .m-vcar-panel, .m-vcar-item { transition-duration: 1ms; }
 }

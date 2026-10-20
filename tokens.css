@@ -105,10 +105,15 @@
   --motion-duration-menu-open: 620ms;
   --motion-duration-menu-close: 380ms;
   --motion-duration-scene: 6000ms;
+  --motion-duration-dwell: 8000ms;
+  --motion-duration-swap: 640ms;
+  --motion-duration-wipe: 1000ms;
   --motion-easing-out: cubic-bezier(0.16, 1, 0.3, 1);
   --motion-easing-in: cubic-bezier(0.4, 0, 1, 1);
   --motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --motion-easing-odometer: cubic-bezier(0.76, 0, 0.24, 1);
+  --motion-easing-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --motion-easing-wipe: cubic-bezier(0.77, 0, 0.18, 1);
   --z-drawer: 55;
   --z-backdrop: 58;
   --z-header: 60;

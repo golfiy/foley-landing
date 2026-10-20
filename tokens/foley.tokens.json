@@ -907,6 +907,36 @@
         "$type": "duration",
         "$value": "6000ms",
         "$description": "Hero scene and snapshot autoplay"
+      },
+      "dwell": {
+        "$type": "duration",
+        "$value": "8000ms",
+        "$description": "Module carousels: time per topic; the progress line fills over it",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
+      },
+      "swap": {
+        "$type": "duration",
+        "$value": "640ms",
+        "$description": "Carousel: topic open / close and title scale",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
+      },
+      "wipe": {
+        "$type": "duration",
+        "$value": "1000ms",
+        "$description": "Carousel: photo wipe reveal",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
       }
     },
     "easing": {
@@ -949,6 +979,36 @@
           1
         ],
         "$description": "Hero word roll"
+      },
+      "in-out": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.65,
+          0,
+          0.35,
+          1
+        ],
+        "$description": "Carousel: open / close, symmetrical",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
+      },
+      "wipe": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.77,
+          0,
+          0.18,
+          1
+        ],
+        "$description": "Carousel: photo wipe",
+        "$extensions": {
+          "foley": {
+            "source": "site"
+          }
+        }
       }
     }
   },

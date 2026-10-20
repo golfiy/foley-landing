@@ -18,6 +18,7 @@
   --red: #d13333;
 
   --wrap: var(--layout-canvas);
+  --mm-h: 470px;                  /* mega menu height; the search panel uses the same one */
   --gutter: var(--layout-gutter-lg);
   --mainbar-h: var(--layout-header-main);
 
@@ -255,7 +256,7 @@ h3 { font-weight: 500; }
 .mm-stage {
   position: relative;
   max-width: 1280px;
-  height: 470px;
+  height: var(--mm-h);
   margin: 0 auto;
   background: var(--color-bg-light);
   border-top: 1px solid var(--color-stroke-secondary);
@@ -378,7 +379,8 @@ h3 { font-weight: 500; }
 .sp-stage {
   position: relative;
   max-width: 1280px;
-  max-height: min(620px, calc(100vh - var(--mainbar-h) - 40px));
+  height: var(--mm-h);                                   /* same drop as the mega menu: ends just above the hero buttons */
+  max-height: calc(100vh - var(--mainbar-h) - 40px);
   margin: 0 auto;
   display: flex;
   flex-direction: column;

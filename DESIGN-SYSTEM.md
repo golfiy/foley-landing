@@ -294,7 +294,7 @@ States: hover (fill wipe 500ms, arrow +4px) · focus (2px ring, offset 3px) · a
 Behaviour: hover intent 120ms (60ms between triggers) · click toggles · ↓ opens and focuses the first link · Esc / outside click / scroll > 60px closes · closed panels are `inert`. Motion: curtain 620ms in / 380ms out, columns cascade (+40ms), promo wipes; switching slides 28px toward the new trigger, the old panel clears in 110ms first.
 
 ### Search
-Trigger in the info bar (or `/`, ⌘K / Ctrl+K; icon on mobile). Panel under the main bar, same curtain as the menus; page dimmed with `overlay/backdrop`.
+Trigger in the info bar (or `/`, ⌘K / Ctrl+K; icon on mobile). Panel under the main bar, same curtain and **same height as the mega menu** (`--mm-h`, 470; it ends just above the hero buttons), results scroll inside; page dimmed with `overlay/backdrop`.
 - Input row (80px): 24px icon, 24px input (`type/subtitle-medium`), Clear, Esc.
 - Empty: *Popular searches* chips (`bg/tertiary`, 1px `stroke/secondary`) + *Suggested* list.
 - Results: groups (Products, Solutions, Resources, Company, Customer stories, On this page) with counts; row = title with the match underlined in `text/secondary` + breadcrumb in `text/tertiary`; active row `bg/secondary` with “Open ↵”.
@@ -368,18 +368,19 @@ Blocks for inner pages, from the Figma section **modules** (1243:21982). Copy is
 Callout layout + check list (16 above, rows 16 apart): 24px `ico/check` tile (`bg/secondary` on light, `bg/primary` on dark) and `type/body-s` text 16 to the right. Primary button on both light and dark.
 
 ### Carousel · `carousel` (1243:14902)
-Topic titles are `title_w_line`: 1px `stroke/primary` rule, title 4 below; the selected one adds a 108px `text/primary` segment (draws in from the left).
-- **vertical**: callout card with a 392 list of topics (`type/body-l`, `text/tertiary`, 24 apart). The open one gets 16 above and below, its title becomes `type/h3`, and body + Primary button open under it. Always one open.
-- **horizontal**: five equal tabs (`type/body-m`), 40 above photo + 392 copy column (40 bottom padding); prev / next arrows (24 in a 32 tap zone, 8 apart) at the bottom of the copy column, wrapping. ARIA tabs with ←/→, Home, End; the copy fades and slides 12px on change.
+Topic titles are `title_w_line`: 1px `stroke/primary` rule, title 4 below.
+**Motion** (logic of the Foley services section): autoplay one topic per `motion/duration/dwell` (8s); a 2px `text/primary` line fills the active rule, then the next topic opens (loops). Each topic has its own photo: it wipes in from the direction of travel (`motion/duration/wipe`, `motion/easing/wipe`) zooming out from 112%, then pushes in 100 → 105% while on screen. Pauses on hover over titles / copy, focus inside, < 25% on screen, hidden tab. Vertical: a click stops autoplay until the cursor leaves the list (then it carries on from the picked topic); horizontal: a click switches, a tap stops. Without autoplay (reduced motion, `?shot`, stopped) the Figma marker shows: a 108px `text/primary` segment on the selected rule.
+- **vertical**: callout card with a 392 list of topics (`type/body-l`, `text/tertiary`, 24 apart). Titles are laid out at `type/h3` and scaled down when closed, so opening is a transform. The open one gets 16 above and below; body + Primary button rise in after the height opens (`motion/duration/swap` 640ms, `motion/easing/in-out`, 200ms lead, 70ms stagger). Always one open.
+- **horizontal**: five equal tabs (`type/body-m`), 40 above photo + 392 copy column (40 bottom padding); prev / next arrows (24 in a 32 tap zone, 8 apart) at the bottom of the copy column, wrapping. ARIA tabs with ←/→, Home, End; the copy leaves to one side and comes in from the side you are heading to (28px, staggered).
 
 ### Tiles row · `tiles_row` (1243:14816)
 Four 314 cards, 8 apart. `bg/tertiary`, padding 32/32/16, brand mark; `type/h4` + `type/body-m` (`text/secondary`) 24 apart; **Learn more** text link at the bottom. Height 392; with image: 208px photo on top, copy from 232, no mark, height 580. No card hover (link arrow only). 2 columns below 1140, 1 below 600.
 
 ### Accordion · `accordion` (1243:14965)
-`title_text`, 48 below: 522 list + photo filling the rest (40 gap, stretches to the list). Item: `bg/tertiary`, padding 20/24, 8 apart; header `type/h4` + 24px plus, 24 apart; open: `bg/secondary`, plus → minus, answer `type/body-l` `text/secondary` (48 right padding) 16 below. One open at a time, 450ms ease-out. `h3 > button[aria-expanded]` + region; closed panels are `inert`.
+`title_text`, 48 below: 522 list + photo filling the rest of the width (40 gap) at the Figma ratio 718 : 522, top-aligned; it does not stretch when an answer opens. Item: `bg/tertiary`, padding 20/24, 8 apart; header `type/h4` + 24px plus, 24 apart; open: `bg/secondary`, plus → minus, answer `type/body-l` `text/secondary` (48 right padding) 16 below. One open at a time, 450ms ease-out. `h3 > button[aria-expanded]` + region; closed panels are `inert`.
 
 ### FAQ · `faq` (1243:14977)
-- **horizontal**: `title_text` (628) + filled accordion list, 80 apart; optional topic menu (305) at the bottom of the left column: `type/h4` topics 24 apart, `text/tertiary`, selected `text/primary` with the brand mark; filters the list.
+- **horizontal**: `title_text` (628) + filled accordion list, 80 apart. Optional topic menu (305), 386 from the top as in Figma, fixed there whatever opens (the left column is sticky): `type/h4` topics 24 apart, `text/tertiary`, selected `text/primary` with the brand mark; filters the list. Without the menu the left column is just the title.
 - **vertical**: `title_text`, 80 below an 847 list of lined items (1px `stroke/primary` on top, padding 16, no fill). Answers may hold paragraphs and a bulleted list.
 
 ### Contact form · `contact form` (1243:14624)
@@ -455,11 +456,12 @@ Behaviour (site addition): required company, names and email; email format check
 - Testimonials 3–6 and their numbers are demo content.
 - Snapshot uses one screenshot with three focus points; replace with three screenshots when available.
 - Product illustrations inside the how-it-works columns use their own small palette (`--pc-*`), not the system tokens.
-- Modules: all copy is Figma placeholder copy. Carousel bodies and FAQ answers repeat the one placeholder text from Figma; the FAQ topic → question mapping is placeholder too.
+- Modules: all copy is Figma placeholder copy. Carousel bodies and FAQ answers repeat the one placeholder text from Figma; carousel photos for four topics come from the services section (Figma has one photo for all); the FAQ topic → question mapping is placeholder too.
 - Modules, Figma fixes: the vertical carousel shows “Drug & Alcohol Testing” as both a closed and the open topic (the module uses the horizontal set, “Background Checks” open); contact form D sits off the 80 grid in its frame (here it uses the 1280 column).
 - Contact forms post nowhere; the error colour (`status/error`) and all input states except placeholder / filled are site additions.
 
 ## Changelog
 
+- **1.2** (2026-10): carousels get the services motion (autoplay with a progress line, photo wipe per topic, pause / stop rules) and motion tokens `dwell`, `swap`, `wipe`, `in-out`; accordion photo keeps its ratio; FAQ topic menu pinned + FAQ without menu; search panel has the mega menu height.
 - **1.1** (2026-10): page modules from Figma “modules” (hero screen ×5, callout card ×4, all-in block ×4, carousel ×4, tiles row ×2, accordion, FAQ ×2, contact form ×6), Input component, `status/error` token, `modules.html` gallery.
 - **1.0** (2026-10): tokens extracted from Figma + site into DTCG JSON; Storybook with foundations, 17 component pages, live stories and the homepage; mega-menu column heads became links.

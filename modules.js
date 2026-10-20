@@ -4,8 +4,8 @@
  * (Storybook renders a fresh story into the same document).
  *
  *   [data-acc]   accordion: one open item, header button toggles, grid-rows animation
- *   [data-vcar]  vertical carousel: one title always open, others collapse
- *   [data-hcar]  horizontal carousel: ARIA tabs + prev / next arrows (wraps around)
+ *   [data-car]   carousel, vertical (.m-vcar) or horizontal (.m-hcar): autoplay with a progress line,
+ *                photo wipe per topic, pause on hover / focus / off-screen (Foley services motion)
  *   [data-faq]   FAQ topic menu: filters the list by data-topics
  *   [data-form]  contact form: required + email check, inline errors, status note
  */
@@ -42,61 +42,153 @@
     });
   }
 
-  /* ---------- vertical carousel ---------- */
-  function vcar(root) {
-    const items = [...root.querySelectorAll('.m-vcar-item')];
-    const select = (item) => items.forEach((i) => {
-      const on = i === item;
-      i.classList.toggle('is-open', on);
-      const tab = i.querySelector('.m-vcar-tab');
-      tab.setAttribute('aria-expanded', String(on));
-      i.querySelector('.m-vcar-panel').inert = !on;
-    });
-    items.forEach((item) => {
-      const tab = item.querySelector('.m-vcar-tab');
-      const panel = item.querySelector('.m-vcar-panel');
-      tab.id = id('mvc-t');
-      panel.id = id('mvc-p');
-      tab.setAttribute('aria-controls', panel.id);
-      panel.setAttribute('role', 'region');
-      panel.setAttribute('aria-labelledby', tab.id);
-      tab.addEventListener('click', () => { if (!item.classList.contains('is-open')) select(item); });
-    });
-    select(items.find((i) => i.classList.contains('is-open')) || items[0]);
-  }
+  /* ---------- carousel (vertical + horizontal), motion as in the Foley services section ----------
+     Autoplay: the active topic's line fills over --motion-duration-dwell; on animationend the next
+     topic opens. Pauses: hover on the titles / copy, keyboard focus, off-screen, hidden tab.
+     Vertical: picking a topic stops autoplay until the cursor leaves the list, focus leaves the
+     carousel or it scrolls away; then it carries on from the picked topic.
+     Horizontal: a mouse click just switches; a tap on touch stops autoplay. */
+  const REDUCED = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let lastPointer = 'mouse';
+  document.addEventListener('pointerdown', (e) => { lastPointer = e.pointerType || 'mouse'; }, true);
 
-  /* ---------- horizontal carousel (tabs) ---------- */
-  function hcar(root) {
-    const tabs = [...root.querySelectorAll('.m-hcar-tab')];
-    const panel = root.querySelector('.m-hcar-body');
-    const text = root.querySelector('.m-hcar-text');
-    const title = root.querySelector('[data-hcar-title]');
-    panel.id = id('mhc-p');
-    tabs.forEach((t) => { t.id = id('mhc-t'); t.setAttribute('aria-controls', panel.id); });
-    let cur = Math.max(0, tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true'));
-    let timer = 0;
-    const render = (i, focus) => {
-      cur = (i + tabs.length) % tabs.length;
-      tabs.forEach((t, k) => { t.setAttribute('aria-selected', String(k === cur)); t.tabIndex = k === cur ? 0 : -1; });
-      panel.setAttribute('aria-labelledby', tabs[cur].id);
-      if (focus) tabs[cur].focus();
-      const swap = () => { if (title) title.textContent = tabs[cur].textContent; text.classList.remove('is-swap'); };
-      if (SHOT || matchMedia('(prefers-reduced-motion: reduce)').matches) { swap(); return; }
-      clearTimeout(timer);
-      text.classList.add('is-swap');
-      timer = setTimeout(swap, 160);
-    };
-    tabs.forEach((t, k) => t.addEventListener('click', () => render(k)));
-    root.querySelector('.m-hcar-tabs').addEventListener('keydown', (e) => {
-      const map = { ArrowRight: 1, ArrowLeft: -1 };
-      if (e.key in map) { e.preventDefault(); render(cur + map[e.key], true); }
-      else if (e.key === 'Home') { e.preventDefault(); render(0, true); }
-      else if (e.key === 'End') { e.preventDefault(); render(tabs.length - 1, true); }
+  function carousel(root) {
+    const vertical = root.classList.contains('m-vcar');
+    const triggers = vertical ? [...root.querySelectorAll('.m-vcar-tab')] : [...root.querySelectorAll('.m-hcar-tab')];
+    const items = vertical ? [...root.querySelectorAll('.m-vcar-item')] : triggers;
+    const panels = vertical ? [...root.querySelectorAll('.m-vcar-panel')] : [...root.querySelectorAll('.m-hcar-panel')];
+    const photos = [...root.querySelectorAll('.m-car-ph')];
+    const n = items.length;
+    const autoplay = !SHOT && !REDUCED();
+    const pauses = new Set();
+    let index = -1;
+    let stopped = false;
+    let cleanup = 0;
+    let leave = 0;
+
+    // ARIA wiring
+    triggers.forEach((t, k) => {
+      t.id = id(vertical ? 'mvc-t' : 'mhc-t');
+      panels[k].id = id(vertical ? 'mvc-p' : 'mhc-p');
+      t.setAttribute('aria-controls', panels[k].id);
+      panels[k].setAttribute('aria-labelledby', t.id);
+      if (vertical) panels[k].setAttribute('role', 'region');
     });
-    root.querySelector('[data-hcar-prev]')?.addEventListener('click', () => render(cur - 1));
-    root.querySelector('[data-hcar-next]')?.addEventListener('click', () => render(cur + 1));
-    tabs.forEach((t, k) => { t.tabIndex = k === cur ? 0 : -1; });
-    panel.setAttribute('aria-labelledby', tabs[cur].id);
+
+    const running = () => autoplay && !stopped;
+    const syncRun = () => root.classList.toggle('is-running', running());
+    const syncPause = () => root.classList.toggle('is-paused', pauses.size > 0);
+    const stop = () => { if (!stopped) { stopped = true; syncRun(); } };
+    const resume = () => { if (stopped && vertical) { stopped = false; syncRun(); } };
+
+    function activate(next, prev, instant) {
+      if (vertical) {
+        items.forEach((it, k) => {
+          const on = k === next;
+          it.classList.toggle('is-open', on);
+          triggers[k].setAttribute('aria-expanded', String(on));
+          panels[k].inert = !on;
+        });
+        return;
+      }
+      triggers.forEach((t, k) => {
+        const on = k === next;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+      });
+      clearTimeout(leave);
+      panels.forEach((p) => p.classList.remove('is-leaving'));
+      if (prev >= 0 && !instant) {
+        panels[prev].classList.add('is-leaving');
+        leave = setTimeout(() => panels[prev].classList.remove('is-leaving'), 320);
+      }
+      panels.forEach((p, k) => { p.classList.toggle('is-active', k === next); p.inert = k !== next; });
+    }
+
+    function go(next, { dir, instant = false } = {}) {
+      next = (next + n) % n;
+      if (next === index) return;
+      const prev = index;
+      index = next;
+      const forward = dir ? dir === 'next' : next > prev;
+      root.dataset.dir = forward ? 'next' : 'prev';
+      activate(next, prev, instant);
+
+      clearTimeout(cleanup);
+      photos.forEach((p) => p.classList.remove('is-prev', 'is-entering'));
+      if (prev < 0 || instant) { photos.forEach((p, k) => p.classList.toggle('is-active', k === next)); return; }
+      const out = photos[prev];
+      const inc = photos[next];
+      out.classList.remove('is-active');
+      out.classList.add('is-prev');
+      inc.dataset.from = vertical ? (forward ? 'below' : 'above') : (forward ? 'right' : 'left');
+      inc.classList.add('is-entering', 'is-active');
+      void inc.offsetWidth;                               // commit the start state, then let it transition
+      inc.classList.remove('is-entering');
+      cleanup = setTimeout(() => out.classList.remove('is-prev'), 1100);
+    }
+
+    root.addEventListener('animationend', (e) => {
+      if (e.animationName !== 'm-car-progress' || !running()) return;
+      go(index + 1, { dir: 'next' });
+    });
+
+    triggers.forEach((t, k) => t.addEventListener('click', () => {
+      if (vertical || lastPointer === 'touch') stop();
+      go(k);
+    }));
+    triggers.forEach((t, k) => t.addEventListener('keydown', (e) => {
+      const map = vertical
+        ? { ArrowDown: k + 1, ArrowUp: k - 1, Home: 0, End: n - 1 }
+        : { ArrowRight: k + 1, ArrowLeft: k - 1, Home: 0, End: n - 1 };
+      if (!(e.key in map)) return;
+      e.preventDefault();
+      const target = (map[e.key] + n) % n;
+      triggers[target].focus();
+      if (vertical) stop();
+      go(target, { dir: ['ArrowDown', 'ArrowRight', 'End'].includes(e.key) ? 'next' : 'prev' });
+    }));
+    root.querySelectorAll('[data-car-step]').forEach((a) => a.addEventListener('click', () => {
+      const step = parseInt(a.dataset.carStep, 10);
+      go(index + step, { dir: step > 0 ? 'next' : 'prev' });
+    }));
+
+    // hover on the reading / choosing zone holds the topic; the photo does not
+    const zones = vertical ? [root.querySelector('.m-vcar-list')] : [root.querySelector('.m-hcar-tabs'), root.querySelector('.m-hcar-text')];
+    const hovered = new Set();
+    const syncHover = () => {
+      if (hovered.size) pauses.add('hover'); else pauses.delete('hover');
+      if (vertical) root.classList.toggle('is-hovering', hovered.size > 0);
+      if (!hovered.size) resume();
+      syncPause();
+    };
+    zones.forEach((z) => {
+      if (!z) return;
+      z.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'touch') { hovered.add(z); syncHover(); } });
+      z.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'touch') { hovered.delete(z); syncHover(); } });
+    });
+    root.addEventListener('focusin', (e) => { if (e.target.matches(':focus-visible')) { pauses.add('focus'); syncPause(); } });
+    root.addEventListener('focusout', (e) => {
+      if (root.contains(e.relatedTarget)) return;
+      pauses.delete('focus');
+      resume();
+      syncPause();
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) pauses.delete('offscreen'); else { pauses.add('offscreen'); resume(); }
+        syncPause();
+      }, { threshold: 0.25 }).observe(root);
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pauses.add('hidden'); else pauses.delete('hidden');
+      syncPause();
+    });
+
+    const start = Math.max(0, vertical ? items.findIndex((i) => i.classList.contains('is-open')) : items.findIndex((t) => t.classList.contains('is-active')));
+    go(start, { instant: true });
+    syncRun();
   }
 
   /* ---------- FAQ topic menu ---------- */
@@ -160,8 +252,7 @@
   function init(root = document) {
     const each = (sel, fn) => root.querySelectorAll(sel).forEach((el) => { if (!bound.has(el)) { bound.add(el); fn(el); } });
     each('[data-acc]', accordion);
-    each('[data-vcar]', vcar);
-    each('[data-hcar]', hcar);
+    each('[data-car]', carousel);
     each('[data-faq]', faq);
     each('[data-form]', form);
   }
