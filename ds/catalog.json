@@ -1,0 +1,648 @@
+{
+  "name": "Foley design system",
+  "version": "1.3.0",
+  "generated": "npm run catalog (scripts/catalog.mjs). Do not edit by hand.",
+  "howTo": {
+    "newPage": "npm run page -- <file>.html <module-key> [<module-key> …] --title \"Page title\"",
+    "listModules": "npm run page -- --list",
+    "checkPage": "npm run check:page -- <file>.html",
+    "checkDs": "npm run check:ds",
+    "rules": "AGENTS.md",
+    "spec": "DESIGN-SYSTEM.md"
+  },
+  "sources": {
+    "tokens": "tokens/foley.tokens.json → npm run tokens → tokens.css (CSS custom properties --<group>-<name>, .type-* helpers)",
+    "componentsMarkup": "index.html",
+    "modulesMarkup": "modules.html",
+    "styles": [
+      "tokens.css",
+      "styles.css",
+      "modules.css",
+      "stages.css (How it works only)"
+    ],
+    "scripts": [
+      "app.js (header, menus, search, drawer, homepage blocks, reveals)",
+      "modules.js (accordions, carousels, FAQ filter, forms)",
+      "stages.js (How it works only)"
+    ],
+    "storybook": "npm run storybook → http://127.0.0.1:4967"
+  },
+  "tokens": {
+    "color": 24,
+    "gradient": 6,
+    "shadow": 2,
+    "font": 2,
+    "typography": 17,
+    "space": 12,
+    "layout": 8,
+    "breakpoint": 3,
+    "radius": 1,
+    "motion": 22,
+    "z": 5
+  },
+  "breakpoints": {
+    "lg": "max-width 1279px",
+    "md": "max-width 1139px",
+    "sm": "max-width 959px (mobile)",
+    "xs": "max-width 599px"
+  },
+  "components": [
+    {
+      "name": "Button",
+      "figma": "button",
+      "selector": ".btn",
+      "variants": [
+        ".btn-teal (Primary)",
+        ".btn-white (White, dark / photo bg)",
+        ".btn-outline (Outline, dark bg)",
+        ".btn-text (Text)",
+        ".btn-plain / .btn-head (sizes)"
+      ],
+      "css": "styles.css",
+      "story": {
+        "docs": "/?path=/docs/components-button--overview",
+        "id": "components-button"
+      },
+      "notes": "Label type/button; optional 24px arrow img.btn-ico (arrow-white.svg on teal, arrow-ink.svg on white)."
+    },
+    {
+      "name": "Text link with arrow",
+      "figma": "button (text)",
+      "selector": ".link-arrow",
+      "css": "styles.css",
+      "story": {
+        "docs": "/?path=/docs/components-link--overview",
+        "id": "components-link"
+      },
+      "notes": "img arrow-link.svg 24px; .link-arrow-lg in mega menus."
+    },
+    {
+      "name": "Input",
+      "figma": "input",
+      "selector": ".m-field > .m-input",
+      "css": "modules.css",
+      "js": "modules.js ([data-form] validation)",
+      "story": {
+        "docs": "/?path=/docs/components-input--overview",
+        "id": "components-input"
+      },
+      "notes": "Always inside label.m-field with a visually hidden span.sr-only label."
+    },
+    {
+      "name": "Mark and overline",
+      "figma": "rect_badge",
+      "selector": ".mark, .overline",
+      "css": "styles.css",
+      "story": {
+        "docs": "/?path=/docs/components-badge-mark--overview",
+        "id": "components-badge-mark"
+      }
+    },
+    {
+      "name": "Title text",
+      "figma": "title_text",
+      "selector": ".title-text",
+      "css": "styles.css",
+      "story": {
+        "docs": "/?path=/docs/components-title-text--overview",
+        "id": "components-title-text"
+      },
+      "notes": "h2 + p (type/h2 + type/subtitle, 424 max)."
+    },
+    {
+      "name": "Top navigation (header)",
+      "figma": "top navigation",
+      "selector": "header.topnav",
+      "css": "styles.css",
+      "js": "app.js",
+      "story": {
+        "docs": "/?path=/docs/components-top-navigation--overview",
+        "id": "components-top-navigation"
+      },
+      "notes": "Copied into every page by scripts/compose-page.mjs."
+    },
+    {
+      "name": "Mega menu",
+      "figma": "navigation",
+      "selector": ".megamenu",
+      "css": "styles.css",
+      "js": "app.js",
+      "story": {
+        "docs": "/?path=/docs/components-mega-menu--overview",
+        "id": "components-mega-menu"
+      }
+    },
+    {
+      "name": "Search",
+      "figma": "(site addition)",
+      "selector": ".searchpanel",
+      "css": "styles.css",
+      "js": "app.js",
+      "story": {
+        "docs": "/?path=/docs/components-search--overview",
+        "id": "components-search"
+      }
+    },
+    {
+      "name": "Mobile drawer",
+      "figma": "(site addition)",
+      "selector": "#drawer",
+      "css": "styles.css",
+      "js": "app.js",
+      "story": {
+        "docs": "/?path=/docs/components-mobile-drawer--overview",
+        "id": "components-mobile-drawer"
+      }
+    },
+    {
+      "name": "Homepage hero",
+      "figma": "hero (view=main)",
+      "selector": "section.hero",
+      "css": "styles.css",
+      "js": "app.js (scene mosaic)",
+      "story": {
+        "docs": "/?path=/docs/components-hero--overview",
+        "id": "components-hero"
+      },
+      "notes": "Homepage only. Inner pages use the Hero screen module."
+    },
+    {
+      "name": "Partner logos",
+      "figma": "partner_logos",
+      "selector": "section.logos",
+      "css": "styles.css",
+      "js": "app.js",
+      "story": {
+        "docs": "/?path=/docs/components-partner-logos--overview",
+        "id": "components-partner-logos"
+      }
+    },
+    {
+      "name": "How it works",
+      "figma": "four_row_card + insights",
+      "selector": ".stages-panel",
+      "css": "stages.css",
+      "js": "stages.js",
+      "story": {
+        "docs": "/?path=/docs/components-how-it-works--overview",
+        "id": "components-how-it-works"
+      },
+      "notes": "Needs stages.css + stages.js on the page."
+    },
+    {
+      "name": "Snapshot tabs",
+      "figma": "silent_card",
+      "selector": ".snap",
+      "css": "styles.css",
+      "js": "app.js",
+      "story": {
+        "docs": "/?path=/docs/components-snapshot-tabs--overview",
+        "id": "components-snapshot-tabs"
+      }
+    },
+    {
+      "name": "Category row (teams)",
+      "figma": "multiple_card",
+      "selector": ".team-row",
+      "css": "styles.css",
+      "story": {
+        "docs": "/?path=/docs/components-category-row--overview",
+        "id": "components-category-row"
+      }
+    },
+    {
+      "name": "Cards",
+      "figma": "text_card, faq_card, testimonial_card",
+      "selector": ".trio-card, .faq-card, .case",
+      "css": "styles.css",
+      "story": {
+        "docs": "/?path=/docs/components-cards--overview",
+        "id": "components-cards"
+      }
+    },
+    {
+      "name": "Testimonials",
+      "figma": "testimonials",
+      "selector": "section.cases",
+      "css": "styles.css",
+      "js": "app.js (carousel)",
+      "story": {
+        "docs": "/?path=/docs/components-testimonials--overview",
+        "id": "components-testimonials"
+      }
+    },
+    {
+      "name": "Banner",
+      "figma": "banner",
+      "selector": "section.band",
+      "css": "styles.css",
+      "story": {
+        "docs": "/?path=/docs/components-banner--overview",
+        "id": "components-banner"
+      }
+    },
+    {
+      "name": "Footer",
+      "figma": "footer",
+      "selector": "footer.footer",
+      "css": "styles.css",
+      "story": {
+        "docs": "/?path=/docs/components-footer--overview",
+        "id": "components-footer"
+      },
+      "notes": "Copied into every page by scripts/compose-page.mjs."
+    }
+  ],
+  "modules": [
+    {
+      "key": "hero-light-bg",
+      "family": "Hero screen",
+      "variant": "view=light bg",
+      "classes": "m-hero m-hero--light-bg",
+      "figma": "hero (1243:14730)",
+      "behaviour": "static",
+      "placement": "full-bleed, first on the page: <section class=\"pg-sec pg-sec--flush\">",
+      "story": {
+        "docs": "/?path=/docs/modules-hero-screen--overview",
+        "id": "modules-hero-screen"
+      }
+    },
+    {
+      "key": "hero-light-image",
+      "family": "Hero screen",
+      "variant": "view=light image",
+      "classes": "m-hero m-hero--light-image",
+      "figma": "hero (1243:14730)",
+      "behaviour": "static",
+      "placement": "full-bleed, first on the page: <section class=\"pg-sec pg-sec--flush\">",
+      "story": {
+        "docs": "/?path=/docs/modules-hero-screen--overview",
+        "id": "modules-hero-screen"
+      }
+    },
+    {
+      "key": "hero-dark-image",
+      "family": "Hero screen",
+      "variant": "view=dark image",
+      "classes": "m-hero m-hero--dark m-hero--dark-image",
+      "figma": "hero (1243:14730)",
+      "behaviour": "static",
+      "placement": "full-bleed, first on the page: <section class=\"pg-sec pg-sec--flush\">",
+      "story": {
+        "docs": "/?path=/docs/modules-hero-screen--overview",
+        "id": "modules-hero-screen"
+      }
+    },
+    {
+      "key": "hero-dark-boxed",
+      "family": "Hero screen",
+      "variant": "view=dark boxed",
+      "classes": "m-hero m-hero--dark m-hero--dark-boxed",
+      "figma": "hero (1243:14730)",
+      "behaviour": "static",
+      "placement": "full-bleed, first on the page: <section class=\"pg-sec pg-sec--flush\">",
+      "story": {
+        "docs": "/?path=/docs/modules-hero-screen--overview",
+        "id": "modules-hero-screen"
+      }
+    },
+    {
+      "key": "hero-dark-pattern",
+      "family": "Hero screen",
+      "variant": "view=dark pattern",
+      "classes": "m-hero m-hero--dark m-hero--dark-pattern",
+      "figma": "hero (1243:14730)",
+      "behaviour": "static",
+      "placement": "full-bleed, first on the page: <section class=\"pg-sec pg-sec--flush\">",
+      "story": {
+        "docs": "/?path=/docs/modules-hero-screen--overview",
+        "id": "modules-hero-screen"
+      }
+    },
+    {
+      "key": "callout-light-left",
+      "family": "Callout card",
+      "variant": "view=light image left",
+      "classes": "m-split m-callout",
+      "figma": "callout_card (1243:14783)",
+      "behaviour": "static",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-callout-card--overview",
+        "id": "modules-callout-card"
+      }
+    },
+    {
+      "key": "callout-light-right",
+      "family": "Callout card",
+      "variant": "view=light image right",
+      "classes": "m-split m-callout m-split--image-right",
+      "figma": "callout_card (1243:14783)",
+      "behaviour": "static",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-callout-card--overview",
+        "id": "modules-callout-card"
+      }
+    },
+    {
+      "key": "callout-dark-left",
+      "family": "Callout card",
+      "variant": "view=dark image left",
+      "classes": "m-split m-callout m-split--dark",
+      "figma": "callout_card (1243:14783)",
+      "behaviour": "static",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-callout-card--overview",
+        "id": "modules-callout-card"
+      }
+    },
+    {
+      "key": "callout-dark-right",
+      "family": "Callout card",
+      "variant": "view=dark image right",
+      "classes": "m-split m-callout m-split--dark m-split--image-right",
+      "figma": "callout_card (1243:14783)",
+      "behaviour": "static",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-callout-card--overview",
+        "id": "modules-callout-card"
+      }
+    },
+    {
+      "key": "allin-light-left",
+      "family": "All-in block",
+      "variant": "view=light image left",
+      "classes": "m-split m-allin",
+      "figma": "all_in_block (1243:14828)",
+      "behaviour": "static",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-all-in-block--overview",
+        "id": "modules-all-in-block"
+      }
+    },
+    {
+      "key": "allin-light-right",
+      "family": "All-in block",
+      "variant": "view=light image right",
+      "classes": "m-split m-allin m-split--image-right",
+      "figma": "all_in_block (1243:14828)",
+      "behaviour": "static",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-all-in-block--overview",
+        "id": "modules-all-in-block"
+      }
+    },
+    {
+      "key": "allin-dark-left",
+      "family": "All-in block",
+      "variant": "view=dark image left",
+      "classes": "m-split m-allin m-split--dark",
+      "figma": "all_in_block (1243:14828)",
+      "behaviour": "static",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-all-in-block--overview",
+        "id": "modules-all-in-block"
+      }
+    },
+    {
+      "key": "allin-dark-right",
+      "family": "All-in block",
+      "variant": "view=dark image right",
+      "classes": "m-split m-allin m-split--dark m-split--image-right",
+      "figma": "all_in_block (1243:14828)",
+      "behaviour": "static",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-all-in-block--overview",
+        "id": "modules-all-in-block"
+      }
+    },
+    {
+      "key": "carousel-vertical-left",
+      "family": "Carousel",
+      "variant": "layout=vertical, view=image left",
+      "classes": "m-split m-car m-vcar",
+      "figma": "carousel (1243:14902)",
+      "behaviour": "autoplay with progress line, photo per topic, pause on hover / focus / off-screen",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-carousel--overview",
+        "id": "modules-carousel"
+      }
+    },
+    {
+      "key": "carousel-vertical-right",
+      "family": "Carousel",
+      "variant": "layout=vertical, view=image right",
+      "classes": "m-split m-car m-vcar m-split--image-right",
+      "figma": "carousel (1243:14902)",
+      "behaviour": "autoplay with progress line, photo per topic, pause on hover / focus / off-screen",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-carousel--overview",
+        "id": "modules-carousel"
+      }
+    },
+    {
+      "key": "carousel-horizontal-left",
+      "family": "Carousel",
+      "variant": "layout=horizontal, view=image left",
+      "classes": "m-car m-hcar",
+      "figma": "carousel (1243:14902)",
+      "behaviour": "autoplay with progress line, photo per topic, pause on hover / focus / off-screen",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-carousel--overview",
+        "id": "modules-carousel"
+      }
+    },
+    {
+      "key": "carousel-horizontal-right",
+      "family": "Carousel",
+      "variant": "layout=horizontal, view=image right",
+      "classes": "m-car m-hcar m-hcar--image-right",
+      "figma": "carousel (1243:14902)",
+      "behaviour": "autoplay with progress line, photo per topic, pause on hover / focus / off-screen",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-carousel--overview",
+        "id": "modules-carousel"
+      }
+    },
+    {
+      "key": "tiles-row",
+      "family": "Tiles row",
+      "variant": "Tiles row",
+      "classes": "m-tiles",
+      "figma": "tiles_row (1243:14816)",
+      "behaviour": "static",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-tiles-row--overview",
+        "id": "modules-tiles-row"
+      }
+    },
+    {
+      "key": "tiles-row-image",
+      "family": "Tiles row",
+      "variant": "Tiles row with image",
+      "classes": "m-tiles",
+      "figma": "tiles_row (1243:14816)",
+      "behaviour": "static",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-tiles-row--overview",
+        "id": "modules-tiles-row"
+      }
+    },
+    {
+      "key": "accordion",
+      "family": "Accordion",
+      "variant": "Accordion",
+      "classes": "m-accordion",
+      "figma": "accordion (1243:14965)",
+      "behaviour": "one item open",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-accordion--overview",
+        "id": "modules-accordion"
+      }
+    },
+    {
+      "key": "faq-horizontal",
+      "family": "FAQ",
+      "variant": "horizontal (with optional topic menu)",
+      "classes": "m-faq m-faq--horizontal",
+      "figma": "faq (1243:14977)",
+      "behaviour": "one item open; topic menu filters (horizontal)",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-faq--overview",
+        "id": "modules-faq"
+      }
+    },
+    {
+      "key": "faq-horizontal-plain",
+      "family": "FAQ",
+      "variant": "horizontal, no menu",
+      "classes": "m-faq m-faq--horizontal",
+      "figma": "faq (1243:14977)",
+      "behaviour": "one item open; topic menu filters (horizontal)",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-faq--overview",
+        "id": "modules-faq"
+      }
+    },
+    {
+      "key": "faq-vertical",
+      "family": "FAQ",
+      "variant": "vertical",
+      "classes": "m-faq m-faq--vertical",
+      "figma": "faq (1243:14977)",
+      "behaviour": "one item open; topic menu filters (horizontal)",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-faq--overview",
+        "id": "modules-faq"
+      }
+    },
+    {
+      "key": "contact-a",
+      "family": "Contact form",
+      "variant": "A (form + photo)",
+      "classes": "m-form m-form--a",
+      "figma": "contact form (1243:14624)",
+      "behaviour": "client-side validation, posts nowhere",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-contact-form--overview",
+        "id": "modules-contact-form"
+      }
+    },
+    {
+      "key": "contact-b",
+      "family": "Contact form",
+      "variant": "B (dark frame, photo + form, filled)",
+      "classes": "m-form m-form--b",
+      "figma": "contact form (1243:14624)",
+      "behaviour": "client-side validation, posts nowhere",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-contact-form--overview",
+        "id": "modules-contact-form"
+      }
+    },
+    {
+      "key": "contact-c",
+      "family": "Contact form",
+      "variant": "C (intro + form in a card)",
+      "classes": "m-form m-form--c",
+      "figma": "contact form (1243:14624)",
+      "behaviour": "client-side validation, posts nowhere",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-contact-form--overview",
+        "id": "modules-contact-form"
+      }
+    },
+    {
+      "key": "contact-d",
+      "family": "Contact form",
+      "variant": "D (C in a dark frame)",
+      "classes": "m-form-frame",
+      "figma": "contact form (1243:14624)",
+      "behaviour": "client-side validation, posts nowhere",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-contact-form--overview",
+        "id": "modules-contact-form"
+      }
+    },
+    {
+      "key": "contact-e",
+      "family": "Contact form",
+      "variant": "E (intro + narrow card with title)",
+      "classes": "m-form m-form--e",
+      "figma": "contact form (1243:14624)",
+      "behaviour": "client-side validation, posts nowhere",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-contact-form--overview",
+        "id": "modules-contact-form"
+      }
+    },
+    {
+      "key": "contact-e-plain",
+      "family": "Contact form",
+      "variant": "E (intro + narrow card, no title)",
+      "classes": "m-form m-form--e",
+      "figma": "contact form (1243:14624)",
+      "behaviour": "client-side validation, posts nowhere",
+      "placement": "inside <section class=\"pg-sec\"><div class=\"wrap\">",
+      "story": {
+        "docs": "/?path=/docs/modules-contact-form--overview",
+        "id": "modules-contact-form"
+      }
+    },
+    {
+      "key": "input-states",
+      "family": "Input states (DS demo)",
+      "variant": "states (site addition: hover, focus, error, disabled)",
+      "classes": "m-input-states",
+      "figma": "input",
+      "behaviour": "static",
+      "placement": "design-system demo only, not for pages",
+      "story": {
+        "docs": "/?path=/docs/components-input--overview",
+        "id": "components-input"
+      }
+    }
+  ]
+}

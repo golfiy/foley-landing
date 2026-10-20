@@ -4,7 +4,7 @@
  *
  * - a white thumb slides to the chosen half, then the page changes (360ms, instant with reduced motion)
  * - on arrival the thumb starts on the side you came from (document.referrer) and slides home
- * - links carry data-ds-hosted: the relative path used off localhost (GitHub Pages: site at /, Storybook at /storybook/)
+ * - links carry data-ds-hosted: the relative path used outside the dev servers (Pages / dist: site at /, Storybook at /storybook/)
  * - Back from the other page (bfcache) slides the thumb back to the current side
  * Values are Foley tokens written out, because the Storybook manager has no tokens.css.
  */
@@ -41,7 +41,8 @@
 `;
   const LEAVE_MS = 360;
   const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const LOCAL = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+  // dev servers: site on :4965, Storybook on :4967. Anything else (GitHub Pages, a served dist/) uses the hosted layout
+  const LOCAL = ['4965', '4967'].includes(location.port);
   const base = (href) => { try { const u = new URL(href, location.href); return u.origin + u.pathname; } catch { return ''; } };
 
   function mount(nav) {

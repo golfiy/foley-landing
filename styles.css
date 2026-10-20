@@ -5,6 +5,13 @@
    Grid: 1440 canvas, 80px gutters, 1280 content.
    ========================================================================== */
 
+/* Inter Display (OFL 1.1, assets/fonts/OFL.txt). An installed copy wins; the woff2 files make
+   every machine render the same type, so agents and CI see what the designer sees. */
+@font-face { font-family: "Inter Display"; font-weight: 400; font-style: normal; font-display: swap; src: local("Inter Display Regular"), local("InterDisplay-Regular"), url("assets/fonts/InterDisplay-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Inter Display"; font-weight: 500; font-style: normal; font-display: swap; src: local("Inter Display Medium"), local("InterDisplay-Medium"), url("assets/fonts/InterDisplay-Medium.woff2") format("woff2"); }
+@font-face { font-family: "Inter Display"; font-weight: 600; font-style: normal; font-display: swap; src: local("Inter Display SemiBold"), local("InterDisplay-SemiBold"), url("assets/fonts/InterDisplay-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Inter Display"; font-weight: 700; font-style: normal; font-display: swap; src: local("Inter Display Bold"), local("InterDisplay-Bold"), url("assets/fonts/InterDisplay-Bold.woff2") format("woff2"); }
+
 :root {
   /* Design tokens (colour, type, space, motion) live in tokens.css, generated from tokens/foley.tokens.json.
      Below: site-level aliases and runtime knobs only. */

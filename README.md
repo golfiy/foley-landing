@@ -1,4 +1,11 @@
-# Foley – landing v2 (homepage + navigation)
+# Foley – сайт + дизайн-система
+
+> **Передать агенту (Codex / Claude Code):** архив `foley-ds-kit-*.zip` или эта папка. Агент читает `AGENTS.md` (Claude Code – `CLAUDE.md`, он ссылается туда же), дальше:
+> `npm install` → `npm run serve` (сайт :4965) + `npm run storybook` (DS :4967) → `npm run page -- --list` → `npm run page -- имя.html <модули…>` → `npm run check:page -- имя.html`.
+> Каталог блоков – `ds/catalog.json`, спецификация – `DESIGN-SYSTEM.md`, галерея модулей – `/modules.html`, пример собранной страницы – `/example-page.html`.
+> Готовая сборка без установки: `dist/` в архиве → `python3 -m http.server 8080 --directory dist` → сайт на `/`, DS на `/storybook/`.
+
+## Landing v2 (homepage + navigation)
 
 HTML-прототип всей страницы из Figma: [1595 – Start Stream, page 8](https://www.figma.com/design/Dvi1gBhoXvurjb74BzXcKg/1595---Start-Stream?node-id=1140-9359):
 `homepage` (1195:12173), `navigation` (1195:17678, 4 мега-меню), `how_it_works hover states` (1195:12266).

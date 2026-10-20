@@ -8,8 +8,8 @@ import { create } from 'storybook/theming';
  */
 export const DS_FONT = '"Inter Display", Inter, system-ui, sans-serif';
 
-// local dev runs site and Storybook on two ports; on GitHub Pages Storybook lives in /storybook/
-const LOCAL = typeof location === 'undefined' || /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+// dev runs the site on :4965 and Storybook on :4967; built (Pages, dist/) Storybook lives in /storybook/ next to the site
+const LOCAL = typeof location === 'undefined' || location.port === '4967';
 
 export const foleyTheme = create({
   base: 'light',

@@ -24,6 +24,21 @@
 /* buttons rendered as <button> (forms, carousels) */
 button.btn { border: 0; }
 
+/* ---------- inner pages built from modules (scripts/compose-page.mjs) ----------
+   Every module sits in a section with 80px above and below; neighbours share one 80px gap.
+   Hero screens are full-bleed (capped at 1440) with no section padding. Site addition:
+   Figma frames the modules with 80px but has no inner page yet. */
+.pg-sec { padding: 80px 0; }
+.pg-sec + .pg-sec { padding-top: 0; }
+.pg-sec--flush { padding: 0; }
+.pg-sec--flush + .pg-sec { padding-top: 80px; }
+@media (max-width: 959px) {
+  .pg-sec { padding: 56px 0; }
+  .pg-sec + .pg-sec { padding-top: 0; }
+  .pg-sec--flush { padding: 0; }
+  .pg-sec--flush + .pg-sec { padding-top: 56px; }
+}
+
 /* white focus ring on dark modules */
 :where(.m-hero--dark, .m-split--dark) :where(a, button, [tabindex]):focus-visible { outline-color: var(--color-text-light); }
 
